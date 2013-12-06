@@ -5,7 +5,7 @@
  */
 
 package devoo.h4301;
-
+import devoo.h4301.controller.LecteurXml;
 /**
  *
  * @author chouard
@@ -17,6 +17,10 @@ public class DevOOH4301 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        LecteurXml lec = new LecteurXml();
+        lec.construirePlanAParirXML();
+        
     }
     
 }
