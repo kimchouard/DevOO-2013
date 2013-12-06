@@ -7,13 +7,13 @@
 package devoo.h4301.controller;
 
 import devoo.h4301.model.Plan;
+import static devoo.h4301.model.Plan.getInstance;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -32,7 +32,7 @@ public class LecteurXml {
         
  
 public Plan construirePlanAParirXML(){
-Plan plan = new Plan();
+Plan plan = getInstance();
 
 File planXML = ouvrirFichier();
 
