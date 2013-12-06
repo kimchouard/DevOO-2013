@@ -21,17 +21,26 @@ import org.w3c.dom.NodeList;
  */
 public class LecteurXml {
 
+    /**
+     *
+     */
     public LecteurXml() {
     }
-    
 
+    /**
+     *
+     * @return
+     */
     public File ouvrirFichier(){
         File xml = new File("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
                 return xml;
     }
-        
- 
-public Plan construirePlanAParirXML(){
+
+    /**
+     *
+     * @return
+     */
+    public Plan construirePlanAParirXML(){
 Plan plan = new Plan();
 
 File planXML = ouvrirFichier();
