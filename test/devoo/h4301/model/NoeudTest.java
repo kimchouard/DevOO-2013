@@ -39,31 +39,34 @@ public class NoeudTest {
     public void tearDown() {
     }
 
+
     /**
      * Test of getId method, of class Noeud.
      */
     @Test
-    public void testGetId() {
+    public void testGetId(){
         System.out.println("getId");
         Noeud instance = new Noeud();
-        Integer expResult = null;
-        Integer result = instance.getId();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull("Id null",instance.getId());
     }
-
+    
     /**
      * Test of construireAPartirDomXML method, of class Noeud.
      */
     @Test
     public void testConstruireAPartirDomXML() {
         System.out.println("construireAPartirDomXML");
+        
         Element noeudDOMRacine = null;
+        noeudDOMRacine.setAttribute("id","1");
+        noeudDOMRacine.setAttribute("x","5");
+        noeudDOMRacine.setAttribute("y","6");
         Noeud instance = new Noeud();
         instance.construireAPartirDomXML(noeudDOMRacine);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        // Check data update
+        assertEquals("id",noeudDOMRacine.getAttribute("id"),instance.id);
+        assertEquals("x",noeudDOMRacine.getAttribute("x"),instance.x);
+        assertEquals("y",noeudDOMRacine.getAttribute("y"),instance.y);
+    }   
     
 }

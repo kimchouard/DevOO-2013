@@ -17,7 +17,7 @@ public class Noeud {
     /**
      * id du noeud
      */
-    private Integer id;
+    protected Integer id;
     
     /**
      * position en x du noeud
