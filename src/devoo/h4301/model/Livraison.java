@@ -67,7 +67,7 @@ public class Livraison {
 
     public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
-        this.setHorraire(horraire);
+        this.setHorraire(plage);
         
         Integer adresse = Integer.parseInt(noeudDOMRacine.getAttribute("adresse"));
         Noeud add = Tournee.getInstance().getPlan().getNoeudById(adresse);

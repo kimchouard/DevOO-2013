@@ -23,6 +23,7 @@ public class Tournee {
     private static Tournee instanceTournee = null;
 
     private Tournee() {
+        listeLivraison = new LinkedList<Livraison>();
     }
 
     /**
@@ -134,15 +135,14 @@ public class Tournee {
             if (listLiv1.getLength() != 1) {
                 return 1;
             }
-            Element livraisonsElem = (Element) listEntrepot.item(0);
+            Element livraisonsElem = (Element) listLiv1.item(0);
             
             //Récupération de la liste des "Livraison"
             NodeList listLiv2 = livraisonsElem.getElementsByTagName("Livraison");
             
-             System.out.println("dans livraisons " );
             for (int j = 0; j < listLiv2.getLength(); j++) {
                              System.out.println("dans livraison " );
-                Element livraisonElem = (Element) listPlage.item(i);
+                Element livraisonElem = (Element) listLiv2.item(i);
                 Livraison livraison = new Livraison();
                 livraison.construireAPartirDomXML(livraisonElem, plage);
                 this.addLivraison(livraison);
