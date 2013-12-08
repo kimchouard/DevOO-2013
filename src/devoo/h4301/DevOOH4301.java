@@ -20,6 +20,7 @@ public class DevOOH4301 {
         
         LecteurXml lec = new LecteurXml();
         lec.construirePlanAParirXML();
+        lec.construireLivraisonAPartirXML();
         
     }
     
