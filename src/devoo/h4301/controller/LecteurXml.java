@@ -41,7 +41,7 @@ public class LecteurXml {
      * @return plan créé
      */
 
-    public Plan construirePlanAParirXML(){
+    public Plan construirePlanAPartirXML(){
         Plan plan = getInstance();
 
         File planXML = ouvrirFichier();

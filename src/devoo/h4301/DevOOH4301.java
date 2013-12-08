@@ -19,7 +19,7 @@ public class DevOOH4301 {
         // TODO code application logic here
         
         LecteurXml lec = new LecteurXml();
-        lec.construirePlanAParirXML();
+        lec.construirePlanAPartirXML();
         
     }
     
