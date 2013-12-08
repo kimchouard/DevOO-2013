@@ -17,7 +17,7 @@ public class Noeud {
     /**
      * id du noeud
      */
-    protected Integer id;
+    private Integer id;
     
     /**
      * position en x du noeud
@@ -46,7 +46,7 @@ public class Noeud {
         this.id = Integer.parseInt(noeudDOMRacine.getAttribute("id"));
         this.x = Integer.parseInt(noeudDOMRacine.getAttribute("x"));
         this.y = Integer.parseInt(noeudDOMRacine.getAttribute("y"));
-        System.out.println("noeud : " + id );
+        System.out.println("noeud : " + getId() );
 
     }
 }
