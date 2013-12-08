@@ -7,13 +7,13 @@
 package devoo.h4301.controller;
 
 import devoo.h4301.model.Plan;
+import static devoo.h4301.model.Plan.getInstance;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -40,14 +40,16 @@ public class LecteurXml {
      * Construction d'un plan a partir d'un fichier XML
      * @return plan créé
      */
+
     public Plan construirePlanAParirXML(){
-        Plan plan = new Plan();
-        
+        Plan plan = getInstance();
+
         File planXML = ouvrirFichier();
-        
+
         if (planXML != null) {
-            try {
-                // creation d'un constructeur de documents a l'aide d'une fabrique
+              try {
+                 // creation d'un constructeur de documents a l'aide d'une fabrique
+
                 DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 // lecture du contenu d'un fichier XML avec DOM
                 Document document = constructeur.parse(planXML);
