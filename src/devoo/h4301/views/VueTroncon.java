@@ -20,7 +20,9 @@ public class VueTroncon extends javax.swing.JPanel {
     
     private Troncon troncon;
     
-    private final Color bgColor = new Color(150, 150, 150);
+    private final Color jauneMaps = new Color(248, 228, 122);
+    private final Color blancMaps = new Color(255, 255, 255);
+    
     private static int diamNoeud = VueNoeud.diamNoeud;
     private static int largeurTrait = 4;
     private static int hautMin = 4;
@@ -45,7 +47,7 @@ public class VueTroncon extends javax.swing.JPanel {
 
         this.setOpaque(false);
         this.setVisible(true);
-        this.setBackground(bgColor); 
+        this.setBackground(jauneMaps); 
     }
 
     public Troncon getTroncon() {
@@ -70,10 +72,10 @@ public class VueTroncon extends javax.swing.JPanel {
         if (   (troncon.getDestination().getX() > troncon.getOrigine().getX()) && (troncon.getDestination().getY() < troncon.getOrigine().getY())
             || (troncon.getDestination().getX() < troncon.getOrigine().getX()) && (troncon.getDestination().getY() > troncon.getOrigine().getY())
         ) {
-            x -= largeurTrait;
-            y -= largeurTrait;
-            larg += largeurTrait/2;
-            haut += largeurTrait/2;
+            x -= diamNoeud/2;
+            y -= diamNoeud/2;
+            larg += diamNoeud/2;
+            haut += diamNoeud/2;
         }
         
         this.setSize(larg, haut);
@@ -87,7 +89,7 @@ public class VueTroncon extends javax.swing.JPanel {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(bgColor);
+        g.setColor(jauneMaps);
         Graphics2D g2D = (Graphics2D) g;
         g2D.setStroke(new BasicStroke(largeurTrait));
         

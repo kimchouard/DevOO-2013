@@ -18,7 +18,7 @@ public class VueNoeud extends javax.swing.JPanel {
     
     private Noeud noeud;
     
-    private final Color bgColor = new Color(100, 180, 150);
+    private final Color rougeMaps = new Color(217, 95, 87);
     
     public static int diamNoeud = 15;
     
@@ -62,7 +62,7 @@ public class VueNoeud extends javax.swing.JPanel {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(bgColor);
+        g.setColor(rougeMaps);
         g.fillOval(0,0,this.getWidth(),this.getHeight());
     }
     
