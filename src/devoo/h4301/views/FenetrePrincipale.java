@@ -92,15 +92,24 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 //                LecteurXml lec = new LecteurXml();
 //                lec.construirePlanAPartirXML();
 
+                Noeud n0 = new Noeud(0, 200, 200);
                 Noeud n1 = new Noeud(0, 100, 100);
-                Noeud n2 = new Noeud(0, 100, 200);
-                Noeud n3 = new Noeud(0, 100, 300);
-                Noeud n4 = new Noeud(0, 200, 100);
-                Noeud n5 = new Noeud(0, 200, 200);
-                Noeud n6 = new Noeud(0, 200, 300);
-                Noeud n7 = new Noeud(0, 300, 100);
-                Noeud n8 = new Noeud(0, 300, 200);
+                Noeud n2 = new Noeud(0, 150, 100);
+                Noeud n3 = new Noeud(0, 200, 100);
+                Noeud n4 = new Noeud(0, 250, 100);
+                Noeud n5 = new Noeud(0, 300, 100);
+                Noeud n6 = new Noeud(0, 300, 150);
+                Noeud n7 = new Noeud(0, 300, 200);
+                Noeud n8 = new Noeud(0, 300, 250);
                 Noeud n9 = new Noeud(0, 300, 300);
+                Noeud n10 = new Noeud(0, 250, 300);
+                Noeud n11 = new Noeud(0, 200, 300);
+                Noeud n12 = new Noeud(0, 150, 300);
+                Noeud n13 = new Noeud(0, 100, 300);
+                Noeud n14 = new Noeud(0, 100, 250);
+                Noeud n15 = new Noeud(0, 100, 200);
+                Noeud n16 = new Noeud(0, 100, 150);
+                fp.controleurPlan.addNoeud(n0);
                 fp.controleurPlan.addNoeud(n1);
                 fp.controleurPlan.addNoeud(n2);
                 fp.controleurPlan.addNoeud(n3);
@@ -110,15 +119,30 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 fp.controleurPlan.addNoeud(n7);
                 fp.controleurPlan.addNoeud(n8);
                 fp.controleurPlan.addNoeud(n9);
+                fp.controleurPlan.addNoeud(n10);
+                fp.controleurPlan.addNoeud(n11);
+                fp.controleurPlan.addNoeud(n12);
+                fp.controleurPlan.addNoeud(n13);
+                fp.controleurPlan.addNoeud(n14);
+                fp.controleurPlan.addNoeud(n15);
+                fp.controleurPlan.addNoeud(n16);
                 
-                Troncon t1 = new Troncon(n5, n1, "t1", 20.5, 1.5);
-                Troncon t2 = new Troncon(n5, n2, "t2", 20.5, 1.5);
-                Troncon t3 = new Troncon(n5, n3, "t3", 20.5, 1.5);
-                Troncon t4 = new Troncon(n5, n4, "t4", 20.5, 1.5);
-                Troncon t5 = new Troncon(n5, n6, "t5", 20.5, 1.5);
-                Troncon t6 = new Troncon(n5, n7, "t6", 20.5, 1.5);
-                Troncon t7 = new Troncon(n5, n8, "t7", 20.5, 1.5);
-                Troncon t8 = new Troncon(n5, n9, "t8", 20.5, 1.5);
+                Troncon t1 = new Troncon(n0, n1, "t1", 20.5, 1.5);
+                Troncon t2 = new Troncon(n0, n2, "t2", 20.5, 1.5);
+                Troncon t3 = new Troncon(n0, n3, "t3", 20.5, 1.5);
+                Troncon t4 = new Troncon(n0, n4, "t4", 20.5, 1.5);
+                Troncon t5 = new Troncon(n0, n5, "t5", 20.5, 1.5);
+                Troncon t6 = new Troncon(n0, n6, "t6", 20.5, 1.5);
+                Troncon t7 = new Troncon(n0, n7, "t7", 20.5, 1.5);
+                Troncon t8 = new Troncon(n0, n8, "t8", 20.5, 1.5);
+                Troncon t9 = new Troncon(n0, n9, "t9", 20.5, 1.5);
+                Troncon t10 = new Troncon(n0, n10, "t10", 20.5, 1.5);
+                Troncon t11 = new Troncon(n0, n11, "t11", 20.5, 1.5);
+                Troncon t12 = new Troncon(n0, n12, "t12", 20.5, 1.5);
+                Troncon t13 = new Troncon(n0, n13, "t13", 20.5, 1.5);
+                Troncon t14 = new Troncon(n0, n14, "t14", 20.5, 1.5);
+                Troncon t15 = new Troncon(n0, n15, "t15", 20.5, 1.5);
+                Troncon t16 = new Troncon(n0, n16, "t16", 20.5, 1.5);
 
                 fp.controleurPlan.addTroncon(t1);
                 fp.controleurPlan.addTroncon(t2);
@@ -128,6 +152,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 fp.controleurPlan.addTroncon(t6);
                 fp.controleurPlan.addTroncon(t7);
                 fp.controleurPlan.addTroncon(t8);
+                fp.controleurPlan.addTroncon(t9);
+                fp.controleurPlan.addTroncon(t10);
+                fp.controleurPlan.addTroncon(t11);
+                fp.controleurPlan.addTroncon(t12);
+                fp.controleurPlan.addTroncon(t13);
+                fp.controleurPlan.addTroncon(t14);
+                fp.controleurPlan.addTroncon(t15);
+                fp.controleurPlan.addTroncon(t16);
             }
         });
     }
