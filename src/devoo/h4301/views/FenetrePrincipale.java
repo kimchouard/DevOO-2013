@@ -7,7 +7,9 @@
 package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.controller.LecteurXml;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.Troncon;
 
 /**
  *
@@ -90,8 +92,42 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 //                LecteurXml lec = new LecteurXml();
 //                lec.construirePlanAPartirXML();
 
-                Noeud n1 = new Noeud(0, 50, 50);
+                Noeud n1 = new Noeud(0, 100, 100);
+                Noeud n2 = new Noeud(0, 100, 200);
+                Noeud n3 = new Noeud(0, 100, 300);
+                Noeud n4 = new Noeud(0, 200, 100);
+                Noeud n5 = new Noeud(0, 200, 200);
+                Noeud n6 = new Noeud(0, 200, 300);
+                Noeud n7 = new Noeud(0, 300, 100);
+                Noeud n8 = new Noeud(0, 300, 200);
+                Noeud n9 = new Noeud(0, 300, 300);
                 fp.controleurPlan.addNoeud(n1);
+                fp.controleurPlan.addNoeud(n2);
+                fp.controleurPlan.addNoeud(n3);
+                fp.controleurPlan.addNoeud(n4);
+                fp.controleurPlan.addNoeud(n5);
+                fp.controleurPlan.addNoeud(n6);
+                fp.controleurPlan.addNoeud(n7);
+                fp.controleurPlan.addNoeud(n8);
+                fp.controleurPlan.addNoeud(n9);
+                
+                Troncon t1 = new Troncon(n5, n1, "t1", 20.5, 1.5);
+                Troncon t2 = new Troncon(n5, n2, "t2", 20.5, 1.5);
+                Troncon t3 = new Troncon(n5, n3, "t3", 20.5, 1.5);
+                Troncon t4 = new Troncon(n5, n4, "t4", 20.5, 1.5);
+                Troncon t5 = new Troncon(n5, n6, "t5", 20.5, 1.5);
+                Troncon t6 = new Troncon(n5, n7, "t6", 20.5, 1.5);
+                Troncon t7 = new Troncon(n5, n8, "t7", 20.5, 1.5);
+                Troncon t8 = new Troncon(n5, n9, "t8", 20.5, 1.5);
+
+                fp.controleurPlan.addTroncon(t1);
+                fp.controleurPlan.addTroncon(t2);
+                fp.controleurPlan.addTroncon(t3);
+                fp.controleurPlan.addTroncon(t4);
+                fp.controleurPlan.addTroncon(t5);
+                fp.controleurPlan.addTroncon(t6);
+                fp.controleurPlan.addTroncon(t7);
+                fp.controleurPlan.addTroncon(t8);
             }
         });
     }

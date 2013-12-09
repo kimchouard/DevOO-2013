@@ -18,7 +18,7 @@ public class VueNoeud extends javax.swing.JPanel {
     
     private Noeud noeud;
     
-    private final Color bgColor = new Color(255, 0, 0);
+    private final Color bgColor = new Color(100, 180, 150);
     
     public static int diamNoeud = 15;
     
@@ -28,7 +28,10 @@ public class VueNoeud extends javax.swing.JPanel {
     public VueNoeud() {
         initialize();
     }
-
+    
+    /**
+     * Constructeur VueNoeud avec création du noeud
+     */
     public VueNoeud(Noeud noeud) {
         this.setNoeud(noeud);
         initialize();
@@ -49,7 +52,10 @@ public class VueNoeud extends javax.swing.JPanel {
         this.noeud = noeud;
         
         this.setSize(diamNoeud, diamNoeud);
-        this.setLocation(this.noeud.getX(), this.noeud.getY());
+        
+        int x = this.noeud.getX() - this.getWidth()/2;
+        int y = this.noeud.getY() - this.getHeight()/2;
+        this.setLocation(x, y);
     }
     
     @Override

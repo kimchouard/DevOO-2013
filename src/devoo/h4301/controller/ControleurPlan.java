@@ -8,9 +8,11 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
+import devoo.h4301.model.Troncon;
 import devoo.h4301.views.FenetrePrincipale;
 import devoo.h4301.views.VueNoeud;
 import devoo.h4301.views.VuePlan;
+import devoo.h4301.views.VueTroncon;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
 
@@ -24,6 +26,7 @@ public class ControleurPlan {
     
     private VuePlan vuePlan;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
+    private ArrayList<VueTroncon> vueTroncons = new ArrayList();
 
     public ControleurPlan(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
         this.setScrollPanePlan(scrollPanePlan);
@@ -45,6 +48,11 @@ public class ControleurPlan {
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
             this.addNoeud(n);
+        }
+        
+        ArrayList<Troncon> troncons = plan.getTroncons();
+        for (Troncon t : troncons) {
+            this.addTroncon(t);
         }
     }
     
@@ -82,6 +90,12 @@ public class ControleurPlan {
         VueNoeud v = new VueNoeud(noeud);
         this.vueNoeuds.add(v);
         this.vuePlan.addVueNoeud(v);
+    }
+
+    public void addTroncon(Troncon troncon) {
+        VueTroncon v = new VueTroncon(troncon);
+        this.vueTroncons.add(v);
+        this.vuePlan.add(v);
     }
     
     
