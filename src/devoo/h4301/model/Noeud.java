@@ -28,13 +28,18 @@ public class Noeud {
      * position en y du noeud
      */
     protected Integer y;
-    
+
+    public Noeud() {
+    }
+
     /**
-     * Retourne l'id du noeud
-     * @return id
+     * Constructeur du noeud
+     * @return Noeud
      */
-    public Integer getId() {
-        return id;
+    public Noeud(Integer id, Integer x, Integer y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
     }
     
     /**
@@ -48,5 +53,21 @@ public class Noeud {
         this.y = Integer.parseInt(noeudDOMRacine.getAttribute("y"));
         System.out.println("noeud : " + getId() );
 
+    }
+    
+    /**
+     * Retourne l'id du noeud
+     * @return id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public Integer getY() {
+        return y;
     }
 }
