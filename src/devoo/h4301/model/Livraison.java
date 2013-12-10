@@ -24,9 +24,9 @@ public class Livraison {
     protected Integer colis;
 
     /**
-     * Plage horraire de la livraison
+     * Plage horaire de la livraison
      */
-    protected PlageHoraire horraire;
+    protected PlageHoraire horaire;
 
     /**
      * Client à livrer
@@ -49,12 +49,12 @@ public class Livraison {
         this.colis = colis;
     }
 
-    public PlageHoraire getHorraire() {
-        return horraire;
+    public PlageHoraire getHoraire() {
+        return horaire;
     }
 
-    public void setHorraire(PlageHoraire horraire) {
-        this.horraire = horraire;
+    public void setHorraire(PlageHoraire horaire) {
+        this.horaire = horaire;
     }
 
     public Client getClient() {
@@ -65,7 +65,7 @@ public class Livraison {
         this.client = client;
     }
 
-    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) {
+    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) throws Exception  {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.setHorraire(plage);
         
@@ -74,7 +74,8 @@ public class Livraison {
         this.setDestination(add);
 
         Integer idClient = Integer.parseInt(noeudDOMRacine.getAttribute("client"));
-       //todo :  faire ou récupérer client
+        Client client = new Client(idClient);
+        this.client = client;
     System.out.println("livraison crée pour client : "+ idClient);
 
     }

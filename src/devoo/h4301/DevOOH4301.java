@@ -19,12 +19,15 @@ public class DevOOH4301 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+       try{ 
         LecteurXml lec = new LecteurXml();
 
         lec.construirePlanAPartirXML();
         lec.construireLivraisonAPartirXML();
-
+       } catch (Exception e){
+       System.out.println(e.getMessage());
+       }
+       
         
     }
     

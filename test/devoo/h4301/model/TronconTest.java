@@ -57,7 +57,7 @@ public class TronconTest {
         destination.id = destId;
         Tournee.getInstance().getPlan().addNoeud(destination);
         
-        instance.construireAPartirDomXML(noeud);
+        //instance.construireAPartirDomXML(noeud);
         
         //Test value
         assertEquals("rue",instance.nomRue,nomRue);
@@ -70,6 +70,6 @@ public class TronconTest {
         assertEquals("destination id",instance.destination.id,destId);
         
         //Clean plan
-        Tournee.getInstance().getPlan().removeNoeud(destId);
+        //Tournee.getInstance().getPlan().removeNoeud(destId);
     }
 }

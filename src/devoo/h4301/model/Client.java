@@ -14,9 +14,11 @@ public class Client {
     protected Integer id;
     protected String name;
     
+    public Integer getId() {
+        return id;
+    }
 
-    public Client(Integer id, String name) {
+    public Client(Integer id) {
         this.id = id;
-        this.name = name;
     }
 }

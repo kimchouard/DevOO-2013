@@ -5,6 +5,8 @@
  */
 package devoo.h4301.model;
 
+import devoo.h4301.outils.MyException;
+
 import java.util.LinkedList;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,6 +30,7 @@ public class Tournee {
 
     /**
      * Point d'accès pour l'instance unique du singleton
+     *
      * @return l'instance unique de Tournee
      */
     public static Tournee getInstance() {
@@ -78,8 +81,8 @@ public class Tournee {
     public void setListeLivraison(LinkedList<Livraison> listeLivraison) {
         this.listeLivraison = listeLivraison;
     }
-    
-    public void addLivraison(Livraison livraison){
+
+    public void addLivraison(Livraison livraison) {
         this.listeLivraison.add(livraison);
     }
 
@@ -97,59 +100,55 @@ public class Tournee {
         this.entrepot = entrepot;
     }
 
-    public int construireAPartirDomXML(Element racine) {
+    public void construireAPartirDomXML(Element racine) throws Exception {
 
         //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
         if (listEntrepot.getLength() != 1) {
-            return 1;
+            MyException e = new MyException("Il y a plusieurs entrepots dans le fichier de livraison");
+            throw e;
         }
-        
+
         Element entrepotElem = (Element) listEntrepot.item(0);
         int adresse = Integer.parseInt(entrepotElem.getAttribute("adresse"));
         Noeud add = this.getPlan().getNoeudById(adresse);
         //todo : vérifier que l'adresse de l'entrepot est bien dans le plan
         this.setEntrepot(add);
+        System.out.println("entrepot créé");
 
-        System.out.println("entrepot ok " + adresse );
-        
-        
         // Traitement des plages horaires
         //Récupération de "plagesHoraires"
         NodeList listPlages = racine.getElementsByTagName("PlagesHoraires");
         if (listPlages.getLength() != 1) {
-            return 1;
+            MyException e = new MyException("Il y a plusieurs listes de plages horaires dans le fichier de livraison");
+            throw e;
         }
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
         NodeList listPlage = plagesElem.getElementsByTagName("Plage");
-        for (int i = 0; i < listPlage.getLength(); i++) {
+        for (int i = 0; i <= listPlage.getLength(); i++) {
             Element palgeElem = (Element) listPlage.item(i);
             PlageHoraire plage = new PlageHoraire();
             plage.construireAPartirDomXML(palgeElem);
 
-            
             //Traitement des livraisons
             //Récupération de "Livraisons"
             NodeList listLiv1 = palgeElem.getElementsByTagName("Livraisons");
             if (listLiv1.getLength() != 1) {
-                return 1;
+                MyException e = new MyException("Il y a plusieurs listes de livraisons au sein d'une plage horaire dans le fichier de livraison");
+                throw e;
             }
             Element livraisonsElem = (Element) listLiv1.item(0);
-            
+
             //Récupération de la liste des "Livraison"
             NodeList listLiv2 = livraisonsElem.getElementsByTagName("Livraison");
-            
+
             for (int j = 0; j < listLiv2.getLength(); j++) {
-                             System.out.println("dans livraison " );
-                Element livraisonElem = (Element) listLiv2.item(i);
+                Element livraisonElem = (Element) listLiv2.item(j);
                 Livraison livraison = new Livraison();
                 livraison.construireAPartirDomXML(livraisonElem, plage);
                 this.addLivraison(livraison);
             }
         }
-
-        return 0;
-
     }
 }
