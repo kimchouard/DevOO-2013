@@ -74,7 +74,7 @@ public class LecteurXml {
 
     }
 
-    public Tournee construireLivraisonAPartirXML() {
+    public Tournee construireLivraisonAPartirXML() throws Exception {
 
         Tournee tournee = Tournee.getInstance();
         File tourneeXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");

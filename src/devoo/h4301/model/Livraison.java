@@ -24,9 +24,9 @@ public class Livraison {
     protected Integer colis;
 
     /**
-     * Plage horraire de la livraison
+     * Plage horaire de la livraison
      */
-    protected PlageHoraire horraire;
+    protected PlageHoraire horaire;
 
     /**
      * Client à livrer
@@ -49,12 +49,12 @@ public class Livraison {
         this.colis = colis;
     }
 
-    public PlageHoraire getHorraire() {
-        return horraire;
+    public PlageHoraire getHoraire() {
+        return horaire;
     }
 
-    public void setHorraire(PlageHoraire horraire) {
-        this.horraire = horraire;
+    public void setHorraire(PlageHoraire horaire) {
+        this.horaire = horaire;
     }
 
     public Client getClient() {

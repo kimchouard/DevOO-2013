@@ -5,6 +5,7 @@
  */
 package devoo.h4301.model;
 
+import devoo.h4301.outils.MyException;
 import java.util.ArrayList;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -31,8 +32,8 @@ public class Plan {
     public void addNoeud(Noeud noeud) {
         this.noeuds.add(noeud);
     }
-    
-    public void removeNoeud(Integer idNoeud){
+
+    public void removeNoeud(Integer idNoeud) throws Exception {
         Noeud noeud = this.getNoeudById(idNoeud);
         this.noeuds.remove(noeud);
     }
@@ -45,7 +46,7 @@ public class Plan {
         this.troncons.add(troncon);
     }
 
-    public Noeud getNoeudById(Integer id) {
+    public Noeud getNoeudById(Integer id) throws Exception {
 
         Noeud noeudCherche = null;
         ArrayList<Noeud> list = this.getNoeuds();
@@ -54,10 +55,14 @@ public class Plan {
                 noeudCherche = list.get(i);
             }
         }
+        if (noeudCherche == null) {
+            MyException e = new MyException("Appel à un noeud inexistant");
+            throw e;
+        }
         return noeudCherche;
     }
 
-    public int construireAPartirDomXML(Element racine) {
+    public void construireAPartirDomXML(Element racine) throws Exception {
 
 // Traitement des noeuds
         NodeList list = racine.getElementsByTagName("Noeud");
@@ -65,7 +70,6 @@ public class Plan {
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             Noeud noeudNouveau = new Noeud();
-            System.out.println("noeud ajouté");
             noeudNouveau.construireAPartirDomXML(noeudElem);
             this.addNoeud(noeudNouveau);
         }
@@ -76,6 +80,7 @@ public class Plan {
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
 
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
+
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
             for (int j = 0; j < listeTroncon.getLength(); j++) {
@@ -88,7 +93,6 @@ public class Plan {
                 this.addTroncon(tronconNouveau);
             }
         }
-        return 0;
 
     }
 }
