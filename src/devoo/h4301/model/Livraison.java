@@ -65,7 +65,7 @@ public class Livraison {
         this.client = client;
     }
 
-    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) {
+    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) throws Exception  {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.setHorraire(plage);
         

@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
  * @author Leslie Breynat
  */
 public class Troncon {
-    
+
     /**
      * Noeud origine du troncon
      */
@@ -78,16 +78,20 @@ public class Troncon {
         this.vitesse = vitesse;
     }
 
-    public void construireAPartirDomXML(Element noeudDOMRacine) {
+    public Troncon(){
+    }
+
+    
+    public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception  {
 
 // todo : gerer les erreurs de syntaxe dans le fichier XML !
         
         this.nomRue = noeudDOMRacine.getAttribute("nomRue");
         vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
-        
+        System.out.println("troncon créé");
         int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-        destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
+       // destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
     }
 
 }

@@ -70,6 +70,6 @@ public class TronconTest {
         assertEquals("destination id",instance.destination.id,destId);
         
         //Clean plan
-        Tournee.getInstance().getPlan().removeNoeud(destId);
+        //Tournee.getInstance().getPlan().removeNoeud(destId);
     }
 }

@@ -41,7 +41,7 @@ public class Noeud {
      * Constructeur d'un noeud grace au DOM XML
      * @param noeudDOMRacine noeud du DOM XML
      */
-    public void construireAPartirDomXML(Element noeudDOMRacine){
+    public void construireAPartirDomXML(Element noeudDOMRacine)throws Exception {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.id = Integer.parseInt(noeudDOMRacine.getAttribute("id"));
         this.x = Integer.parseInt(noeudDOMRacine.getAttribute("x"));

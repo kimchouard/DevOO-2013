@@ -74,6 +74,7 @@ public class Plan {
             this.addNoeud(noeudNouveau);
         }
 
+
         String tag = "TronconSortant";
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
@@ -83,6 +84,8 @@ public class Plan {
 
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
+                            System.out.println("début troncon");
+
             for (int j = 0; j < listeTroncon.getLength(); j++) {
                 Element tronconElem = (Element) listeTroncon.item(j);
                 Troncon tronconNouveau = new Troncon();

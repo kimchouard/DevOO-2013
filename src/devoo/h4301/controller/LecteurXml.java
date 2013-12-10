@@ -44,13 +44,13 @@ public class LecteurXml {
      *
      * @return plan créé
      */
-    public Plan construirePlanAPartirXML(){
-        Plan plan = Tournee.getInstance().getPlan();
+    public Plan construirePlanAPartirXML() throws Exception {
+        Plan plan = new Plan();//Tournee.getInstance().getPlan();
 
         File planXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
 
         if (planXML != null) {
-            try {
+            
                 // creation d'un constructeur de documents a l'aide d'une fabrique
 
                 DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -64,9 +64,7 @@ public class LecteurXml {
 //Gerer le cas de pb de lecture de fichier
 
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+           
 
         }
         Tournee.getInstance().setPlan(plan);
@@ -74,29 +72,29 @@ public class LecteurXml {
 
     }
 
-    public Tournee construireLivraisonAPartirXML() throws Exception {
+    public Tournee construireLivraisonAPartirXML()throws Exception{
 
         Tournee tournee = Tournee.getInstance();
-        File tourneeXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
+        
+                File tourneeXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
         System.out.println("fichier ouvert ");
         if (tourneeXML != null) {
-            try {
-                // creation d'un constructeur de documents a l'aide d'une fabrique
-                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
-                // lecture du contenu d'un fichier XML avec DOM
-                Document document = constructeur.parse(tourneeXML);
-                Element racine = document.getDocumentElement();
-                if (racine.getNodeName().equals("JourneeType")) {
-                    System.out.println("début de construction de tournee ");
-                    tournee.construireAPartirDomXML(racine);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            // creation d'un constructeur de documents a l'aide d'une fabrique
+            DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
+            // lecture du contenu d'un fichier XML avec DOM
+            Document document = constructeur.parse(tourneeXML);
+            Element racine = document.getDocumentElement();
+            if (racine.getNodeName().equals("JourneeType")) {
+                System.out.println("début de construction de tournee ");
+                tournee.construireAPartirDomXML(racine);
+
             }
 
         }
+        
+      
         return tournee;
-
-    }
+}
 }

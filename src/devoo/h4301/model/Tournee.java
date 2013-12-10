@@ -114,7 +114,9 @@ public class Tournee {
         Noeud add = this.getPlan().getNoeudById(adresse);
         //todo : vérifier que l'adresse de l'entrepot est bien dans le plan
         this.setEntrepot(add);
+        System.out.println("entrepot créé");
 
+        
         // Traitement des plages horaires
         //Récupération de "plagesHoraires"
         NodeList listPlages = racine.getElementsByTagName("PlagesHoraires");
