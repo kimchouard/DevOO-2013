@@ -10,6 +10,8 @@ import devoo.h4301.controller.ControleurPlan;
 import devoo.h4301.controller.LecteurXml;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Troncon;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -18,6 +20,7 @@ import devoo.h4301.model.Troncon;
 public class FenetrePrincipale extends javax.swing.JFrame {
 
     public ControleurPlan controleurPlan;
+    private JFileChooser jFileChooserXML;
     
     /**
      * Creates new form FenetrePrincipale
@@ -45,8 +48,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         chargerPlan.setText("Charger Plan");
+        chargerPlan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickChargerPlan(evt);
+            }
+        });
 
         chargerLiv.setText("Charger Livraisons");
+        chargerLiv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickChargerLivraisons(evt);
+            }
+        });
 
         redo.setText("Redo");
 
@@ -89,6 +102,41 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
+        String urlXmlPlan = ouvrirFichier();
+        
+        // Lunch load of the map from the file URL 
+    }//GEN-LAST:event_clickChargerPlan
+
+    private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
+        String urlXmlLivraisons = ouvrirFichier();
+        
+        // Lunch load of the deliveries from the file URL
+    }//GEN-LAST:event_clickChargerLivraisons
+
+
+    /**
+     * Ouvre un dialogue système pour choisir un fichier
+     * @return String urlFichier
+     */
+    private String ouvrirFichier(){
+        jFileChooserXML = new JFileChooser();
+        // Note: source for ExampleFileFilter can be found in FileChooserDemo,
+        // under the demo/jfc directory in the JDK.
+//        ExampleFileFilter filter = new ExampleFileFilter();
+//        filter.addExtension("xml");
+//        filter.setDescription("Fichier XML");
+//        jFileChooserXML.setFileFilter(filter);
+        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        if (jFileChooserXML.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            String filePath = jFileChooserXML.getSelectedFile().getAbsolutePath();
+            System.out.println("You chose to open this file: " + filePath);
+            return filePath;
+        }
+        return null;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -197,6 +245,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chargerLiv;
