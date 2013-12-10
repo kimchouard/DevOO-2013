@@ -55,7 +55,7 @@ public class TronconTest {
         Troncon instance = new Troncon();
         Noeud destination = new Noeud();
         destination.id = destId;
-        Plan.getInstance().addNoeud(destination);
+        Tournee.getInstance().getPlan().addNoeud(destination);
         
         instance.construireAPartirDomXML(noeud);
         
@@ -70,6 +70,6 @@ public class TronconTest {
         assertEquals("destination id",instance.destination.id,destId);
         
         //Clean plan
-        Plan.getInstance().removeNoeud(destId);
+        Tournee.getInstance().getPlan().removeNoeud(destId);
     }
 }
