@@ -116,7 +116,6 @@ public class Tournee {
         this.setEntrepot(add);
         System.out.println("entrepot créé");
 
-        
         // Traitement des plages horaires
         //Récupération de "plagesHoraires"
         NodeList listPlages = racine.getElementsByTagName("PlagesHoraires");
@@ -127,7 +126,7 @@ public class Tournee {
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
         NodeList listPlage = plagesElem.getElementsByTagName("Plage");
-        for (int i = 0; i < listPlage.getLength(); i++) {
+        for (int i = 0; i <= listPlage.getLength(); i++) {
             Element palgeElem = (Element) listPlage.item(i);
             PlageHoraire plage = new PlageHoraire();
             plage.construireAPartirDomXML(palgeElem);
@@ -145,7 +144,7 @@ public class Tournee {
             NodeList listLiv2 = livraisonsElem.getElementsByTagName("Livraison");
 
             for (int j = 0; j < listLiv2.getLength(); j++) {
-                Element livraisonElem = (Element) listLiv2.item(i);
+                Element livraisonElem = (Element) listLiv2.item(j);
                 Livraison livraison = new Livraison();
                 livraison.construireAPartirDomXML(livraisonElem, plage);
                 this.addLivraison(livraison);

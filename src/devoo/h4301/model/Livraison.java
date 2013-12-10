@@ -74,7 +74,8 @@ public class Livraison {
         this.setDestination(add);
 
         Integer idClient = Integer.parseInt(noeudDOMRacine.getAttribute("client"));
-       //todo :  faire ou récupérer client
+        Client client = new Client(idClient);
+        this.client = client;
     System.out.println("livraison crée pour client : "+ idClient);
 
     }

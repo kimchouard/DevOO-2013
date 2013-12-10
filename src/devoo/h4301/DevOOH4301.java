@@ -21,10 +21,11 @@ public class DevOOH4301 {
         LecteurXml lec = new LecteurXml();
 
         lec.construirePlanAPartirXML();
-        //lec.construireLivraisonAPartirXML();
+        lec.construireLivraisonAPartirXML();
        } catch (Exception e){
        System.out.println(e.getMessage());
        }
+       
         
     }
     

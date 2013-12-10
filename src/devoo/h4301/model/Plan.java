@@ -95,7 +95,7 @@ public class Plan {
                 tronconNouveau.setOrigine(origine);
                 tronconNouveau.construireAPartirDomXML(tronconElem);
 
-                //this.addTroncon(tronconNouveau);
+                this.addTroncon(tronconNouveau);
             }
         }
 
