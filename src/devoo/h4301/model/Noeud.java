@@ -49,4 +49,11 @@ public class Noeud {
         System.out.println("noeud : " + getId() );
 
     }
+
+    public Noeud(Integer id) {
+        this.id = id;
+    }
+
+    public Noeud() {
+    }
 }

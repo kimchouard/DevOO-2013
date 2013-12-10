@@ -48,14 +48,14 @@ public class Plan {
 
     public Noeud getNoeudById(Integer id) throws Exception {
 
-        Noeud noeudCherche = null;
+        Noeud noeudCherche = new Noeud(-1);
         ArrayList<Noeud> list = this.getNoeuds();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
                 noeudCherche = list.get(i);
             }
         }
-        if (noeudCherche == null) {
+       if (noeudCherche.getId()== -1) {
             MyException e = new MyException("Appel à un noeud inexistant");
             throw e;
         }
@@ -81,7 +81,7 @@ public class Plan {
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
 
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
-
+             System.out.println("le noeud origin est : " +idOrigine);
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
                             System.out.println("début troncon");
@@ -93,7 +93,7 @@ public class Plan {
                 tronconNouveau.setOrigine(origine);
                 tronconNouveau.construireAPartirDomXML(tronconElem);
 
-                this.addTroncon(tronconNouveau);
+                //this.addTroncon(tronconNouveau);
             }
         }
 

@@ -90,8 +90,8 @@ public class Troncon {
         vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
         System.out.println("troncon créé");
-        int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-       // destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
+        int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("adresse"));
+      //  destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
     }
 
 }
