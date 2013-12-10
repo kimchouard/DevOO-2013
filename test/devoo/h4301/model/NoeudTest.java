@@ -6,13 +6,18 @@
 
 package devoo.h4301.model;
 
+import java.io.StringReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -20,23 +25,14 @@ import org.w3c.dom.Element;
  */
 public class NoeudTest {
     
+    Noeud instance;
+    
     public NoeudTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void setUp() { 
+        instance = new Noeud();
     }
 
 
@@ -45,8 +41,6 @@ public class NoeudTest {
      */
     @Test
     public void testGetId(){
-        System.out.println("getId");
-        Noeud instance = new Noeud();
         assertNull("Id null",instance.getId());
     }
     
@@ -55,18 +49,23 @@ public class NoeudTest {
      */
     @Test
     public void testConstruireAPartirDomXML() {
-        System.out.println("construireAPartirDomXML");
-        
-        Element noeud = null;
-        noeud.setAttribute("id","1");
-        noeud.setAttribute("x","5");
-        noeud.setAttribute("y","6");
-        Noeud instance = new Noeud();
-        instance.construireAPartirDomXML(noeud);
-        // Check data update
-        assertEquals("id",noeud.getAttribute("id"),instance.id);
-        assertEquals("x",noeud.getAttribute("x"),instance.x);
-        assertEquals("y",noeud.getAttribute("y"),instance.y);
+        String xmlString = "<Noeud id=\"1\" x=\"88\" y=\"171\"></Noeud>";  
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+        DocumentBuilder builder;  
+        try  
+        {  
+            builder = factory.newDocumentBuilder();  
+            Document document = builder.parse( new InputSource( new StringReader( xmlString ) ) );
+            
+            Element noeud = document.getDocumentElement();
+            instance.construireAPartirDomXML(noeud);
+            
+            assertTrue("Same Id", instance.getId() == Integer.parseInt(noeud.getAttribute("id")));
+            
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        } 
     }   
     
 }

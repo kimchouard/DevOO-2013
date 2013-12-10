@@ -46,7 +46,6 @@ public class Noeud {
         this.id = Integer.parseInt(noeudDOMRacine.getAttribute("id"));
         this.x = Integer.parseInt(noeudDOMRacine.getAttribute("x"));
         this.y = Integer.parseInt(noeudDOMRacine.getAttribute("y"));
-        System.out.println("noeud : " + getId() );
 
     }
 }
