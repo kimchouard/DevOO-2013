@@ -48,14 +48,17 @@ public class Plan {
 
     public Noeud getNoeudById(Integer id) throws Exception {
 
-        Noeud noeudCherche = new Noeud(-1);
+        Noeud noeudCherche = null;
+        Boolean find = false;
         ArrayList<Noeud> list = this.getNoeuds();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == id) {
-                noeudCherche = list.get(i);
+            if (list.get(i).getId().equals(id)) {
+                noeudCherche = this.noeuds.get(i);
+                find = true;
             }
         }
-       if (noeudCherche.getId()== -1) {
+
+        if (find.booleanValue() == false) {
             MyException e = new MyException("Appel à un noeud inexistant");
             throw e;
         }
@@ -74,17 +77,16 @@ public class Plan {
             this.addNoeud(noeudNouveau);
         }
 
-
         String tag = "TronconSortant";
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
 
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
-             System.out.println("le noeud origin est : " +idOrigine);
+            System.out.println("le noeud origin est : " + idOrigine);
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
-                            System.out.println("début troncon");
+            System.out.println("début troncon");
 
             for (int j = 0; j < listeTroncon.getLength(); j++) {
                 Element tronconElem = (Element) listeTroncon.item(j);

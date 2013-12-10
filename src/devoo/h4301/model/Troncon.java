@@ -78,20 +78,21 @@ public class Troncon {
         this.vitesse = vitesse;
     }
 
-    public Troncon(){
+    public Troncon() {
     }
 
-    
-    public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception  {
+    public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception {
 
 // todo : gerer les erreurs de syntaxe dans le fichier XML !
-        
         this.nomRue = noeudDOMRacine.getAttribute("nomRue");
         vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
         System.out.println("troncon créé");
-        int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("adresse"));
-      //  destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
+        Integer idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
+        Tournee t = Tournee.getInstance();
+        Plan p = t.getPlan();
+        destination = p.getNoeudById(idDestination);
+        System.out.println("troncon créé totalement");
     }
 
 }

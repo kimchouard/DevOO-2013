@@ -45,8 +45,8 @@ public class LecteurXml {
      * @return plan créé
      */
     public Plan construirePlanAPartirXML() throws Exception {
-        Plan plan = new Plan();//Tournee.getInstance().getPlan();
-
+        Plan plan = new Plan();
+        Tournee.getInstance().setPlan(plan);
         File planXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
 
         if (planXML != null) {
@@ -67,7 +67,7 @@ public class LecteurXml {
            
 
         }
-        Tournee.getInstance().setPlan(plan);
+        
         return plan;
 
     }
