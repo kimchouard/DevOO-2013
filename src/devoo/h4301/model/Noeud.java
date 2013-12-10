@@ -41,11 +41,13 @@ public class Noeud {
      * Constructeur d'un noeud grace au DOM XML
      * @param noeudDOMRacine noeud du DOM XML
      */
-    public void construireAPartirDomXML(Element noeudDOMRacine){
-        // todo : gerer les erreurs de syntaxe dans le fichier XML !
+    public void construireAPartirDomXML(Element noeudDOMRacine) throws IllegalArgumentException, NumberFormatException {
         this.id = Integer.parseInt(noeudDOMRacine.getAttribute("id"));
         this.x = Integer.parseInt(noeudDOMRacine.getAttribute("x"));
         this.y = Integer.parseInt(noeudDOMRacine.getAttribute("y"));
-
+        
+        if(this.id == null || this.x == null || this.y == null) {
+            throw new IllegalArgumentException("id or position is null");
+        }
     }
 }

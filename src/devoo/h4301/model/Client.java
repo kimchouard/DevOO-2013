@@ -13,4 +13,10 @@ package devoo.h4301.model;
 public class Client {
     protected Integer id;
     protected String name;
+    
+
+    public Client(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

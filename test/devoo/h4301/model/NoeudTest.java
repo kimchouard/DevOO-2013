@@ -27,28 +27,21 @@ public class NoeudTest {
     
     Noeud instance;
     
-    public NoeudTest() {
-    }
-    
     @Before
     public void setUp() { 
         instance = new Noeud();
     }
-
-
-    /**
-     * Test of getId method, of class Noeud.
-     */
-    @Test
-    public void testGetId(){
-        assertNull("Id null",instance.getId());
-    }
     
+    @After
+    public void tearDown() { 
+        instance = null;
+    }
+
     /**
      * Test of construireAPartirDomXML method, of class Noeud.
      */
     @Test
-    public void testConstruireAPartirDomXML() {
+    public void construireNoeudValide() {
         String xmlString = "<Noeud id=\"1\" x=\"88\" y=\"171\"></Noeud>";  
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
@@ -68,4 +61,25 @@ public class NoeudTest {
         } 
     }   
     
+    /**
+     * Test of construireAPartirDomXML method, of class Noeud.
+     */
+    @Test(expected = NumberFormatException.class)
+    public void construireNoeudSansId() {
+        String xmlString = "<Noeud x=\"88\" y=\"171\"></Noeud>";  
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+        DocumentBuilder builder;  
+        try  
+        {  
+            builder = factory.newDocumentBuilder();  
+            Document document = builder.parse( new InputSource( new StringReader( xmlString ) ) );
+            
+            Element noeud = document.getDocumentElement();
+            instance.construireAPartirDomXML(noeud);
+            
+        } catch (Exception e) {  
+            System.out.println(e);
+        } 
+    }   
 }
