@@ -20,23 +20,14 @@ import org.w3c.dom.Element;
  */
 public class NoeudTest {
     
+    Noeud instance;
+    
     public NoeudTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void setUp() { 
+        instance = new Noeud();
     }
 
 
@@ -45,8 +36,6 @@ public class NoeudTest {
      */
     @Test
     public void testGetId(){
-        System.out.println("getId");
-        Noeud instance = new Noeud();
         assertNull("Id null",instance.getId());
     }
     
@@ -55,7 +44,6 @@ public class NoeudTest {
      */
     @Test
     public void testConstruireAPartirDomXML() {
-        System.out.println("construireAPartirDomXML");
         
         Element noeud = null;
         noeud.setAttribute("id","1");
