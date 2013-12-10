@@ -35,21 +35,55 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPanePlan = new javax.swing.JScrollPane();
+        pGauche = new javax.swing.JScrollPane();
+        chargerPlan = new javax.swing.JButton();
+        chargerLiv = new javax.swing.JButton();
+        redo = new javax.swing.JButton();
+        undo = new javax.swing.JButton();
+        pDroit = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        chargerPlan.setText("Charger Plan");
+
+        chargerLiv.setText("Charger Livraisons");
+
+        redo.setText("Redo");
+
+        undo.setText("Undo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollPanePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 191, Short.MAX_VALUE))
+                .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(chargerPlan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chargerLiv)
+                .addGap(148, 148, 148)
+                .addComponent(undo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(redo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePlan, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chargerPlan)
+                    .addComponent(chargerLiv)
+                    .addComponent(redo)
+                    .addComponent(undo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pGauche, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                    .addComponent(pDroit)))
         );
 
         pack();
@@ -87,7 +121,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             public void run() {
                 FenetrePrincipale fp = new FenetrePrincipale();
                 fp.setVisible(true);
-                fp.controleurPlan = new ControleurPlan(fp.scrollPanePlan, fp);
+                fp.controleurPlan = new ControleurPlan(fp.pGauche, fp);
         
 //                LecteurXml lec = new LecteurXml();
 //                lec.construirePlanAPartirXML();
@@ -109,23 +143,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 Noeud n14 = new Noeud(0, 100, 250);
                 Noeud n15 = new Noeud(0, 100, 200);
                 Noeud n16 = new Noeud(0, 100, 150);
-                fp.controleurPlan.addNoeud(n0);
-                fp.controleurPlan.addNoeud(n1);
-                fp.controleurPlan.addNoeud(n2);
-                fp.controleurPlan.addNoeud(n3);
-                fp.controleurPlan.addNoeud(n4);
-                fp.controleurPlan.addNoeud(n5);
-                fp.controleurPlan.addNoeud(n6);
-                fp.controleurPlan.addNoeud(n7);
-                fp.controleurPlan.addNoeud(n8);
-                fp.controleurPlan.addNoeud(n9);
-                fp.controleurPlan.addNoeud(n10);
-                fp.controleurPlan.addNoeud(n11);
-                fp.controleurPlan.addNoeud(n12);
-                fp.controleurPlan.addNoeud(n13);
-                fp.controleurPlan.addNoeud(n14);
-                fp.controleurPlan.addNoeud(n15);
-                fp.controleurPlan.addNoeud(n16);
+                fp.controleurPlan.ajouterNoeud(n0);
+                fp.controleurPlan.ajouterNoeud(n1);
+                fp.controleurPlan.ajouterNoeud(n2);
+                fp.controleurPlan.ajouterNoeud(n3);
+                fp.controleurPlan.ajouterNoeud(n4);
+                fp.controleurPlan.ajouterNoeud(n5);
+                fp.controleurPlan.ajouterNoeud(n6);
+                fp.controleurPlan.ajouterNoeud(n7);
+                fp.controleurPlan.ajouterNoeud(n8);
+                fp.controleurPlan.ajouterNoeud(n9);
+                fp.controleurPlan.ajouterNoeud(n10);
+                fp.controleurPlan.ajouterNoeud(n11);
+                fp.controleurPlan.ajouterNoeud(n12);
+                fp.controleurPlan.ajouterNoeud(n13);
+                fp.controleurPlan.ajouterNoeud(n14);
+                fp.controleurPlan.ajouterNoeud(n15);
+                fp.controleurPlan.ajouterNoeud(n16);
                 
                 Troncon t1 = new Troncon(n0, n1, "t1", 20.5, 1.5);
                 Troncon t2 = new Troncon(n0, n2, "t2", 20.5, 1.5);
@@ -144,27 +178,32 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 Troncon t15 = new Troncon(n0, n15, "t15", 20.5, 1.5);
                 Troncon t16 = new Troncon(n0, n16, "t16", 20.5, 1.5);
 
-                fp.controleurPlan.addTroncon(t1);
-                fp.controleurPlan.addTroncon(t2);
-                fp.controleurPlan.addTroncon(t3);
-                fp.controleurPlan.addTroncon(t4);
-                fp.controleurPlan.addTroncon(t5);
-                fp.controleurPlan.addTroncon(t6);
-                fp.controleurPlan.addTroncon(t7);
-                fp.controleurPlan.addTroncon(t8);
-                fp.controleurPlan.addTroncon(t9);
-                fp.controleurPlan.addTroncon(t10);
-                fp.controleurPlan.addTroncon(t11);
-                fp.controleurPlan.addTroncon(t12);
-                fp.controleurPlan.addTroncon(t13);
-                fp.controleurPlan.addTroncon(t14);
-                fp.controleurPlan.addTroncon(t15);
-                fp.controleurPlan.addTroncon(t16);
+                fp.controleurPlan.ajouterTroncon(t1);
+                fp.controleurPlan.ajouterTroncon(t2);
+                fp.controleurPlan.ajouterTroncon(t3);
+                fp.controleurPlan.ajouterTroncon(t4);
+                fp.controleurPlan.ajouterTroncon(t5);
+                fp.controleurPlan.ajouterTroncon(t6);
+                fp.controleurPlan.ajouterTroncon(t7);
+                fp.controleurPlan.ajouterTroncon(t8);
+                fp.controleurPlan.ajouterTroncon(t9);
+                fp.controleurPlan.ajouterTroncon(t10);
+                fp.controleurPlan.ajouterTroncon(t11);
+                fp.controleurPlan.ajouterTroncon(t12);
+                fp.controleurPlan.ajouterTroncon(t13);
+                fp.controleurPlan.ajouterTroncon(t14);
+                fp.controleurPlan.ajouterTroncon(t15);
+                fp.controleurPlan.ajouterTroncon(t16);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane scrollPanePlan;
+    private javax.swing.JButton chargerLiv;
+    private javax.swing.JButton chargerPlan;
+    private javax.swing.JScrollPane pDroit;
+    private javax.swing.JScrollPane pGauche;
+    private javax.swing.JButton redo;
+    private javax.swing.JButton undo;
     // End of variables declaration//GEN-END:variables
 }
