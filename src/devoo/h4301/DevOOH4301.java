@@ -11,7 +11,9 @@ import devoo.h4301.controller.LecteurXml;
  * @author chouard
  */
 public class DevOOH4301 {
-
+    // DEFINE CONSTANTS***********
+    public static final double EPSILON = 0.000001; 
+    //****************************
     /**
      * @param args the command line arguments
      */
