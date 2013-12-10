@@ -87,7 +87,7 @@ public class Troncon {
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
         
         int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-        destination = Plan.getInstance().getNoeudById(idDestination);
+        destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
     }
 
 }

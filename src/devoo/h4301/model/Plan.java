@@ -15,21 +15,10 @@ import org.w3c.dom.NodeList;
  */
 public class Plan {
 
-    private static Plan instancePlan;
-
     protected ArrayList<Noeud> noeuds;
     protected ArrayList<Troncon> troncons;
-    
-    public static Plan getInstance(){
-    
-        if(instancePlan == null){
-            instancePlan = new Plan();
-        }
-        
-        return instancePlan;
-    }
-    
-    private Plan(){
+
+    public Plan() {
         noeuds = new ArrayList<>();
         troncons = new ArrayList<>();
 
@@ -55,54 +44,48 @@ public class Plan {
     public void addTroncon(Troncon troncon) {
         this.troncons.add(troncon);
     }
-    
-    public Noeud getNoeudById(Integer id){
-    
-        Plan plan = getInstance();
+
+    public Noeud getNoeudById(Integer id) {
+
         Noeud noeudCherche = null;
-        ArrayList<Noeud> list = plan.getNoeuds();
-        for (int i=0; i<list.size(); i++){
-            if (list.get(i).getId() == id){
+        ArrayList<Noeud> list = this.getNoeuds();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
                 noeudCherche = list.get(i);
             }
         }
         return noeudCherche;
     }
-    
+
     public int construireAPartirDomXML(Element racine) {
 
-
-        Plan plan = getInstance();
 // Traitement des noeuds
         NodeList list = racine.getElementsByTagName("Noeud");
-      
 
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             Noeud noeudNouveau = new Noeud();
             System.out.println("noeud ajouté");
             noeudNouveau.construireAPartirDomXML(noeudElem);
-            plan.addNoeud(noeudNouveau);
+            this.addNoeud(noeudNouveau);
         }
 
         String tag = "TronconSortant";
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
-            
+
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
             for (int j = 0; j < listeTroncon.getLength(); j++) {
                 Element tronconElem = (Element) listeTroncon.item(j);
                 Troncon tronconNouveau = new Troncon();
-                
-                
+
                 tronconNouveau.setOrigine(origine);
                 tronconNouveau.construireAPartirDomXML(tronconElem);
-                
-// todo : Ajout du troncon à la liste de troncon du plan
-//troncons.add(tronconNouveau);
+
+                this.addTroncon(tronconNouveau);
             }
         }
         return 0;
