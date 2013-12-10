@@ -47,12 +47,12 @@ public class ControleurPlan {
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
-            this.addNoeud(n);
+            this.ajouterNoeud(n);
         }
         
         ArrayList<Troncon> troncons = plan.getTroncons();
         for (Troncon t : troncons) {
-            this.addTroncon(t);
+            this.ajouterTroncon(t);
         }
     }
     
@@ -86,13 +86,13 @@ public class ControleurPlan {
         return vueNoeuds;
     }
 
-    public void addNoeud(Noeud noeud) {
+    public void ajouterNoeud(Noeud noeud) {
         VueNoeud v = new VueNoeud(noeud);
         this.vueNoeuds.add(v);
         this.vuePlan.addVueNoeud(v);
     }
 
-    public void addTroncon(Troncon troncon) {
+    public void ajouterTroncon(Troncon troncon) {
         VueTroncon v = new VueTroncon(troncon);
         this.vueTroncons.add(v);
         this.vuePlan.add(v);
