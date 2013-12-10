@@ -42,6 +42,11 @@ public class Plan {
     public void addNoeud(Noeud noeud) {
         this.noeuds.add(noeud);
     }
+    
+    public void removeNoeud(Integer idNoeud){
+        Noeud noeud = this.getNoeudById(idNoeud);
+        this.noeuds.remove(noeud);
+    }
 
     public ArrayList<Troncon> getTroncons() {
         return troncons;

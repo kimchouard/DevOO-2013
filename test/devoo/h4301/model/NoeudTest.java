@@ -57,16 +57,16 @@ public class NoeudTest {
     public void testConstruireAPartirDomXML() {
         System.out.println("construireAPartirDomXML");
         
-        Element noeudDOMRacine = null;
-        noeudDOMRacine.setAttribute("id","1");
-        noeudDOMRacine.setAttribute("x","5");
-        noeudDOMRacine.setAttribute("y","6");
+        Element noeud = null;
+        noeud.setAttribute("id","1");
+        noeud.setAttribute("x","5");
+        noeud.setAttribute("y","6");
         Noeud instance = new Noeud();
-        instance.construireAPartirDomXML(noeudDOMRacine);
+        instance.construireAPartirDomXML(noeud);
         // Check data update
-        assertEquals("id",noeudDOMRacine.getAttribute("id"),instance.id);
-        assertEquals("x",noeudDOMRacine.getAttribute("x"),instance.x);
-        assertEquals("y",noeudDOMRacine.getAttribute("y"),instance.y);
+        assertEquals("id",noeud.getAttribute("id"),instance.id);
+        assertEquals("x",noeud.getAttribute("x"),instance.x);
+        assertEquals("y",noeud.getAttribute("y"),instance.y);
     }   
     
 }
