@@ -25,8 +25,6 @@ public class ControleurPlan {
     private FenetrePrincipale fenParent;
     
     private VuePlan vuePlan;
-    private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
-    private ArrayList<VueTroncon> vueTroncons = new ArrayList();
 
     public ControleurPlan(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
         this.setScrollPanePlan(scrollPanePlan);
@@ -47,12 +45,12 @@ public class ControleurPlan {
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
-            this.ajouterNoeud(n);
+            this.vuePlan.ajouterNoeud(n);
         }
         
         ArrayList<Troncon> troncons = plan.getTroncons();
         for (Troncon t : troncons) {
-            this.ajouterTroncon(t);
+            this.vuePlan.ajouterTroncon(t);
         }
     }
     
@@ -81,22 +79,4 @@ public class ControleurPlan {
     public void setVuePlan(VuePlan vuePlan) {
         this.vuePlan = vuePlan;
     }
-
-    public ArrayList<VueNoeud> getVueNoeuds() {
-        return vueNoeuds;
-    }
-
-    public void ajouterNoeud(Noeud noeud) {
-        VueNoeud v = new VueNoeud(noeud);
-        this.vueNoeuds.add(v);
-        this.vuePlan.addVueNoeud(v);
-    }
-
-    public void ajouterTroncon(Troncon troncon) {
-        VueTroncon v = new VueTroncon(troncon);
-        this.vueTroncons.add(v);
-        this.vuePlan.add(v);
-    }
-    
-    
 }

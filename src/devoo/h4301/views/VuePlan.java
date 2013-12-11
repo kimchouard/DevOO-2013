@@ -6,11 +6,17 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.model.Noeud;
+import devoo.h4301.model.Troncon;
+import java.util.ArrayList;
+
 /**
  *
  * @author chouard
  */
 public class VuePlan extends javax.swing.JPanel {
+    private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
+    private ArrayList<VueTroncon> vueTroncons = new ArrayList();
 
     /**
      * Creates new form VuePlan
@@ -19,9 +25,21 @@ public class VuePlan extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void addVueNoeud(VueNoeud vueNoeud) {
-        this.add(vueNoeud);
-        vueNoeud.setVisible(true);
+    public void ajouterNoeud(Noeud noeud) {
+        VueNoeud v = new VueNoeud(noeud);
+        this.vueNoeuds.add(v);
+        this.add(v);
+        v.setVisible(true);
+    }
+
+    public void ajouterTroncon(Troncon troncon) {
+        VueTroncon v = new VueTroncon(troncon);
+        this.vueTroncons.add(v);
+        this.add(v);
+    }
+    
+    public ArrayList<VueNoeud> getVueNoeuds() {
+        return vueNoeuds;
     }
 
     /**
