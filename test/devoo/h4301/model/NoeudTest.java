@@ -6,13 +6,18 @@
 
 package devoo.h4301.model;
 
+import java.io.StringReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -20,53 +25,61 @@ import org.w3c.dom.Element;
  */
 public class NoeudTest {
     
-    public NoeudTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    Noeud instance;
     
     @Before
-    public void setUp() {
+    public void setUp() { 
+        instance = new Noeud();
     }
     
     @After
-    public void tearDown() {
+    public void tearDown() { 
+        instance = null;
     }
 
-
-    /**
-     * Test of getId method, of class Noeud.
-     */
-    @Test
-    public void testGetId(){
-        System.out.println("getId");
-        Noeud instance = new Noeud();
-        assertNull("Id null",instance.getId());
-    }
-    
     /**
      * Test of construireAPartirDomXML method, of class Noeud.
      */
     @Test
-    public void testConstruireAPartirDomXML() {
-        System.out.println("construireAPartirDomXML");
-        
-        Element noeudDOMRacine = null;
-        noeudDOMRacine.setAttribute("id","1");
-        noeudDOMRacine.setAttribute("x","5");
-        noeudDOMRacine.setAttribute("y","6");
-        Noeud instance = new Noeud();
-        instance.construireAPartirDomXML(noeudDOMRacine);
-        // Check data update
-        assertEquals("id",noeudDOMRacine.getAttribute("id"),instance.id);
-        assertEquals("x",noeudDOMRacine.getAttribute("x"),instance.x);
-        assertEquals("y",noeudDOMRacine.getAttribute("y"),instance.y);
+    public void construireNoeudValide() {
+        String xmlString = "<Noeud id=\"1\" x=\"88\" y=\"171\"></Noeud>";  
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+        DocumentBuilder builder;  
+        try  
+        {  
+            builder = factory.newDocumentBuilder();  
+            Document document = builder.parse( new InputSource( new StringReader( xmlString ) ) );
+            
+            Element noeud = document.getDocumentElement();
+            instance.construireAPartirDomXML(noeud);
+            
+            assertTrue("Same Id", instance.getId() == Integer.parseInt(noeud.getAttribute("id")));
+            
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        } 
     }   
     
+    /**
+     * Test of construireAPartirDomXML method, of class Noeud.
+     */
+    @Test(expected = NumberFormatException.class)
+    public void construireNoeudSansId() {
+        String xmlString = "<Noeud x=\"88\" y=\"171\"></Noeud>";  
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+        DocumentBuilder builder;  
+        try  
+        {  
+            builder = factory.newDocumentBuilder();  
+            Document document = builder.parse( new InputSource( new StringReader( xmlString ) ) );
+            
+            Element noeud = document.getDocumentElement();
+            instance.construireAPartirDomXML(noeud);
+            
+        } catch (Exception e) {  
+            System.out.println(e);
+        } 
+    }   
 }

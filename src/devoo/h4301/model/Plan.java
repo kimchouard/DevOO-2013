@@ -5,6 +5,7 @@
  */
 package devoo.h4301.model;
 
+import devoo.h4301.outils.MyException;
 import java.util.ArrayList;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -15,21 +16,10 @@ import org.w3c.dom.NodeList;
  */
 public class Plan {
 
-    private static Plan instancePlan;
-
     protected ArrayList<Noeud> noeuds;
     protected ArrayList<Troncon> troncons;
-    
-    public static Plan getInstance(){
-    
-        if(instancePlan == null){
-            instancePlan = new Plan();
-        }
-        
-        return instancePlan;
-    }
-    
-    private Plan(){
+
+    public Plan() {
         noeuds = new ArrayList<>();
         troncons = new ArrayList<>();
 
@@ -43,6 +33,11 @@ public class Plan {
         this.noeuds.add(noeud);
     }
 
+    public void removeNoeud(Integer idNoeud) throws Exception {
+        Noeud noeud = this.getNoeudById(idNoeud);
+        this.noeuds.remove(noeud);
+    }
+
     public ArrayList<Troncon> getTroncons() {
         return troncons;
     }
@@ -50,57 +45,59 @@ public class Plan {
     public void addTroncon(Troncon troncon) {
         this.troncons.add(troncon);
     }
-    
-    public Noeud getNoeudById(Integer id){
-    
-        Plan plan = getInstance();
+
+    public Noeud getNoeudById(Integer id) throws Exception {
+
         Noeud noeudCherche = null;
-        ArrayList<Noeud> list = plan.getNoeuds();
-        for (int i=0; i<list.size(); i++){
-            if (list.get(i).getId() == id){
-                noeudCherche = list.get(i);
+        Boolean find = false;
+        ArrayList<Noeud> list = this.getNoeuds();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId().equals(id)) {
+                noeudCherche = this.noeuds.get(i);
+                find = true;
             }
+        }
+
+        if (find.booleanValue() == false) {
+            MyException e = new MyException("Appel à un noeud inexistant");
+            throw e;
         }
         return noeudCherche;
     }
-    
-    public int construireAPartirDomXML(Element racine) {
 
+    public void construireAPartirDomXML(Element racine) throws Exception {
 
-        Plan plan = getInstance();
 // Traitement des noeuds
         NodeList list = racine.getElementsByTagName("Noeud");
-      
 
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             Noeud noeudNouveau = new Noeud();
-            System.out.println("noeud ajouté");
             noeudNouveau.construireAPartirDomXML(noeudElem);
-            plan.addNoeud(noeudNouveau);
+            this.addNoeud(noeudNouveau);
         }
 
         String tag = "TronconSortant";
         for (int i = 0; i < list.getLength(); i++) {
             Element noeudElem = (Element) list.item(i);
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
-            
+
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
+            System.out.println("le noeud origin est : " + idOrigine);
             Noeud origine = getNoeudById(idOrigine);
 //Pour chaque noeud, on récupère sa liste de troncon
+            System.out.println("début troncon");
+
             for (int j = 0; j < listeTroncon.getLength(); j++) {
                 Element tronconElem = (Element) listeTroncon.item(j);
                 Troncon tronconNouveau = new Troncon();
-                
-                
+
                 tronconNouveau.setOrigine(origine);
                 tronconNouveau.construireAPartirDomXML(tronconElem);
-                
-// todo : Ajout du troncon à la liste de troncon du plan
-//troncons.add(tronconNouveau);
+
+                this.addTroncon(tronconNouveau);
             }
         }
-        return 0;
 
     }
 }

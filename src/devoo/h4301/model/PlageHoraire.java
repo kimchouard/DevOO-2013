@@ -6,10 +6,19 @@
 
 package devoo.h4301.model;
 
+import org.w3c.dom.Element;
+
 /**
  *
  * @author pmdartus
  */
 public class PlageHoraire {
     
+
+    public void construireAPartirDomXML(Element noeudDOMRacine){
+         // todo : gerer les erreurs de syntaxe dans le fichier XML !
+        //todo : si jamais les plages horaires se chevauchent, envoyer un msg d'erreur
+    System.out.println("plage horaire crée");
+    }
 }
+
