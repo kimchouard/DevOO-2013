@@ -40,19 +40,21 @@ public class LecteurXml {
     }
 
     /**
-     * Construction d'un plan a partir d'un fichier XML
-     *Crée d'abord tous les noeuds puis les tronçons
+     * Construction d'un plan a partir d'un fichier XML Crée d'abord tous les
+     * noeuds puis les tronçons
+     *
+     * @param nomFichier path du fichier XML contenant le plan
      * @throws Exception levées par le fichier XML lu
      * @return le plan créé
      */
-    public Plan construirePlanAPartirXML() throws Exception {
+    public Plan construirePlanAPartirXML(String nomFichier) throws Exception {
         Plan plan = new Plan();
         Tournee.getInstance().setPlan(plan);
-        File planXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
+        File planXML = ouvrirFichier(nomFichier);
 
         if (planXML != null) {
 
-                // creation d'un constructeur de documents a l'aide d'une fabrique
+            // creation d'un constructeur de documents a l'aide d'une fabrique
             DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             // lecture du contenu d'un fichier XML avec DOM
             Document document = constructeur.parse(planXML);
@@ -71,11 +73,19 @@ public class LecteurXml {
 
     }
 
-    public Tournee construireLivraisonAPartirXML() throws Exception {
+    /**
+     * Construction de la tournée à partir d'un fichier XML. Fait appel au
+     * constructeur à partir de DomXML de tournée.
+     *
+     * @param nomFichier path du fichier XML contenant les livraisons
+     * @return
+     * @throws Exception
+     */
+    public Tournee construireLivraisonAPartirXML(String nomFichier) throws Exception {
 
         Tournee tournee = Tournee.getInstance();
 
-        File tourneeXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
+        File tourneeXML = ouvrirFichier(nomFichier);
         System.out.println("fichier ouvert ");
         if (tourneeXML != null) {
 

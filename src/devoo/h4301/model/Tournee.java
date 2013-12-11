@@ -12,20 +12,43 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
+ * Classe tournée. Singleton. Une tournée comporte un plan et une liste de
+ * livraison.
  *
  * @author pmdartus
  */
 public class Tournee {
 
+    /**
+     * Nom du livreur de la tournée
+     */
     private String livreur;
+
+    /**
+     * Plan de la zone urbaine dans laquelle se trouve la tournée
+     */
     private Plan plan;
-    private LinkedList<Livraison> listeLivraison;
+
+    /**
+     * Liste de livraison de la tournée
+     */
+    private LinkedList<Livraison> livraisons;
+
+    /**
+     * Noeud entrepot de la tournée appartenant au plan
+     */
     private Noeud entrepot;
 
+    /**
+     * Instance unique de Tournee, par défaut à nul
+     */
     private static Tournee instanceTournee = null;
 
+    /**
+     * Constructeur privé de Tournee. Initialise la liste de livraison
+     */
     private Tournee() {
-        listeLivraison = new LinkedList<Livraison>();
+        livraisons = new LinkedList<Livraison>();
     }
 
     /**
@@ -41,65 +64,73 @@ public class Tournee {
     }
 
     /**
-     * @return the livreur
+     * @return le nom du livreur
      */
     public String getLivreur() {
         return livreur;
     }
 
     /**
-     * @param livreur the livreur to set
+     * @param livreur nom du livreur à attacher à la tournée
      */
     public void setLivreur(String livreur) {
         this.livreur = livreur;
     }
 
     /**
-     * @return the plan
+     * @return le plan de la tournée
      */
     public Plan getPlan() {
         return plan;
     }
 
     /**
-     * @param plan the plan to set
+     * @param plan a attacher à la tournée
      */
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
 
     /**
-     * @return the listeLivraison
+     * @return livraisons la liste de livraison de la tournée
      */
-    public LinkedList<Livraison> getListeLivraison() {
-        return listeLivraison;
+    public LinkedList<Livraison> getLivraisons() {
+        return livraisons;
     }
 
     /**
-     * @param listeLivraison the listeLivraison to set
+     * Ajout d'une livraison dans la liste de livraison de la tournée
+     *
+     * @param livraison a ajouter à la tournée
      */
-    public void setListeLivraison(LinkedList<Livraison> listeLivraison) {
-        this.listeLivraison = listeLivraison;
-    }
-
     public void addLivraison(Livraison livraison) {
-        this.listeLivraison.add(livraison);
+        this.livraisons.add(livraison);
     }
 
     /**
-     * @return the entrepot
+     * @return le noeud entrepot de la tournée
      */
     public Noeud getEntrepot() {
         return entrepot;
     }
 
     /**
-     * @param entrepot the entrepot to set
+     * @param entrepot noeud attaché comme entrepot à la tournée
      */
     public void setEntrepot(Noeud entrepot) {
         this.entrepot = entrepot;
     }
 
+    /**
+     * Constructeur à partir d'un noeudDOMXML. Parcours les attributs et les
+     * noeuds DOMXML sous-jacents pour remplir l'objet tournée appelant.
+     * Récupère l'entrepot, puis la liste des plages horaires puis la liste des
+     * livraisons et fait à chaque fois appel à leur constructeur respectif.
+     *
+     * @param racine noeud DOMXML parcouru
+     * @throws Exception de synthaxe ou de modèle levées lors de la lecteur du
+     * fichierXML
+     */
     public void construireAPartirDomXML(Element racine) throws Exception {
 
         //Traitement de l'entrepot
