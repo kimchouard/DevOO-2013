@@ -6,12 +6,7 @@
 
 package devoo.h4301.views;
 
-import devoo.h4301.controller.ControleurPlan;
-import devoo.h4301.controller.LecteurXml;
-import devoo.h4301.model.Noeud;
-import devoo.h4301.model.Troncon;
-import java.io.File;
-import javax.swing.JFileChooser;
+import devoo.h4301.controller.*;
 
 /**
  *
@@ -19,8 +14,7 @@ import javax.swing.JFileChooser;
  */
 public class FenetrePrincipale extends javax.swing.JFrame {
 
-    public ControleurPlan controleurPlan;
-    private JFileChooser jFileChooserXML;
+    public ControleurPrincipal controleurPrincipal;
     
     /**
      * Creates new form FenetrePrincipale
@@ -103,39 +97,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
-        String urlXmlPlan = ouvrirFichier();
-        
-        // Lunch load of the map from the file URL 
+        // Lunch load of the map from the file URL asked
+        this.controleurPrincipal.chargerPlan();
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
-        String urlXmlLivraisons = ouvrirFichier();
+//        String urlXmlLivraisons = ouvrirFichier();
         
         // Lunch load of the deliveries from the file URL
     }//GEN-LAST:event_clickChargerLivraisons
-
-
-    /**
-     * Ouvre un dialogue système pour choisir un fichier
-     * @return String urlFichier
-     */
-    private String ouvrirFichier(){
-        jFileChooserXML = new JFileChooser();
-        // Note: source for ExampleFileFilter can be found in FileChooserDemo,
-        // under the demo/jfc directory in the JDK.
-//        ExampleFileFilter filter = new ExampleFileFilter();
-//        filter.addExtension("xml");
-//        filter.setDescription("Fichier XML");
-//        jFileChooserXML.setFileFilter(filter);
-        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        if (jFileChooserXML.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            String filePath = jFileChooserXML.getSelectedFile().getAbsolutePath();
-            System.out.println("You chose to open this file: " + filePath);
-            return filePath;
-        }
-        return null;
-    }
     
     /**
      * @param args the command line arguments
@@ -169,79 +139,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             public void run() {
                 FenetrePrincipale fp = new FenetrePrincipale();
                 fp.setVisible(true);
-                fp.controleurPlan = new ControleurPlan(fp.pGauche, fp);
-        
-//                LecteurXml lec = new LecteurXml();
-//                lec.construirePlanAPartirXML();
-
-                Noeud n0 = new Noeud(0, 200, 200);
-                Noeud n1 = new Noeud(0, 100, 100);
-                Noeud n2 = new Noeud(0, 150, 100);
-                Noeud n3 = new Noeud(0, 200, 100);
-                Noeud n4 = new Noeud(0, 250, 100);
-                Noeud n5 = new Noeud(0, 300, 100);
-                Noeud n6 = new Noeud(0, 300, 150);
-                Noeud n7 = new Noeud(0, 300, 200);
-                Noeud n8 = new Noeud(0, 300, 250);
-                Noeud n9 = new Noeud(0, 300, 300);
-                Noeud n10 = new Noeud(0, 250, 300);
-                Noeud n11 = new Noeud(0, 200, 300);
-                Noeud n12 = new Noeud(0, 150, 300);
-                Noeud n13 = new Noeud(0, 100, 300);
-                Noeud n14 = new Noeud(0, 100, 250);
-                Noeud n15 = new Noeud(0, 100, 200);
-                Noeud n16 = new Noeud(0, 100, 150);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n0);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n1);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n2);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n3);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n4);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n5);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n6);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n7);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n8);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n9);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n10);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n11);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n12);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n13);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n14);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n15);
-                fp.controleurPlan.getVuePlan().ajouterNoeud(n16);
-                
-                Troncon t1 = new Troncon(n0, n1, "t1", 20.5, 1.5);
-                Troncon t2 = new Troncon(n0, n2, "t2", 20.5, 1.5);
-                Troncon t3 = new Troncon(n0, n3, "t3", 20.5, 1.5);
-                Troncon t4 = new Troncon(n0, n4, "t4", 20.5, 1.5);
-                Troncon t5 = new Troncon(n0, n5, "t5", 20.5, 1.5);
-                Troncon t6 = new Troncon(n0, n6, "t6", 20.5, 1.5);
-                Troncon t7 = new Troncon(n0, n7, "t7", 20.5, 1.5);
-                Troncon t8 = new Troncon(n0, n8, "t8", 20.5, 1.5);
-                Troncon t9 = new Troncon(n0, n9, "t9", 20.5, 1.5);
-                Troncon t10 = new Troncon(n0, n10, "t10", 20.5, 1.5);
-                Troncon t11 = new Troncon(n0, n11, "t11", 20.5, 1.5);
-                Troncon t12 = new Troncon(n0, n12, "t12", 20.5, 1.5);
-                Troncon t13 = new Troncon(n0, n13, "t13", 20.5, 1.5);
-                Troncon t14 = new Troncon(n0, n14, "t14", 20.5, 1.5);
-                Troncon t15 = new Troncon(n0, n15, "t15", 20.5, 1.5);
-                Troncon t16 = new Troncon(n0, n16, "t16", 20.5, 1.5);
-
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t1);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t2);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t3);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t4);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t5);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t6);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t7);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t8);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t9);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t10);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t11);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t12);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t13);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t14);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t15);
-                fp.controleurPlan.getVuePlan().ajouterTroncon(t16);
+                fp.controleurPrincipal = new ControleurPrincipal(fp.pGauche, fp);
             }
         });
     }

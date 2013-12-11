@@ -15,6 +15,7 @@ import devoo.h4301.views.VueNoeud;
 import devoo.h4301.views.VuePlan;
 import devoo.h4301.views.VueTroncon;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 
 /**
@@ -22,17 +23,10 @@ import javax.swing.JScrollPane;
  * @author chouard
  */
 public class ControleurPlan {
-    private JScrollPane scrollPanePlan;
-    private FenetrePrincipale fenParent;
-    
     private VuePlan vuePlan;
 
-    public ControleurPlan(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
-        this.setScrollPanePlan(scrollPanePlan);
-        this.setFenParent(fenParent);
-        
+    public ControleurPlan() {
         this.setVuePlan(new VuePlan());
-        this.scrollPanePlan.setViewportView(vuePlan);
     }
     
     //--------------------------------
@@ -41,15 +35,18 @@ public class ControleurPlan {
     /**
      * Affiche le plan à partir du singleton.
      */
-    public void afficherPlan() {
-        Tournee tournee = Tournee.getInstance();
-        
-        ArrayList<Noeud> noeuds = tournee.getPlan().getNoeuds();
+    
+    public void afficherPlan(JScrollPane panneauPlan) {
+        panneauPlan.setViewportView(vuePlan);
+    }
+    
+    public void rafraichirVuePlan(Plan plan) {
+        ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
             this.vuePlan.ajouterNoeud(n);
         }
         
-        ArrayList<Troncon> troncons = tournee.getPlan().getTroncons();
+        ArrayList<Troncon> troncons = plan.getTroncons();
         for (Troncon t : troncons) {
             this.vuePlan.ajouterTroncon(t);
         }
@@ -57,21 +54,6 @@ public class ControleurPlan {
     
     //--------------------------------
     //  Geter - Seter
-    public JScrollPane getScrollPanePlan() {
-        return scrollPanePlan;
-    }
-
-    public void setScrollPanePlan(JScrollPane scrollPanePlan) {
-        this.scrollPanePlan = scrollPanePlan;
-    }
-
-    public FenetrePrincipale getFenParent() {
-        return fenParent;
-    }
-
-    public void setFenParent(FenetrePrincipale fenParent) {
-        this.fenParent = fenParent;
-    }
 
     public VuePlan getVuePlan() {
         return vuePlan;

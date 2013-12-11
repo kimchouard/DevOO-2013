@@ -57,6 +57,10 @@ public class VueTroncon extends javax.swing.JPanel {
     public void setTroncon(Troncon troncon) {
         this.troncon = troncon;
         
+        this.reloadTroncon();
+    }
+    
+    public void reloadTroncon() {
         int larg = Math.abs(troncon.getDestination().getX() - troncon.getOrigine().getX());
         int haut = Math.abs(troncon.getDestination().getY() - troncon.getOrigine().getY());
         if (larg < largMin) {
@@ -80,11 +84,8 @@ public class VueTroncon extends javax.swing.JPanel {
         
         this.setSize(larg, haut);
         this.setLocation(x, y);
-        
-        
-        
     }
-    
+   
     @Override
     public void paintComponent(Graphics g)
     {

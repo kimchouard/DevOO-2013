@@ -51,6 +51,10 @@ public class VueNoeud extends javax.swing.JPanel {
     public void setNoeud(Noeud noeud) {
         this.noeud = noeud;
         
+        this.reloadNoeud();
+    }
+    
+    public void reloadNoeud() {
         this.setSize(diamNoeud, diamNoeud);
         
         int x = this.noeud.getX() - this.getWidth()/2;
