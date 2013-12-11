@@ -71,6 +71,11 @@ public class LecteurXml {
 
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public Tournee construireLivraisonAPartirXML() throws Exception {
 
         Tournee tournee = Tournee.getInstance();
