@@ -130,7 +130,6 @@ public class Livraison {
         Integer idClient = Integer.parseInt(noeudDOMRacine.getAttribute("client"));
         Client client = new Client(idClient);
         this.client = client;
-        System.out.println("livraison crée pour client : " + idClient);
 
     }
 }
