@@ -40,6 +40,11 @@ public class Tournee {
     private Noeud entrepot;
 
     /**
+     * Noeud entrepot de la tournée appartenant au plan
+     */
+    private LinkedList<PlageHoraire> horaires;
+
+    /**
      * Instance unique de Tournee, par défaut à nul
      */
     private static Tournee instanceTournee = null;
@@ -49,6 +54,7 @@ public class Tournee {
      */
     private Tournee() {
         livraisons = new LinkedList<Livraison>();
+        horaires = new LinkedList<PlageHoraire>();
     }
 
     /**
@@ -61,6 +67,24 @@ public class Tournee {
             instanceTournee = new Tournee();
         }
         return instanceTournee;
+    }
+
+    /**
+     * Getter sur la liste des plages horaires
+     *
+     * @return horaires
+     */
+    public LinkedList<PlageHoraire> getHoraires() {
+        return horaires;
+    }
+
+    /**
+     * Ajout d'une plage horaire dans la liste
+     *
+     * @param horaire à ajouter à horairess
+     */
+    public void addHoraire(PlageHoraire horaire) {
+        this.horaires.add(horaire);
     }
 
     /**
@@ -161,6 +185,7 @@ public class Tournee {
             Element palgeElem = (Element) listPlage.item(i);
             PlageHoraire plage = new PlageHoraire();
             plage.construireAPartirDomXML(palgeElem);
+            this.addHoraire(plage);
 
             //Traitement des livraisons
             //Récupération de "Livraisons"
