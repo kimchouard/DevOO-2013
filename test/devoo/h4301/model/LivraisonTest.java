@@ -6,12 +6,10 @@ package devoo.h4301.model;
 
 import devoo.h4301.fixture.domXml;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.w3c.dom.Element;
-import sun.awt.HorizBagLayout;
 
 /**
  *
