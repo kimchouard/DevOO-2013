@@ -61,9 +61,6 @@ public class Noeud {
     public Noeud(Integer id) {
         this.id = id;
     }
-
-    public Noeud() {
-    }
     
     /**
      * Retourne l'id du noeud

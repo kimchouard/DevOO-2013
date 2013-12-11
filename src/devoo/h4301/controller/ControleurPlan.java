@@ -8,6 +8,7 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
+import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
 import devoo.h4301.views.FenetrePrincipale;
 import devoo.h4301.views.VueNoeud;
@@ -41,14 +42,14 @@ public class ControleurPlan {
      * Affiche le plan à partir du singleton.
      */
     public void afficherPlan() {
-        Plan plan = Plan.getInstance();
+        Tournee tournee = Tournee.getInstance();
         
-        ArrayList<Noeud> noeuds = plan.getNoeuds();
+        ArrayList<Noeud> noeuds = tournee.getPlan().getNoeuds();
         for (Noeud n : noeuds) {
             this.vuePlan.ajouterNoeud(n);
         }
         
-        ArrayList<Troncon> troncons = plan.getTroncons();
+        ArrayList<Troncon> troncons = tournee.getPlan().getTroncons();
         for (Troncon t : troncons) {
             this.vuePlan.ajouterTroncon(t);
         }

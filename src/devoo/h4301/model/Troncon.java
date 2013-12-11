@@ -90,9 +90,6 @@ public class Troncon {
         this.vitesse = vitesse;
     }
 
-    public Troncon() {
-    }
-
     public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception {
 
 // todo : gerer les erreurs de syntaxe dans le fichier XML !
