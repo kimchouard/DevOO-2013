@@ -148,7 +148,7 @@ public class Plan {
                 Troncon tronconNouveau = new Troncon();
 
                 tronconNouveau.setOrigine(origine);
-                tronconNouveau.construireAPartirDomXML(tronconElem);
+                tronconNouveau.construireAPartirDomXML(tronconElem, this);
 
                 this.addTroncon(tronconNouveau);
             }

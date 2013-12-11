@@ -202,7 +202,7 @@ public class Tournee {
             for (int j = 0; j < listLiv2.getLength(); j++) {
                 Element livraisonElem = (Element) listLiv2.item(j);
                 Livraison livraison = new Livraison();
-                livraison.construireAPartirDomXML(livraisonElem, plage);
+                livraison.construireAPartirDomXML(livraisonElem, plage, this.getPlan());
                 this.addLivraison(livraison);
             }
         }

@@ -114,15 +114,17 @@ public class Livraison {
      *
      * @param noeudDOMRacine noeud DOMXML parcouru
      * @param plage plage horaire attachée à la livraison
+     * @param plan plan de la zone urbaine sur lequel est construit la tournée
+     * contenant cette livraison
      * @throws Exception de synthaxe ou de modèle levées lors de la lecteur du
      * fichierXML
      */
-    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) throws Exception {
+    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage, Plan plan) throws Exception {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.setHorraire(plage);
 
         Integer adresse = Integer.parseInt(noeudDOMRacine.getAttribute("adresse"));
-        Noeud add = Tournee.getInstance().getPlan().getNoeudById(adresse);
+        Noeud add = plan.getNoeudById(adresse);
         this.setDestination(add);
 
         Integer idClient = Integer.parseInt(noeudDOMRacine.getAttribute("client"));

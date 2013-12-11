@@ -129,10 +129,11 @@ public class Troncon {
     /**
      *Constructeur à partir d'un noeudDOMXML. Parcours les attributs pour remplir l'objet tronçon appelant.
      * @param noeudDOMRacine noeud DOMXML parcouru
+     * @param plan auquel le tronçon appartient
      * @throws Exception de synthaxe ou de modèle levées lors de la lecteur du
      * fichierXML
      */
-    public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception {
+    public void construireAPartirDomXML(Element noeudDOMRacine, Plan plan) throws Exception {
 
 /// todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.nomRue = noeudDOMRacine.getAttribute("nomRue");
@@ -140,9 +141,7 @@ public class Troncon {
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
         System.out.println("troncon créé");
         Integer idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-        Tournee t = Tournee.getInstance();
-        Plan p = t.getPlan();
-        destination = p.getNoeudById(idDestination);
+        destination = plan.getNoeudById(idDestination);
         System.out.println("troncon créé totalement");
     }
 
