@@ -43,8 +43,10 @@ public class ControleurPrincipal {
             System.out.println("Error: "+e.getMessage());
         }
         Plan p = Tournee.getInstance().getPlan();
+        controleurPlan.setVuePlan(p);
         
         controleurPlan.rafraichirVuePlan(p);
+        controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
     }
     

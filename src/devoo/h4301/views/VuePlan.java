@@ -7,6 +7,7 @@
 package devoo.h4301.views;
 
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.Plan;
 import devoo.h4301.model.Troncon;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,10 +18,10 @@ import java.util.ArrayList;
  * @author chouard
  */
 public class VuePlan extends javax.swing.JPanel {
+    private Plan plan;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     
-    private int minX, minY, maxX, maxY;
     protected double zoomScale = 1.0;
     public final int padding = 20;
     
@@ -41,9 +42,7 @@ public class VuePlan extends javax.swing.JPanel {
      * Creates new form VuePlan
      */
     public VuePlan() {
-        this.maxX = this.padding;
-        this.maxY = this.padding;
-        
+        this.plan = new Plan();
         initialize();
     }
     
@@ -64,27 +63,7 @@ public class VuePlan extends javax.swing.JPanel {
     public void ajouterNoeud(Noeud noeud) {
         VueNoeud v = new VueNoeud(noeud);
         this.placerNoeud(v);
-        
-        if (vueNoeuds.isEmpty()) {
-            this.setMinX(v.getX());
-            this.setMinY(v.getY());
-            this.setMaxX(v.getX());
-            this.setMaxY(v.getY());
-        }
-        else {
-            if (v.getX() > this.maxX) {
-                this.setMaxX(v.getX());
-            }
-            if (v.getY() > this.maxY) {
-                this.setMaxY(v.getY());
-            }
-            if (v.getX() < this.minX) {
-                this.setMinX(v.getX());
-            }
-            if (v.getY() < this.minY) {
-                this.setMinY(v.getY());
-            }
-        }
+        this.updateVuePlanFrame();
         
         this.vueNoeuds.add(v);
         this.add(v);
@@ -130,26 +109,6 @@ public class VuePlan extends javax.swing.JPanel {
         return vueNoeuds;
     }
     
-    private void setMinX(int minX) {
-        this.minX = minX;
-        this.updateVuePlanFrame();
-    }
-
-    private void setMinY(int minY) {
-        this.minY = minY;
-        this.updateVuePlanFrame();
-    }
-
-    private void setMaxX(int maxX) {
-        this.maxX = maxX;
-        this.updateVuePlanFrame();
-    }
-
-    private void setMaxY(int maxY) {
-        this.maxY = maxY;
-        this.updateVuePlanFrame();
-    }
-    
     public double getZoomScale() {
         return zoomScale;
     }
@@ -160,20 +119,32 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     private void updateVuePlanFrame() {
-        Dimension dimension = new Dimension(this.scaledSize(maxX) + padding*2, this.scaledSize(maxY) + padding*2);
+        Dimension dimension = new Dimension(this.scaledSize(plan.getMaxX()) + padding*2, this.scaledSize(plan.getMaxY()) + padding*2);
         this.setPreferredSize(dimension);
     }
     
     private int scaledCoordinateVertical(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - minY)) + padding;
+        return (int)(this.zoomScale * (coordonate - plan.getMinY())) + padding;
     }
     
     private int scaledCoordinateHorizontal(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - minX)) + padding;
+        return (int)(this.zoomScale * (coordonate - plan.getMinX())) + padding;
     }
     
     private int scaledSize(int size) {
         return (int)(this.zoomScale * size);
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+        plan.setMinX(0);
+        plan.setMinY(0);
+        plan.setMaxX(this.padding);
+        plan.setMaxY(this.padding);
     }
 
     /**

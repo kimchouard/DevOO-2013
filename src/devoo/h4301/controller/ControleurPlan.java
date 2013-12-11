@@ -27,8 +27,7 @@ public class ControleurPlan {
     private VuePlan vuePlan;
 
     public ControleurPlan() {
-        this.setVuePlan(new VuePlan());
-        this.vuePlan.setBackground(Color.WHITE);
+        this.vuePlan = new VuePlan();
     }
     
     //--------------------------------
@@ -56,6 +55,10 @@ public class ControleurPlan {
         }
     }
     
+    public void scaleAutoVuePlan(JScrollPane panneauPlan) {
+        
+    }
+    
     //--------------------------------
     //  Geter - Seter
 
@@ -63,7 +66,8 @@ public class ControleurPlan {
         return vuePlan;
     }
 
-    public void setVuePlan(VuePlan vuePlan) {
-        this.vuePlan = vuePlan;
+    public void setVuePlan(Plan plan) {
+        this.vuePlan.setPlan(plan);
+        this.vuePlan.setBackground(Color.WHITE);
     }
 }
