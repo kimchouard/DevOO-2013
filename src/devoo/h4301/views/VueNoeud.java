@@ -18,10 +18,6 @@ public class VueNoeud extends javax.swing.JPanel {
     
     private Noeud noeud;
     
-    private final Color rougeMaps = new Color(217, 95, 87);
-    
-    public static int diamNoeud = 15;
-    
     /**
      * Creates new form VueNoeud
      */
@@ -50,23 +46,13 @@ public class VueNoeud extends javax.swing.JPanel {
 
     public void setNoeud(Noeud noeud) {
         this.noeud = noeud;
-        
-        this.reloadNoeud();
-    }
-    
-    public void reloadNoeud() {
-        this.setSize(diamNoeud, diamNoeud);
-        
-        int x = this.noeud.getX() - this.getWidth()/2;
-        int y = this.noeud.getY() - this.getHeight()/2;
-        this.setLocation(x, y);
     }
     
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(rougeMaps);
+        g.setColor(VuePlan.rougeMaps);
         g.fillOval(0,0,this.getWidth(),this.getHeight());
     }
     

@@ -20,13 +20,6 @@ public class VueTroncon extends javax.swing.JPanel {
     
     private Troncon troncon;
     
-    private final Color jauneMaps = new Color(248, 228, 122);
-    private final Color blancMaps = new Color(255, 255, 255);
-    
-    private static int diamNoeud = VueNoeud.diamNoeud;
-    private static int largeurTrait = 4;
-    private static int hautMin = 4;
-    private static int largMin = 4;
     /**
      * Creates new form VueTroncon
      */
@@ -45,9 +38,9 @@ public class VueTroncon extends javax.swing.JPanel {
     private void initialize() {
         initComponents();
 
-        this.setOpaque(false);
+        this.setOpaque(true);
         this.setVisible(true);
-        this.setBackground(jauneMaps); 
+        this.setBackground(Color.BLACK); 
     }
 
     public Troncon getTroncon() {
@@ -56,66 +49,38 @@ public class VueTroncon extends javax.swing.JPanel {
 
     public void setTroncon(Troncon troncon) {
         this.troncon = troncon;
-        
-        this.reloadTroncon();
-    }
-    
-    public void reloadTroncon() {
-        int larg = Math.abs(troncon.getDestination().getX() - troncon.getOrigine().getX());
-        int haut = Math.abs(troncon.getDestination().getY() - troncon.getOrigine().getY());
-        if (larg < largMin) {
-            larg = largMin;
-        }
-        if (haut < hautMin) {
-            haut = hautMin;
-        }
-        
-        int x = Math.min(troncon.getOrigine().getX(), troncon.getDestination().getX()) - largeurTrait/2;
-        int y = Math.min(troncon.getOrigine().getY(), troncon.getDestination().getY()) - largeurTrait/2;
-        
-        if (   (troncon.getDestination().getX() > troncon.getOrigine().getX()) && (troncon.getDestination().getY() < troncon.getOrigine().getY())
-            || (troncon.getDestination().getX() < troncon.getOrigine().getX()) && (troncon.getDestination().getY() > troncon.getOrigine().getY())
-        ) {
-            x -= diamNoeud/2;
-            y -= diamNoeud/2;
-            larg += diamNoeud/2;
-            haut += diamNoeud/2;
-        }
-        
-        this.setSize(larg, haut);
-        this.setLocation(x, y);
     }
    
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(jauneMaps);
+        g.setColor(VuePlan.jauneMaps);
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setStroke(new BasicStroke(largeurTrait));
+        g2D.setStroke(new BasicStroke(VuePlan.largeurTraitTroncon));
         
         int xDepart, yDepart, xArrivee, yArrivee;
         
-        if (this.getWidth() <= largMin) {
-            xDepart = largMin/2;
-            xArrivee = largMin/2;
+        if (this.getWidth() <= VuePlan.xMinTroncon) {
+            xDepart = VuePlan.xMinTroncon/2;
+            xArrivee = VuePlan.xMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getX() > this.getTroncon().getDestination().getX()) {
-            xDepart = this.getWidth() + diamNoeud/2;
-            xArrivee = diamNoeud/2;
+            xDepart = this.getWidth() + VuePlan.diamNoeud/2;
+            xArrivee = VuePlan.diamNoeud/2;
         } else {
-            xDepart = diamNoeud/2;
-            xArrivee = this.getWidth() + diamNoeud/2;
+            xDepart = VuePlan.diamNoeud/2;
+            xArrivee = this.getWidth() + VuePlan.diamNoeud/2;
         }
         
-        if (this.getHeight() <= hautMin) {
-            yDepart = hautMin/2;
-            yArrivee = hautMin/2;
+        if (this.getHeight() <= VuePlan.yMinTroncon) {
+            yDepart = VuePlan.yMinTroncon/2;
+            yArrivee = VuePlan.yMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getY() > this.getTroncon().getDestination().getY()) {
-            yDepart = this.getHeight() + diamNoeud/2;
-            yArrivee = diamNoeud/2;
+            yDepart = this.getHeight() + VuePlan.diamNoeud/2;
+            yArrivee = VuePlan.diamNoeud/2;
         } else {
-            yDepart = diamNoeud/2;
-            yArrivee = this.getHeight() + diamNoeud/2;
+            yDepart = VuePlan.diamNoeud/2;
+            yArrivee = this.getHeight() + VuePlan.diamNoeud/2;
         }
         
         g.drawLine(xDepart, yDepart, xArrivee, yArrivee);

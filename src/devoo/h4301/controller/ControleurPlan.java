@@ -14,6 +14,7 @@ import devoo.h4301.views.FenetrePrincipale;
 import devoo.h4301.views.VueNoeud;
 import devoo.h4301.views.VuePlan;
 import devoo.h4301.views.VueTroncon;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
@@ -27,6 +28,7 @@ public class ControleurPlan {
 
     public ControleurPlan() {
         this.setVuePlan(new VuePlan());
+        this.vuePlan.setBackground(Color.WHITE);
     }
     
     //--------------------------------
@@ -41,6 +43,8 @@ public class ControleurPlan {
     }
     
     public void rafraichirVuePlan(Plan plan) {
+        this.vuePlan.reset();
+        
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
             this.vuePlan.ajouterNoeud(n);

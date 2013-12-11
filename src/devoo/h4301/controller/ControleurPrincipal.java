@@ -35,15 +35,20 @@ public class ControleurPrincipal {
     //  Public functions
     
     public void chargerPlan() {
-//        String url = ouvrirFichier();
-//        
-//        try {
-//            this.lecteurXml.construirePlanAPartirXML();
-//        } catch (Exception e) {
-//            System.out.println("Error: "+e.getMessage());
-//        }
-//        Plan p = Tournee.getInstance().getPlan();
+        String urlPlan = ouvrirFichier();
         
+        try {
+            this.lecteurXml.construirePlanAPartirXML(urlPlan);
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getMessage());
+        }
+        Plan p = Tournee.getInstance().getPlan();
+        
+        controleurPlan.rafraichirVuePlan(p);
+        controleurPlan.afficherPlan(panneauPlan);
+    }
+    
+    public void chargerPlanDebug() {
         Plan p = initDebug();
         
         controleurPlan.rafraichirVuePlan(p);

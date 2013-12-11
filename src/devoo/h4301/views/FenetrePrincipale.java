@@ -38,8 +38,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         redo = new javax.swing.JButton();
         undo = new javax.swing.JButton();
         pDroit = new javax.swing.JScrollPane();
+        debug = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pGauche.setAutoscrolls(true);
 
         chargerPlan.setText("Charger Plan");
         chargerPlan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -59,6 +62,13 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         undo.setText("Undo");
 
+        debug.setText("DEBUG");
+        debug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickDebug(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,7 +82,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addComponent(chargerPlan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chargerLiv)
-                .addGap(148, 148, 148)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(debug)
+                .addGap(45, 45, 45)
                 .addComponent(undo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(redo)
@@ -86,7 +98,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(chargerPlan)
                     .addComponent(chargerLiv)
                     .addComponent(redo)
-                    .addComponent(undo))
+                    .addComponent(undo)
+                    .addComponent(debug))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pGauche, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
@@ -106,6 +119,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         
         // Lunch load of the deliveries from the file URL
     }//GEN-LAST:event_clickChargerLivraisons
+
+    private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
+        // TODO add your handling code here:
+        this.controleurPrincipal.chargerPlanDebug();
+    }//GEN-LAST:event_clickDebug
     
     /**
      * @param args the command line arguments
@@ -149,6 +167,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chargerLiv;
     private javax.swing.JButton chargerPlan;
+    private javax.swing.JButton debug;
     private javax.swing.JScrollPane pDroit;
     private javax.swing.JScrollPane pGauche;
     private javax.swing.JButton redo;
