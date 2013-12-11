@@ -11,13 +11,29 @@ package devoo.h4301.model;
  * @author pmdartus
  */
 public class Client {
+
+    /**
+     *
+     */
     protected Integer id;
+
+    /**
+     *
+     */
     protected String name;
     
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public Client(Integer id) {
         this.id = id;
     }
