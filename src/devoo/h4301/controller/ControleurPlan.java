@@ -39,6 +39,7 @@ public class ControleurPlan {
     
     public void afficherPlan(JScrollPane panneauPlan) {
         panneauPlan.setViewportView(vuePlan);
+        this.vuePlan.updateUI();
     }
     
     public void rafraichirVuePlan() {
@@ -59,8 +60,8 @@ public class ControleurPlan {
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
         Plan p =  vuePlan.getPlan();
         
-        double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding;
-        double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding;
+        double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding + VuePlan.diamNoeud;
+        double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding + VuePlan.diamNoeud;
         double panneauWidth = panneauPlan.getWidth();
         double panneauHeight = panneauPlan.getHeight();
         double scaleX = panneauWidth / planWidth;

@@ -89,20 +89,13 @@ public class VuePlan extends javax.swing.JPanel {
     public void placerTroncon(VueTroncon vueTroncon) {
         Troncon troncon = vueTroncon.getTroncon();
         
-        int larg = Math.abs(troncon.getDestination().getX() - troncon.getOrigine().getX());
-        int haut = Math.abs(troncon.getDestination().getY() - troncon.getOrigine().getY());
-        if (larg < xMinTroncon) {
-            larg = xMinTroncon;
-        }
-        if (haut < yMinTroncon) {
-            haut = yMinTroncon;
-        }
-        
         int x = Math.min(troncon.getOrigine().getX(), troncon.getDestination().getX());
         int y = Math.min(troncon.getOrigine().getY(), troncon.getDestination().getY());
-        
-        vueTroncon.setSize(larg, haut);
         vueTroncon.setLocation(this.scaledCoordinateHorizontal(x) - diamNoeud/2, this.scaledCoordinateVertical(y) - diamNoeud/2);
+        
+        int larg = Math.abs(troncon.getDestination().getX() - troncon.getOrigine().getX());
+        int haut = Math.abs(troncon.getDestination().getY() - troncon.getOrigine().getY());
+        vueTroncon.setSize(this.scaledSize(larg) + diamNoeud, this.scaledSize(haut) + diamNoeud);
     }
     
     public ArrayList<VueNoeud> getVueNoeuds() {
@@ -127,11 +120,11 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     private int scaledCoordinateVertical(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - plan.getMinY())) + padding;
+        return (int)(this.zoomScale * (coordonate - plan.getMinY()) ) + padding;
     }
     
     private int scaledCoordinateHorizontal(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - plan.getMinX())) + padding;
+        return (int)(this.zoomScale * (coordonate - plan.getMinX()) ) + padding;
     }
     
     private int scaledSize(int size) {

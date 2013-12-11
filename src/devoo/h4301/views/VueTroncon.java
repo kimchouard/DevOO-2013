@@ -38,7 +38,7 @@ public class VueTroncon extends javax.swing.JPanel {
     private void initialize() {
         initComponents();
 
-        this.setOpaque(true);
+        this.setOpaque(false);
         this.setVisible(true);
         this.setBackground(Color.BLACK); 
     }
@@ -65,22 +65,22 @@ public class VueTroncon extends javax.swing.JPanel {
             xDepart = VuePlan.xMinTroncon/2;
             xArrivee = VuePlan.xMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getX() > this.getTroncon().getDestination().getX()) {
-            xDepart = this.getWidth() + VuePlan.diamNoeud/2;
+            xDepart = this.getWidth() - VuePlan.diamNoeud/2;
             xArrivee = VuePlan.diamNoeud/2;
         } else {
             xDepart = VuePlan.diamNoeud/2;
-            xArrivee = this.getWidth() + VuePlan.diamNoeud/2;
+            xArrivee = this.getWidth() - VuePlan.diamNoeud/2;
         }
         
         if (this.getHeight() <= VuePlan.yMinTroncon) {
             yDepart = VuePlan.yMinTroncon/2;
             yArrivee = VuePlan.yMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getY() > this.getTroncon().getDestination().getY()) {
-            yDepart = this.getHeight() + VuePlan.diamNoeud/2;
+            yDepart = this.getHeight() - VuePlan.diamNoeud/2;
             yArrivee = VuePlan.diamNoeud/2;
         } else {
             yDepart = VuePlan.diamNoeud/2;
-            yArrivee = this.getHeight() + VuePlan.diamNoeud/2;
+            yArrivee = this.getHeight() - VuePlan.diamNoeud/2;
         }
         
         g.drawLine(xDepart, yDepart, xArrivee, yArrivee);
