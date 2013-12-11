@@ -41,8 +41,9 @@ public class ControleurPlan {
         panneauPlan.setViewportView(vuePlan);
     }
     
-    public void rafraichirVuePlan(Plan plan) {
+    public void rafraichirVuePlan() {
         this.vuePlan.reset();
+        Plan plan = this.vuePlan.getPlan();
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
@@ -56,7 +57,21 @@ public class ControleurPlan {
     }
     
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
+        Plan p =  vuePlan.getPlan();
         
+        double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding;
+        double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding;
+        double panneauWidth = panneauPlan.getWidth();
+        double panneauHeight = panneauPlan.getHeight();
+        double scaleX = panneauWidth / planWidth;
+        double scaleY = panneauHeight / planHeight;
+        
+        if (scaleX < scaleY) {
+            vuePlan.setZoomScale(scaleX);
+        }
+        else {
+            vuePlan.setZoomScale(scaleY);
+        }
     }
     
     //--------------------------------

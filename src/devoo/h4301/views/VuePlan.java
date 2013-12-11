@@ -23,7 +23,7 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     
     protected double zoomScale = 1.0;
-    public final int padding = 20;
+    public static final int padding = 20;
     
     // Constantes Couleur
     public static final Color rougeMaps = new Color(217, 95, 87);
@@ -119,7 +119,10 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     private void updateVuePlanFrame() {
-        Dimension dimension = new Dimension(this.scaledSize(plan.getMaxX()) + padding*2, this.scaledSize(plan.getMaxY()) + padding*2);
+        int planWidth = plan.getMaxX() - plan.getMinX();
+        int planHeight = plan.getMaxY() - plan.getMinY();
+        
+        Dimension dimension = new Dimension(this.scaledSize(planWidth) + padding*2, this.scaledSize(planHeight) + padding*2);
         this.setPreferredSize(dimension);
     }
     
@@ -141,10 +144,6 @@ public class VuePlan extends javax.swing.JPanel {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
-        plan.setMinX(0);
-        plan.setMinY(0);
-        plan.setMaxX(this.padding);
-        plan.setMaxY(this.padding);
     }
 
     /**

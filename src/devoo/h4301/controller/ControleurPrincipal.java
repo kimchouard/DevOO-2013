@@ -44,16 +44,17 @@ public class ControleurPrincipal {
         }
         Plan p = Tournee.getInstance().getPlan();
         controleurPlan.setVuePlan(p);
-        
-        controleurPlan.rafraichirVuePlan(p);
+        controleurPlan.scaleAutoVuePlan(panneauPlan);
+        controleurPlan.rafraichirVuePlan();
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
     }
     
     public void chargerPlanDebug() {
         Plan p = initDebug();
-        
-        controleurPlan.rafraichirVuePlan(p);
+        controleurPlan.setVuePlan(p);
+        controleurPlan.scaleAutoVuePlan(panneauPlan);
+        controleurPlan.rafraichirVuePlan();
         controleurPlan.afficherPlan(panneauPlan);
     }
     

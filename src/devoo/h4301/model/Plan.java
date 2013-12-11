@@ -57,8 +57,6 @@ public class Plan {
      * @param noeud noeud a ajouter
      */
     public void addNoeud(Noeud noeud) {
-        this.noeuds.add(noeud);
-        
         if (noeuds.isEmpty()) {
             this.setMinX(noeud.getX());
             this.setMinY(noeud.getY());
@@ -79,6 +77,8 @@ public class Plan {
                 this.setMinY(noeud.getY());
             }
         }
+        
+        this.noeuds.add(noeud);
     }
     
     public void setMinX(int minX) {
