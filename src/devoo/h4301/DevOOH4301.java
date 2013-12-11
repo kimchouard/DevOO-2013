@@ -22,8 +22,8 @@ public class DevOOH4301 {
        try{ 
         LecteurXml lec = new LecteurXml();
 
-        lec.construirePlanAPartirXML();
-        lec.construireLivraisonAPartirXML();
+        lec.construirePlanAPartirXML("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
+        lec.construireLivraisonAPartirXML("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
        } catch (Exception e){
        System.out.println(e.getMessage());
        }
