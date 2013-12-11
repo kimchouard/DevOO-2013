@@ -8,6 +8,9 @@ package devoo.h4301.model;
 import org.w3c.dom.Element;
 
 /**
+ * Class Livraison. Une livraison doit être effectuée, dans la plage horaire qui
+ * lui est ratachée, au noeud destination. Chaque livraison correspond à un
+ * client.
  *
  * @author pmdartus
  */
@@ -33,42 +36,91 @@ public class Livraison {
      */
     protected Client client;
 
+    /**
+     * Getter sur la destination
+     *
+     * @return la destination
+     */
     public Noeud getDestination() {
         return destination;
     }
 
+    /**
+     * Setter sur la destination
+     *
+     * @param destination à attacher à la livraison
+     */
     public void setDestination(Noeud destination) {
         this.destination = destination;
     }
 
+    /**
+     * Getter sur le colis
+     *
+     * @return le numéro de colis de la livraison
+     */
     public Integer getColis() {
         return colis;
     }
 
+    /**
+     * Setter sur le colis
+     *
+     * @param colis à attacher à la livraison
+     */
     public void setColis(Integer colis) {
         this.colis = colis;
     }
 
+    /**
+     * Getter sur la plage horaire
+     *
+     * @return la plage horaire
+     */
     public PlageHoraire getHoraire() {
         return horaire;
     }
 
+    /**
+     * Setter sur la plage horaire
+     *
+     * @param horaire à attacher à la livraison
+     */
     public void setHorraire(PlageHoraire horaire) {
         this.horaire = horaire;
     }
 
+    /**
+     * Getter sur le client
+     *
+     * @return le client
+     */
     public Client getClient() {
         return client;
     }
 
+    /**
+     * Setter sur le client
+     *
+     * @param client à attacher à la livraison
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
-    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) throws Exception  {
+    /**
+     * Constructeur à partir d'un noeudDOMXML. Parcours les attributs pour
+     * remplir l'objet livraison appelant et cré le client associé.
+     *
+     * @param noeudDOMRacine noeud DOMXML parcouru
+     * @param plage plage horaire attachée à la livraison
+     * @throws Exception de synthaxe ou de modèle levées lors de la lecteur du
+     * fichierXML
+     */
+    public void construireAPartirDomXML(Element noeudDOMRacine, PlageHoraire plage) throws Exception {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.setHorraire(plage);
-        
+
         Integer adresse = Integer.parseInt(noeudDOMRacine.getAttribute("adresse"));
         Noeud add = Tournee.getInstance().getPlan().getNoeudById(adresse);
         this.setDestination(add);
@@ -76,7 +128,7 @@ public class Livraison {
         Integer idClient = Integer.parseInt(noeudDOMRacine.getAttribute("client"));
         Client client = new Client(idClient);
         this.client = client;
-    System.out.println("livraison crée pour client : "+ idClient);
+        System.out.println("livraison crée pour client : " + idClient);
 
     }
 }

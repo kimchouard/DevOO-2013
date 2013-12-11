@@ -15,17 +15,17 @@ import org.w3c.dom.Element;
 public class Noeud {
     
     /**
-     * id du noeud
+     * Id du noeud
      */
     protected Integer id;
     
     /**
-     * position en x du noeud
+     * Position en x du noeud
      */
     protected Integer x;
     
     /**
-     * position en y du noeud
+     * Position en y du noeud
      */
     protected Integer y;
 
@@ -45,7 +45,8 @@ public class Noeud {
     /**
      * Constructeur d'un noeud grace au DOM XML
      * @param noeudDOMRacine noeud du DOM XML
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception de synthaxe ou de modèle levées lors de la lecteur du
+     * fichierXML
      */
     public void construireAPartirDomXML(Element noeudDOMRacine)throws Exception {
         // todo : gerer les erreurs de syntaxe dans le fichier XML !

@@ -7,32 +7,32 @@
 package devoo.h4301.model;
 
 /**
- *
+ * Classe client regroupant les informations sur un client.
  * @author pmdartus
  */
 public class Client {
 
     /**
-     *
+     *Id du client
      */
     protected Integer id;
 
     /**
-     *
+     *Nom du client
      */
     protected String name;
     
     /**
-     *
-     * @return
+     *Getter sur l'id du client
+     * @return l'id du client appelant
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
+     *Constructeur client
+     * @param id du client à créer
      */
     public Client(Integer id) {
         this.id = id;
