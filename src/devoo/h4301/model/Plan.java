@@ -60,7 +60,6 @@ public class Plan {
     public void addNoeud(Noeud noeud) throws Exception {
         Boolean trouvee = false;
         for (int i = 0; i < this.noeuds.size() && !trouvee; i++) {
-            System.out.println(this.noeuds.get(i).getId());
             if (this.noeuds.get(i).getId().equals(noeud.id)) {
                 trouvee = true;
             }
