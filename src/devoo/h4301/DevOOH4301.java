@@ -5,7 +5,9 @@
  */
 package devoo.h4301;
 
+import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.controller.LecteurXml;
+import devoo.h4301.views.FenetrePrincipale;
 
 /**
  *
@@ -20,15 +22,14 @@ public class DevOOH4301 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        try {
-            LecteurXml lec = new LecteurXml();
-
-            lec.construirePlanAPartirXML("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
-            lec.construireLivraisonAPartirXML("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                FenetrePrincipale fp = new FenetrePrincipale();
+                fp.setVisible(true);
+                fp.controleurPrincipal = new ControleurPrincipal(fp.getpGauche(), fp);
+            }
+        });
     }
 
 }
