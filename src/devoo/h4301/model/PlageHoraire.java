@@ -78,12 +78,21 @@ public class PlageHoraire {
         this.fin = fin;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
         return hash;
     }
 
+    /**
+     *Regarde l'égalité entre deux plages horaire.
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

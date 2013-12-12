@@ -94,6 +94,12 @@ public class Tournee {
 
     }
 
+    /**
+     * Vérifie que les plages horaires sont bien ordonnée : la date de fin d'une
+     * plage horaire doit être plus tôt que l'heure de début de la suivante.
+     *
+     * @throws Exception
+     */
     public void cheekPlageHoraires() throws Exception {
         LinkedList<PlageHoraire> list = this.getHoraires();
         for (int i = 1; i <= list.size(); i++) {
@@ -103,7 +109,7 @@ public class Tournee {
                 throw e;
             }
         }
-         System.out.println("vérif pl ok");
+        System.out.println("vérif pl ok");
     }
 
     /**
