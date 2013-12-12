@@ -27,6 +27,11 @@ public class Plan {
      * Liste de tronçon du plan
      */
     protected ArrayList<Troncon> troncons;
+    
+    /**
+     * Taille zone de travail
+     */
+    private int minX, minY, maxX, maxY;
 
     /**
      * Constructeur initialisant la liste de noeud et la liste de tronçon.
@@ -52,7 +57,60 @@ public class Plan {
      * @param noeud noeud a ajouter
      */
     public void addNoeud(Noeud noeud) {
+        if (noeuds.isEmpty()) {
+            this.setMinX(noeud.getX());
+            this.setMinY(noeud.getY());
+            this.setMaxX(noeud.getX());
+            this.setMaxY(noeud.getY());
+        }
+        else {
+            if (noeud.getX() > this.maxX) {
+                this.setMaxX(noeud.getX());
+            }
+            if (noeud.getY() > this.maxY) {
+                this.setMaxY(noeud.getY());
+            }
+            if (noeud.getX() < this.minX) {
+                this.setMinX(noeud.getX());
+            }
+            if (noeud.getY() < this.minY) {
+                this.setMinY(noeud.getY());
+            }
+        }
+        
         this.noeuds.add(noeud);
+    }
+    
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    public void setMinY(int minY) {
+        this.minY = minY;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMaxY() {
+        return maxY;
     }
 
     /**
