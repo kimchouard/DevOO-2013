@@ -8,6 +8,8 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.*;
 import devoo.h4301.views.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 
@@ -51,11 +53,15 @@ public class ControleurPrincipal {
     }
     
     public void chargerPlanDebug() {
-        Plan p = initDebug();
-        controleurPlan.setVuePlan(p);
-        controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan();
-        controleurPlan.afficherPlan(panneauPlan);
+        try {
+            Plan p = initDebug();
+            controleurPlan.setVuePlan(p);
+            controleurPlan.scaleAutoVuePlan(panneauPlan);
+            controleurPlan.rafraichirVuePlan();
+            controleurPlan.afficherPlan(panneauPlan);
+        } catch (Exception ex) {
+            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     //--------------------------------
@@ -83,7 +89,7 @@ public class ControleurPrincipal {
         return null;
     }
     
-    private Plan initDebug() {
+    private Plan initDebug() throws Exception {
         Plan p = new Plan();
         
         Noeud n0 = new Noeud(0, 200, 200);
