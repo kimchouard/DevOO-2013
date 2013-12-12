@@ -98,6 +98,7 @@ public class LecteurXml {
             if (racine.getNodeName().equals("JourneeType")) {
                 System.out.println("début de construction de tournee ");
                 tournee.construireAPartirDomXML(racine);
+                tournee.cheekPlageHoraires();
 
             }
 
