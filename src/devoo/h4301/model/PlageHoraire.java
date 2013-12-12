@@ -37,7 +37,9 @@ public class PlageHoraire {
         setDebut(construireDateAPartirString(stringHeureDebut));
         setFin(construireDateAPartirString(stringHeureFin));
         
-        assert getDebut().before(getFin());
+        if (getFin().before(getDebut())) {
+            throw new IllegalArgumentException("Heure de fin avant heure de debut");
+        }
     }
     
     private Date construireDateAPartirString(String stringHeure) throws ParseException {

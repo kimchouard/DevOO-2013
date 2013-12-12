@@ -40,6 +40,7 @@ public class PlageHoraireTest {
     /**
      * Construction d'une plage horraire valide 
      * @throws Exception levé lors de la création de la plge horraire
+     * @result Plage horraire crée avec les bonnes valeurs
      */
     @Test
     public void testConstruireAPartirDomXML() throws Exception {        
@@ -53,4 +54,36 @@ public class PlageHoraireTest {
         assertEquals("Same Hour for end", plageHorraire.getFin().getTime(),fin.getTime());
     }
     
+    /**
+     * Creation d'une plage horraire avec des heures incohérente
+     * @throws Exception levée à la création
+     * @result Lève une exception de cohérence
+     */
+    @Test(expected = Exception.class)
+    public void construirePlageHorraireIncoherente() throws Exception {
+        Element horraireElement = domXml.createDomElement("<Plage heureDebut=\"16:0:0\" heureFin=\"14:0:0\"></Plage>");
+        plageHorraire.construireAPartirDomXML(horraireElement);
+    }
+    
+    /**
+     * Creation d'une plage horraire avec le debut manquant
+     * @throws Exception levée à la création
+     * @result Lève une exception de cohérence
+     */
+    @Test(expected = Exception.class)
+    public void construirePlageHorraireSansHeure() throws Exception {
+        Element horraireElement = domXml.createDomElement("<Plage heureFin=\"14:0:0\"></Plage>");
+        plageHorraire.construireAPartirDomXML(horraireElement);
+    }
+    
+    /**
+     * Creation d'une plage horraire avec des heures non parcables
+     * @throws Exception levée à la création
+     * @result Lève une exception de cohérence
+     */
+    @Test(expected = Exception.class)
+    public void construirePlageHorraireMalFormee() throws Exception {
+        Element horraireElement = domXml.createDomElement("<Plage heureDebut=\"16:0:0\" heureFin=\"qz:1:0\"></Plage>");
+        plageHorraire.construireAPartirDomXML(horraireElement);
+    }
 }
