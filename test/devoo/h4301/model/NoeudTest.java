@@ -32,8 +32,9 @@ public class NoeudTest {
     }
 
     /**
-     * Test of construireAPartirDomXML method, of class Noeud.
-     * @throws java.lang.Exception
+     * Construction d'un noeud valide
+     * @throws Exception levé sur la création du noeud
+     * @result Creation d'un noeud avec les bon attributs
      */
     @Test
     public void construireNoeudValide() throws Exception {
@@ -47,14 +48,32 @@ public class NoeudTest {
     }   
     
     /**
-     * Test of construireAPartirDomXML method, of class Noeud.
-     * @throws java.lang.Exception     */
+     * Creation d'un noeud sans id
+     * @throws Exception levé au moment du parsing
+     * @result Leve une exception de parsing
+     */
     @Test(expected = NumberFormatException.class)
     public void construireNoeudSansId() throws Exception {
         Element noeud = domXml.createDomElement("<Noeud x=\"88\" y=\"171\"></Noeud>");
         instance.construireAPartirDomXML(noeud);
     }
     
+    /**
+     * Creation d'un noeud sans attributs
+     * @throws Exception levé au moment du parsing
+     * @result Leve une exception de parsing
+     */
+    @Test(expected = NumberFormatException.class)
+    public void construireNoeudSansAttributs() throws Exception {
+        Element noeud = domXml.createDomElement("<Noeud></Noeud>");
+        instance.construireAPartirDomXML(noeud);
+    }
+    
+    /**
+     * Construction d'un noeud avec un attribut malformé
+     * @throws Exception au moment du parssing
+     * @result Leve une exception de parsing
+     */
     @Test(expected = Exception.class)
     public void constructionNoeudInvalideAttributes() throws Exception {
         Element noeud = domXml.createDomElement("<Noeud id='1' x='qzd' y='171'></Noeud>");

@@ -49,10 +49,15 @@ public class LivraisonTest {
         horraires = null;
     }
     
+    /**
+     * Creation d'une livraison valide
+     * @throws Exception levée sur la création d'une livraison lors du parsing
+     * @result La livraison seras stockée sous la bonne forme
+     */
     @Test
     public void construireValide () throws Exception {
         String xmlString;
-        xmlString = "<Livraison id='1' client='611' adresse='13'></Livraison>";
+        xmlString = "<Livraison id='1' client='611' adresse='13' />";
         
         Element livraisonElement = domXml.createDomElement(xmlString);
         
@@ -61,20 +66,30 @@ public class LivraisonTest {
         assertEquals("Same node instance", livraison.getDestination(), destination);
     }
     
+    /**
+     * Construction d'une livraison sans que le noeud soit contenu dans le plan
+     * @throws Exception levée pour retrouver le noeud
+     * @result Retourne une exception lors de la création
+     */
     @Test(expected = Exception.class)
     public void construireSansNoeudContenu () throws Exception {
         String xmlString;
-        xmlString = "<Livraison id='1' client='611' adresse='3'></Livraison>";
+        xmlString = "<Livraison id='1' client='611' adresse='3'/>";
         
         Element livraisonElement = domXml.createDomElement(xmlString);
         
         livraison.construireAPartirDomXML(livraisonElement, horraires, plan);
     }
     
+    /**
+     * Construction d'un noeud malformé
+     * @throws Exception lovée lors de la création du client
+     * @result Retourne une exception
+     */
     @Test(expected = Exception.class)
     public void construireLivraisonMalforme () throws Exception {
         String xmlString;
-        xmlString = "<Livraison id='1'></Livraison>";
+        xmlString = "<Livraison id='1'/>";
         
         Element livraisonElement = domXml.createDomElement(xmlString);
         
