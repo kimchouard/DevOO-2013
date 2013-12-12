@@ -40,6 +40,17 @@ public class Troncon {
      */
     protected double vitesse;
 
+    public Troncon(Noeud origine, Noeud destination, String nomRue, double longueur, double vitesse) {
+        this.origine = origine;
+        this.destination = destination;
+        this.nomRue = nomRue;
+        this.longueur = longueur;
+        this.vitesse = vitesse;
+    }
+
+    public Troncon() {
+    }
+    
     /**
      *Getter sur l'origine
      * @return le noeud origine du tronçon
@@ -120,11 +131,6 @@ public class Troncon {
         this.vitesse = vitesse;
     }
 
-    /**
-     *Constructeur
-     */
-    public Troncon() {
-    }
 
     /**
      *Constructeur à partir d'un noeudDOMXML. Parcours les attributs pour remplir l'objet tronçon appelant.
