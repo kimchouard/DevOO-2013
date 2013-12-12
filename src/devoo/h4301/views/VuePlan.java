@@ -6,6 +6,7 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.controller.ControleurPlan;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Troncon;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
  * @author chouard
  */
 public class VuePlan extends javax.swing.JPanel {
+    private ControleurPlan controlerPlan;
+    
     private Plan plan;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
@@ -42,8 +45,9 @@ public class VuePlan extends javax.swing.JPanel {
     /**
      * Creates new form VuePlan
      */
-    public VuePlan() {
+    public VuePlan(ControleurPlan controlerPlan) {
         this.plan = new Plan();
+        this.setControlerPlan(controlerPlan);
         initialize();
     }
     
@@ -62,7 +66,7 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterNoeud(Noeud noeud) {
-        VueNoeud v = new VueNoeud(noeud);
+        VueNoeud v = new VueNoeud(noeud, this);
         this.placerNoeud(v);
         this.updateVuePlanFrame();
         
@@ -79,9 +83,21 @@ public class VuePlan extends javax.swing.JPanel {
         int yLocation = this.scaledCoordinateVertical(noeud.getY()) - vueNoeud.getHeight()/2;
         vueNoeud.setLocation(xLocation, yLocation);
     }
+    
+    public void selectNoeud(Noeud noeud) {
+        //Reset all the others noeuds
+        for (VueNoeud vn : this.vueNoeuds) {
+            if (vn.getNoeud().getId() != noeud.getId()) {
+                vn.setSelected(false);
+            }
+        }
+        
+        //Do the check
+        controlerPlan.selectLivraison(noeud);
+    }
 
     public void ajouterTroncon(Troncon troncon) {
-        VueTroncon v = new VueTroncon(troncon);
+        VueTroncon v = new VueTroncon(troncon, this);
         this.placerTroncon(v);
         this.vueTroncons.add(v);
         this.add(v);
@@ -138,6 +154,14 @@ public class VuePlan extends javax.swing.JPanel {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
+    }
+
+    public ControleurPlan getControlerPlan() {
+        return controlerPlan;
+    }
+
+    public void setControlerPlan(ControleurPlan controlerPlan) {
+        this.controlerPlan = controlerPlan;
     }
 
     /**

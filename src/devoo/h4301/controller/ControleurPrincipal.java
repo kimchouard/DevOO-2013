@@ -29,7 +29,7 @@ public class ControleurPrincipal {
         this.setPanneauPlan(scrollPanePlan);
         this.setFenParent(fenParent);
         
-        this.controleurPlan = new ControleurPlan();
+        this.controleurPlan = new ControleurPlan(this);
         this.lecteurXml = new LecteurXml();
     }
     
@@ -62,6 +62,10 @@ public class ControleurPrincipal {
         } catch (Exception ex) {
             Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void selectLivraison(Noeud noeud) {
+        //TODO
     }
     
     //--------------------------------

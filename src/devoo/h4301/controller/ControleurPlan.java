@@ -24,10 +24,13 @@ import javax.swing.JScrollPane;
  * @author chouard
  */
 public class ControleurPlan {
+    private ControleurPrincipal controleurPrincipal;
+    
     private VuePlan vuePlan;
 
-    public ControleurPlan() {
-        this.vuePlan = new VuePlan();
+    public ControleurPlan(ControleurPrincipal controleurPrincipal) {
+        this.vuePlan = new VuePlan(this);
+        this.controleurPrincipal = controleurPrincipal;
     }
     
     //--------------------------------
@@ -73,6 +76,10 @@ public class ControleurPlan {
         else {
             vuePlan.setZoomScale(scaleY);
         }
+    }
+    
+    public void selectLivraison(Noeud noeud) {
+        this.controleurPrincipal.selectLivraison(noeud);
     }
     
     //--------------------------------
