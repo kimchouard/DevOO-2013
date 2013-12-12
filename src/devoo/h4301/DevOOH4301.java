@@ -6,7 +6,6 @@
 package devoo.h4301;
 
 import devoo.h4301.controller.ControleurPrincipal;
-import devoo.h4301.controller.LecteurXml;
 import devoo.h4301.views.FenetrePrincipale;
 
 /**
@@ -24,6 +23,7 @@ public class DevOOH4301 {
     public static void main(String[] args) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 FenetrePrincipale fp = new FenetrePrincipale();
                 fp.setVisible(true);

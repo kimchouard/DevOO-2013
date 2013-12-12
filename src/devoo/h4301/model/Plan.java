@@ -55,30 +55,42 @@ public class Plan {
      * Ajout d'un noeud à la liste de noeud
      *
      * @param noeud noeud a ajouter
+     * @throws java.lang.Exception
      */
-    public void addNoeud(Noeud noeud) {
-        if (noeuds.isEmpty()) {
-            this.setMinX(noeud.getX());
-            this.setMinY(noeud.getY());
-            this.setMaxX(noeud.getX());
-            this.setMaxY(noeud.getY());
-        }
-        else {
-            if (noeud.getX() > this.maxX) {
-                this.setMaxX(noeud.getX());
-            }
-            if (noeud.getY() > this.maxY) {
-                this.setMaxY(noeud.getY());
-            }
-            if (noeud.getX() < this.minX) {
-                this.setMinX(noeud.getX());
-            }
-            if (noeud.getY() < this.minY) {
-                this.setMinY(noeud.getY());
+    public void addNoeud(Noeud noeud) throws Exception {
+        Boolean trouvee = false;
+        for (int i = 0; i < this.noeuds.size() && !trouvee; i++) {
+            System.out.println(this.noeuds.get(i).getId());
+            if (this.noeuds.get(i).getId().equals(noeud.id)) {
+                trouvee = true;
             }
         }
         
-        this.noeuds.add(noeud);
+        if (trouvee) {
+            throw new Exception("Noeud avec un id identique existe deja");
+        } else {
+            if (noeuds.isEmpty()) {
+                this.setMinX(noeud.getX());
+                this.setMinY(noeud.getY());
+                this.setMaxX(noeud.getX());
+                this.setMaxY(noeud.getY());
+            } else {
+                if (noeud.getX() > this.maxX) {
+                    this.setMaxX(noeud.getX());
+                }
+                if (noeud.getY() > this.maxY) {
+                    this.setMaxY(noeud.getY());
+                }
+                if (noeud.getX() < this.minX) {
+                    this.setMinX(noeud.getX());
+                }
+                if (noeud.getY() < this.minY) {
+                    this.setMinY(noeud.getY());
+                }
+            }
+
+            this.noeuds.add(noeud);
+        }
     }
     
     public void setMinX(int minX) {
