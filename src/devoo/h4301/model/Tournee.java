@@ -52,7 +52,7 @@ public class Tournee {
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
      */
-    private Tournee() {
+    public Tournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
     }

@@ -43,11 +43,11 @@ public class ControllerCommand {
     
     public void undo(Tournee tournee) throws Exception {
         if (this.possibleUndo()) {
-            Command lastCommand = undoStack.get(undoStack.size());
+            Command lastCommand = undoStack.get(undoStack.size()-1);
             Command invertedCommand = ControllerCommand.invertCommand(tournee, lastCommand);
             
             redoStack.add(invertedCommand);
-            undoStack.remove(undoStack.size());
+            undoStack.remove(undoStack.size()-1);
         } else {
             throw new Exception("Aucune commande a undo");
         }
@@ -55,11 +55,11 @@ public class ControllerCommand {
     
     public void redo(Tournee tournee) throws Exception {
         if (this.possibleRedo()) {
-            Command commandToRedo = redoStack.get(redoStack.size());
+            Command commandToRedo = redoStack.get(redoStack.size()-1);
             Command invertedCommand = ControllerCommand.invertCommand(tournee, commandToRedo);
             
             undoStack.add(invertedCommand);
-            redoStack.remove(redoStack.size());
+            redoStack.remove(redoStack.size()-1);
         } else {
             throw new Exception("Aucune commande a redo");
         }
