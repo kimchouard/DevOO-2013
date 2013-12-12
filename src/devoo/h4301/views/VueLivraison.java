@@ -6,24 +6,26 @@
 
 package devoo.h4301.views;
 
-import java.util.ArrayList;
+import devoo.h4301.model.Livraison;
 
 /**
  *
  * @author Mimi
  */
-public class VueListLivraison extends javax.swing.JPanel {
+public class VueLivraison extends javax.swing.JPanel {
+    
+    private Livraison livraison;
 
-    private ArrayList<VueLivraison> vueLivraison = new ArrayList();
     /**
      * Creates new form VueLivraison
      */
-    public VueListLivraison() {
+    public VueLivraison() {
         initComponents();
     }
-    
-   
 
+     public void setLivraison(Livraison liv){
+        this.livraison = liv; 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

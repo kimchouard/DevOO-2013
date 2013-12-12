@@ -8,6 +8,7 @@ package devoo.h4301.controller;
 
 import devoo.h4301.views.VueListLivraison;
 import devoo.h4301.model.Livraison;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -15,18 +16,26 @@ import devoo.h4301.model.Livraison;
  */
 public class ControleurLivraison {
     
-    private VueListLivraison vueLivraison;
+    private VueListLivraison vueListLivraison;
     
      public ControleurLivraison() {
-        this.vueLivraison = new VueListLivraison();
+        this.vueListLivraison = new VueListLivraison();
     }
      
-    public VueListLivraison getVueLivraison(){
-        return vueLivraison;
+     public void afficherListLivraison(JScrollPane listLiv) {
+        listLiv.setViewportView(vueListLivraison);
+        this.vueListLivraison.updateUI();
     }
-    
-    public void setVueLivraison(Livraison liv){
-        this.vueLivraison.setLivraison(liv);
+     
+     public VueListLivraison getVueListLisvraison() {
+        return vueListLivraison;
     }
+
+    // Passer un tableau en paramètre ?
+     /*
+    public void setVueListLivraison() {
+        this.vueListLivraison.setListLivraison();
+        this.vueListLivraison.setBackground(Color.WHITE);
+    }*/
      
 }
