@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.model.Noeud;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 
 /**
@@ -17,6 +18,9 @@ import java.awt.Graphics;
 public class VueNoeud extends javax.swing.JPanel {
     
     private Noeud noeud;
+    
+    private boolean selected;
+    private boolean hovered;
     
     /**
      * Creates new form VueNoeud
@@ -47,12 +51,41 @@ public class VueNoeud extends javax.swing.JPanel {
     public void setNoeud(Noeud noeud) {
         this.noeud = noeud;
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public boolean isHovered() {
+        return hovered;
+    }
+    
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        
+        this.repaint();
+    }
+    
+    public void setHovered(boolean hovered) {
+        this.hovered = hovered;
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        this.repaint();
+    }
+    
+    public Color getColor() {
+        if (this.selected || this.hovered) {
+            return VuePlan.rougeMaps;
+        } else {
+            return VuePlan.grisMaps;
+        }
+    }
     
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(VuePlan.rougeMaps);
+        g.setColor(this.getColor());
         g.fillOval(0,0,this.getWidth(),this.getHeight());
     }
     
@@ -66,6 +99,18 @@ public class VueNoeud extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onClick(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onOut(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onHover(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,6 +122,18 @@ public class VueNoeud extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClick
+        this.setSelected(!this.selected);
+    }//GEN-LAST:event_onClick
+
+    private void onHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onHover
+        this.setHovered(true);
+    }//GEN-LAST:event_onHover
+
+    private void onOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onOut
+        this.setHovered(false);
+    }//GEN-LAST:event_onOut
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

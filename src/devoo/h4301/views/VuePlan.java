@@ -27,6 +27,7 @@ public class VuePlan extends javax.swing.JPanel {
     
     // Constantes Couleur
     public static final Color rougeMaps = new Color(217, 95, 87);
+    public static final Color grisMaps = new Color(200, 196, 186);
     public static final Color jauneMaps = new Color(248, 228, 122);
     public static final Color blancMaps = new Color(255, 255, 255);
     
