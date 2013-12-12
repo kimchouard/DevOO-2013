@@ -40,63 +40,69 @@ public class LecteurXml {
     }
 
     /**
-     * Construction d'un plan a partir d'un fichier XML
+     * Construction d'un plan a partir d'un fichier XML Crée d'abord tous les
+     * noeuds puis les tronçons
      *
-     * @return plan créé
+     * @param nomFichier path du fichier XML contenant le plan
+     * @throws Exception levées par le fichier XML lu
+     * @return le plan créé
      */
-    public Plan construirePlanAPartirXML(){
-        Plan plan = Tournee.getInstance().getPlan();
-
-        File planXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/plan10x10.xml");
+    public Plan construirePlanAPartirXML(String nomFichier) throws Exception {
+        Plan plan = new Plan();
+        Tournee.getInstance().setPlan(plan);
+        File planXML = ouvrirFichier(nomFichier);
 
         if (planXML != null) {
-            try {
-                // creation d'un constructeur de documents a l'aide d'une fabrique
 
-                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                // lecture du contenu d'un fichier XML avec DOM
-                Document document = constructeur.parse(planXML);
-                Element racine = document.getDocumentElement();
-                if (racine.getNodeName().equals("Reseau")) {
-                    System.out.println("debut de la construction du plan");
+            // creation d'un constructeur de documents a l'aide d'une fabrique
+            DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            // lecture du contenu d'un fichier XML avec DOM
+            Document document = constructeur.parse(planXML);
+            Element racine = document.getDocumentElement();
+            if (racine.getNodeName().equals("Reseau")) {
+                System.out.println("debut de la construction du plan");
 //Passer le plan a la fabrique de plan a partir de domxml
-                    plan.construireAPartirDomXML(racine);
+                plan.construireAPartirDomXML(racine);
 //Gerer le cas de pb de lecture de fichier
 
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
 
         }
-        Tournee.getInstance().setPlan(plan);
+
         return plan;
 
     }
 
-    public Tournee construireLivraisonAPartirXML() {
+    /**
+     * Construction de la tournée à partir d'un fichier XML. Fait appel au
+     * constructeur à partir de DomXML de tournée.
+     *
+     * @param nomFichier path du fichier XML contenant les livraisons
+     * @return
+     * @throws Exception
+     */
+    public Tournee construireLivraisonAPartirXML(String nomFichier) throws Exception {
 
         Tournee tournee = Tournee.getInstance();
-        File tourneeXML = ouvrirFichier("C:/Users/Leslie Breynat/Desktop/livraison10x10-2.xml");
+
+        File tourneeXML = ouvrirFichier(nomFichier);
         System.out.println("fichier ouvert ");
         if (tourneeXML != null) {
-            try {
-                // creation d'un constructeur de documents a l'aide d'une fabrique
-                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
-                // lecture du contenu d'un fichier XML avec DOM
-                Document document = constructeur.parse(tourneeXML);
-                Element racine = document.getDocumentElement();
-                if (racine.getNodeName().equals("JourneeType")) {
-                    System.out.println("début de construction de tournee ");
-                    tournee.construireAPartirDomXML(racine);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            // creation d'un constructeur de documents a l'aide d'une fabrique
+            DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
+            // lecture du contenu d'un fichier XML avec DOM
+            Document document = constructeur.parse(tourneeXML);
+            Element racine = document.getDocumentElement();
+            if (racine.getNodeName().equals("JourneeType")) {
+                System.out.println("début de construction de tournee ");
+                tournee.construireAPartirDomXML(racine);
+
             }
 
         }
-        return tournee;
 
+        return tournee;
     }
 }

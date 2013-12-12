@@ -8,11 +8,13 @@ package devoo.h4301.model;
 import org.w3c.dom.Element;
 
 /**
+ * Classe correspondant au tronçon. Un tronçon est un arc orienté entre deux
+ * point, possèdant des caractéristiques de longueur et de vitesse.
  *
  * @author Leslie Breynat
  */
 public class Troncon {
-    
+
     /**
      * Noeud origine du troncon
      */
@@ -38,56 +40,115 @@ public class Troncon {
      */
     protected double vitesse;
 
+    public Troncon(Noeud origine, Noeud destination, String nomRue, double longueur, double vitesse) {
+        this.origine = origine;
+        this.destination = destination;
+        this.nomRue = nomRue;
+        this.longueur = longueur;
+        this.vitesse = vitesse;
+    }
+
+    public Troncon() {
+    }
+    
+    /**
+     *Getter sur l'origine
+     * @return le noeud origine du tronçon
+     */
     public Noeud getOrigine() {
         return origine;
     }
 
+    /**
+     *Setter sur l'origine
+     * @param origine noeud à attacher au tronçon
+     */
     public void setOrigine(Noeud origine) {
         this.origine = origine;
     }
 
+    /**
+     *Getter sur le noeud destination
+     * @return le noeud destination du tronçon
+     */
     public Noeud getDestination() {
         return destination;
     }
 
+    /**
+     *Setter sur la destination
+     * @param destination noeud à attacher au tronçon
+     */
     public void setDestination(Noeud destination) {
         this.destination = destination;
     }
 
+    /**
+     *Getter sur le nom de la rue
+     * @return nom de la rue 
+     */
     public String getNomRue() {
         return nomRue;
     }
 
+    /**
+     * Setter sur le nom de la rue du tronçon
+     * @param nomRue nom de rue à attacher au tronçon
+     */
     public void setNomRue(String nomRue) {
         this.nomRue = nomRue;
     }
 
+    /**
+     *Getter sur la longueur du tronçon
+     * @return la longeur
+     */
     public double getLongueur() {
         return longueur;
     }
 
+    /**
+     *Setter sur la longueur
+     * @param longueur à attacher au tronçon
+     */
     public void setLongueur(double longueur) {
         this.longueur = longueur;
     }
 
+    /**
+     *Getter sur la vitesse
+     * @return la vitesse du tronçon
+     */
     public double getVitesse() {
         return vitesse;
     }
 
+    /**
+     *Setter sur la vitesse 
+     * @param vitesse à attacher au tronçon
+     */
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
     }
 
-    public void construireAPartirDomXML(Element noeudDOMRacine) {
 
-// todo : gerer les erreurs de syntaxe dans le fichier XML !
-        
+    /**
+     *Constructeur à partir d'un noeudDOMXML. Parcours les attributs pour remplir l'objet tronçon appelant.
+     * @param noeudDOMRacine noeud DOMXML parcouru
+     * @param plan auquel le tronçon appartient
+     * @throws Exception de synthaxe ou de modèle levées lors de la lecteur du
+     * fichierXML
+     */
+    public void construireAPartirDomXML(Element noeudDOMRacine, Plan plan) throws Exception {
+
+/// todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.nomRue = noeudDOMRacine.getAttribute("nomRue");
         vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
         longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
-        
-        int idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-        destination = Tournee.getInstance().getPlan().getNoeudById(idDestination);
+        System.out.println("troncon créé");
+        Integer idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
+        destination = plan.getNoeudById(idDestination);
+        System.out.println("troncon créé totalement");
     }
 
 }
