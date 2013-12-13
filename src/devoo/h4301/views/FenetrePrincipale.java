@@ -63,6 +63,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         undo.setText("Undo");
 
+        pDroit.setAutoscrolls(true);
+
         debug.setText("DEBUG");
         debug.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

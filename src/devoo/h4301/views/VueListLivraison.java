@@ -6,7 +6,12 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.controller.ControleurLivraison;
+import devoo.h4301.model.Livraison;
+import static devoo.h4301.views.VuePlan.padding;
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -14,13 +19,69 @@ import java.util.ArrayList;
  */
 public class VueListLivraison extends javax.swing.JPanel {
 
-    private ArrayList<VueLivraison> vueLivraison = new ArrayList();
+    private LinkedList<VueLivraisonItem> vueLivraison = new LinkedList();
+    private ControleurLivraison controleurLivraison;
     /**
-     * Creates new form VueLivraison
+     * Creates new form VueLivraisonItem
      */
     public VueListLivraison() {
-        initComponents();
+        //this.vueLivraison = new 
+        initialize();
     }
+    
+    public void initialize() {
+        initComponents();
+        
+        this.setOpaque(false);
+        this.setVisible(true); 
+    }
+    
+    public void reset() {
+        this.removeAll();
+        this.updateUI();
+        this.vueLivraison.clear();
+        this.vueLivraison.clear();
+    }
+    
+    public void ajouterLivraison(Livraison livraison) {
+        VueLivraisonItem v = new VueLivraisonItem(livraison, this.controleurLivraison);
+        //this.placerLivraison(v);
+        //this.updateVueLivraison();
+        
+        this.vueLivraison.add(v);
+        this.add(v);
+        v.setVisible(true);
+    }
+
+    public LinkedList<VueLivraisonItem> getVueLivraison() {
+        return vueLivraison;
+    }
+
+    public ControleurLivraison getControleurLivraison() {
+        return controleurLivraison;
+    }
+
+    public void setVueLivraison(LinkedList<Livraison> livraison) {
+        for(int i = 0; i < this.vueLivraison.size(); i++)
+        {
+            this.vueLivraison.get(i).setLivraison(livraison.get(i));
+        }
+    }
+
+    public void setControleurLivraison(ControleurLivraison controleurLivraison) {
+        this.controleurLivraison = controleurLivraison;
+    }
+    
+    
+    
+    
+    /*private void updateVueLivraison() {
+        int planWidth = plan.getMaxX() - plan.getMinX();
+        int planHeight = plan.getMaxY() - plan.getMinY();
+        
+        Dimension dimension = new Dimension(this.scaledSize(planWidth) + padding*2, this.scaledSize(planHeight) + padding*2);
+        this.setPreferredSize(dimension);
+    }*/
     
    
 
@@ -33,15 +94,17 @@ public class VueListLivraison extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setPreferredSize(new java.awt.Dimension(280, 300));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 264, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 429, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
