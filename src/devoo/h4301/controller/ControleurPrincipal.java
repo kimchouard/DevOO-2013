@@ -47,6 +47,9 @@ public class ControleurPrincipal {
             System.out.println("Error: "+e.getMessage());
         }
         Plan p = Tournee.getInstance().getPlan();
+        
+        commandeControleur.resetCommand();
+        
         controleurPlan.setVuePlan(p);
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan();
@@ -57,6 +60,9 @@ public class ControleurPrincipal {
     public void chargerPlanDebug() {
         try {
             Plan p = initDebug();
+
+            commandeControleur.resetCommand();
+
             controleurPlan.setVuePlan(p);
             controleurPlan.scaleAutoVuePlan(panneauPlan);
             controleurPlan.rafraichirVuePlan();
