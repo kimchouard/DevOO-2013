@@ -17,15 +17,41 @@ public class VueLivraison extends javax.swing.JPanel {
     private Livraison livraison;
 
     /**
+     * Create new form VueLivraison 
+     */
+    public VueLivraison(){
+        initialize();
+    }
+    
+    /**
      * Creates new form VueLivraison
      */
-    public VueLivraison() {
+    public VueLivraison(Livraison livraison) {
+        this.setLivraison(livraison);
         initComponents();
+    }
+    
+    public void initialize() {
+        initComponents();
+        
+        this.setOpaque(false);
+        this.setVisible(true);
+    }
+    
+    public Livraison getLivraison() {
+        return livraison;
     }
 
      public void setLivraison(Livraison liv){
         this.livraison = liv; 
     }
+     
+    @Override
+    public void paintCoponent()
+    {
+    
+    }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

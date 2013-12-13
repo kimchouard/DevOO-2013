@@ -41,7 +41,7 @@ public class Livraison {
      *
      * @return la destination
      */
-    public Noeud getDestination() {
+   public Noeud getDestination() {
         return destination;
     }
 
@@ -106,6 +106,18 @@ public class Livraison {
      */
     public void setClient(Client client) {
         this.client = client;
+    }
+    
+    /**
+     * Setter sur la livraison
+     * @param livraison à mettre à la place de la livraison actuelle
+     */
+    public void setLivraison(Livraison livraison)
+    {
+        this.client = livraison.getClient();
+        this.colis = livraison.getColis();
+        this.destination = livraison.getDestination();
+        this.horaire = livraison.getHoraire();
     }
 
     /**
