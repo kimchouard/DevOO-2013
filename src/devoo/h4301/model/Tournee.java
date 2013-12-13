@@ -102,7 +102,7 @@ public class Tournee {
      */
     public void cheekPlageHoraires() throws Exception {
         LinkedList<PlageHoraire> list = this.getHoraires();
-        for (int i = 1; i <= list.size(); i++) {
+        for (int i = 1; i < list.size(); i++) {
             //compareTo renvoie 0 si date identique, >0 si début de i> fin de i-1
             if (list.get(i).getDebut().compareTo(list.get(i - 1).getFin()) < 0) {
                 MyException e = new MyException("Les plages horaires se chevauchent ou ne sont pas dans le bon ordre");
@@ -206,7 +206,7 @@ public class Tournee {
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
         NodeList listPlage = plagesElem.getElementsByTagName("Plage");
-        for (int i = 0; i <= listPlage.getLength(); i++) {
+        for (int i = 0; i < listPlage.getLength(); i++) {
             Element palgeElem = (Element) listPlage.item(i);
             PlageHoraire plage = new PlageHoraire();
             plage.construireAPartirDomXML(palgeElem);
