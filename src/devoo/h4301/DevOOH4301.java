@@ -27,7 +27,7 @@ public class DevOOH4301 {
             public void run() {
                 FenetrePrincipale fp = new FenetrePrincipale();
                 fp.setVisible(true);
-                fp.controleurPrincipal = new ControleurPrincipal(fp.getpGauche(), fp);
+                fp.controleurPrincipal = new ControleurPrincipal(fp.getpGauche(), fp.getpDroit(), fp);
             }
         });
     }

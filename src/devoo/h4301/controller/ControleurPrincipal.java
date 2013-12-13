@@ -19,18 +19,22 @@ import javax.swing.JScrollPane;
  */
 public class ControleurPrincipal {
     private JScrollPane panneauPlan;
+    private JScrollPane panneauLiv;
     private FenetrePrincipale fenParent;
     private JFileChooser jFileChooserXML;
     
     private ControleurPlan controleurPlan;
+    private ControleurLivraison controleurLivraison;
     private ControllerCommand commandeControleur;
     private LecteurXml lecteurXml;
 
-    public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
+    public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
+        this.setPanneauLiv(panneauLiv);
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan(this);
+        this.controleurLivraison = new ControleurLivraison(this);
         this.commandeControleur = new ControllerCommand();
         this.lecteurXml = new LecteurXml();
     }
@@ -56,6 +60,9 @@ public class ControleurPrincipal {
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
+        
+        controleurLivraison.rafraichirVueListLivraison(t);
+        controleurLivraison.afficherListLivraison(panneauLiv);
     }
     
     public void chargerLiv(String urlLiv) {
@@ -205,6 +212,14 @@ public class ControleurPrincipal {
 
     public void setPanneauPlan(JScrollPane panneauPlan) {
         this.panneauPlan = panneauPlan;
+    }
+
+    public JScrollPane getPanneauLiv() {
+        return panneauLiv;
+    }
+
+    public void setPanneauLiv(JScrollPane panneauLiv) {
+        this.panneauLiv = panneauLiv;
     }
 
     public FenetrePrincipale getFenParent() {

@@ -10,6 +10,8 @@ import devoo.h4301.model.Noeud;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 /**
  *
@@ -106,6 +108,8 @@ public class VueNoeud extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g)
     {
+        Graphics2D graphics = (Graphics2D) g;
+//        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         super.paintComponent(g);
         g.setColor(this.getColor());
         g.fillOval(0,0,this.getWidth(),this.getHeight());

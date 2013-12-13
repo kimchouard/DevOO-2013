@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
+import devoo.h4301.model.Tournee;
 import static devoo.h4301.views.VuePlan.padding;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ import java.util.LinkedList;
  */
 public class VueListLivraison extends javax.swing.JPanel {
 
-    private LinkedList<VueLivraisonItem> vueLivraison = new LinkedList();
+    private LinkedList<VueLivraisonItem> vueLivraisons = new LinkedList();
     private ControleurLivraison controleurLivraison;
     /**
      * Creates new form VueLivraisonItem
      */
     public VueListLivraison() {
-        //this.vueLivraison = new 
+        //this.vueLivraisons = new 
         initialize();
     }
     
@@ -39,37 +40,50 @@ public class VueListLivraison extends javax.swing.JPanel {
     public void reset() {
         this.removeAll();
         this.updateUI();
-        this.vueLivraison.clear();
-        this.vueLivraison.clear();
+        this.vueLivraisons.clear();
+        this.vueLivraisons.clear();
     }
     
     public void ajouterLivraison(Livraison livraison) {
         VueLivraisonItem v = new VueLivraisonItem(livraison, this.controleurLivraison);
-        //this.placerLivraison(v);
-        //this.updateVueLivraison();
+        this.placerLivraison(v, this.vueLivraisons.size()-1);
+        this.updateVueListLivraison();
         
-        this.vueLivraison.add(v);
+        this.vueLivraisons.add(v);
         this.add(v);
         v.setVisible(true);
     }
+    
+    public void placerLivraison(VueLivraisonItem vl, int rank) {
+        int yLocation = rank * 50;
+        vl.setLocation(0, yLocation);
+    }
 
     public LinkedList<VueLivraisonItem> getVueLivraison() {
-        return vueLivraison;
+        return vueLivraisons;
     }
 
     public ControleurLivraison getControleurLivraison() {
         return controleurLivraison;
     }
 
-    public void setVueLivraison(LinkedList<Livraison> livraison) {
-        for(int i = 0; i < this.vueLivraison.size(); i++)
+    public void setTournee(Tournee tournee) {
+        
+        for(int i = 0; i < tournee.getLivraisons().size(); i++)
         {
-            this.vueLivraison.get(i).setLivraison(livraison.get(i));
+            this.ajouterLivraison(tournee.getLivraisons().get(i));
         }
     }
 
     public void setControleurLivraison(ControleurLivraison controleurLivraison) {
         this.controleurLivraison = controleurLivraison;
+    }
+    
+    private void updateVueListLivraison() {
+        int listHeight = 50 * this.getVueLivraison().size();
+        
+        Dimension dimension = new Dimension(this.getWidth(), listHeight);
+        this.setPreferredSize(dimension);
     }
     
     

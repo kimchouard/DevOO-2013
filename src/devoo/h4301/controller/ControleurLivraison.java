@@ -19,13 +19,21 @@ public class ControleurLivraison {
     
     private VueListLivraison vueListLivraison;
     
-     public ControleurLivraison() {
+    private ControleurPrincipal controleurPrincipal;
+    
+     public ControleurLivraison(ControleurPrincipal controleurPrincipal) {
         this.vueListLivraison = new VueListLivraison();
+        this.controleurPrincipal = controleurPrincipal;
     }
      
      public void afficherListLivraison(JScrollPane listLiv) {
         listLiv.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
+    }
+     
+    public void rafraichirVueListLivraison(Tournee tournee) {
+        this.vueListLivraison.reset();
+        this.vueListLivraison.setTournee(tournee);
     }
      
      public VueListLivraison getVueListLisvraison() {
@@ -43,12 +51,6 @@ public class ControleurLivraison {
          }
          return 1;
      }
-
-    // Passer un tableau en paramètre ?
-    
-    public void setVueListLivraison(Tournee tournee) {
-        this.vueListLivraison.setVueLivraison(tournee.getLivraisons());
-    }
     
      
 }
