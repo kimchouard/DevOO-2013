@@ -65,8 +65,8 @@ public class LecteurXml {
                 plan.construireAPartirDomXML(racine);
 //Gerer le cas de pb de lecture de fichier
 
-            }
-
+            } else
+                throw new Exception("Le premier noeud du plan n'est pas réseau");
         }
 
         return plan;
@@ -100,7 +100,8 @@ public class LecteurXml {
                 tournee.construireAPartirDomXML(racine);
                 tournee.cheekPlageHoraires();
 
-            }
+            } else
+                throw new Exception("Le premier noeud du fichier de livraison n'est pas journéeType");
 
         }
 
