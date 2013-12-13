@@ -18,6 +18,8 @@ public class VueEditLivraison extends javax.swing.JPanel {
     public VueEditLivraison() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -37,8 +37,7 @@ public class ControleurLivraison {
    
      public void afficherCreationLivraison(Noeud noeud) {
          VueEditLivraison liv = new VueEditLivraison();
-         
-         // afficher l'item
+         liv.setVisible(true);
      }
      
      public void afficherUneLivraison(){
