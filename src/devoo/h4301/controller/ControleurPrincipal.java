@@ -23,6 +23,7 @@ public class ControleurPrincipal {
     private JFileChooser jFileChooserXML;
     
     private ControleurPlan controleurPlan;
+    private ControllerCommand commandeControleur;
     private LecteurXml lecteurXml;
 
     public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
@@ -30,6 +31,7 @@ public class ControleurPrincipal {
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan(this);
+        this.commandeControleur = new ControllerCommand();
         this.lecteurXml = new LecteurXml();
     }
     
@@ -48,6 +50,9 @@ public class ControleurPrincipal {
         }
         Tournee t = Tournee.getInstance();
         controleurPlan.setTournee(t);
+
+        commandeControleur.resetCommand();
+
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
