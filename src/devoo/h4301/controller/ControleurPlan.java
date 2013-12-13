@@ -56,14 +56,14 @@ public class ControleurPlan {
             this.vuePlan.ajouterNoeud(n);
         }
         
-        ArrayList<Troncon> troncons = plan.getTroncons();
-        for (Troncon t : troncons) {
-            this.vuePlan.ajouterTroncon(t);
-        }
-        
         LinkedList<Livraison> livs =  tournee.getLivraisons();
         for (Livraison l : livs) {
             this.vuePlan.ajouterLiv(l);
+        }
+        
+        ArrayList<Troncon> troncons = plan.getTroncons();
+        for (Troncon t : troncons) {
+            this.vuePlan.ajouterTroncon(t);
         }
     }
     

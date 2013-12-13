@@ -78,10 +78,24 @@ public class VuePlan extends javax.swing.JPanel {
         v.setVisible(true);
     }
     
+    public boolean hideNoeud(Noeud noeud) {
+        for(VueNoeud v : this.vueNoeuds) {
+            if (v.getNoeud().getId() == noeud.getId()) {
+                v.setVisible(false);
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public void ajouterLiv(Livraison liv) {
         VueLiv vl = new VueLiv(liv, this);
         this.placerNoeud((VueNoeud) vl);
         this.updateVuePlanFrame();
+        
+        this.hideNoeud(liv.getDestination());
         
         this.vueLivs.add(vl);
         this.add(vl);
