@@ -23,6 +23,7 @@ public class ControleurPrincipal {
     private JFileChooser jFileChooserXML;
     
     private ControleurPlan controleurPlan;
+    private ControllerCommand commandeControleur;
     private LecteurXml lecteurXml;
 
     public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
@@ -30,6 +31,7 @@ public class ControleurPrincipal {
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan();
+        this.commandeControleur = new ControllerCommand();
         this.lecteurXml = new LecteurXml();
     }
     
