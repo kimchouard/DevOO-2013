@@ -374,5 +374,20 @@ public class GraphUtil implements Graph {
                 }
         }
 
+         public ArrayList<Itineraire> getEnsembleTrajets(){
+            return ensembleTrajets;
+        }
+        
+        public void setEnsembleTrajets(ArrayList<Itineraire> ensemble){
+            ensembleTrajets = ensemble;
+        }
+        
+        public void addItineraire(Itineraire iti){
+            ensembleTrajets.add(iti);
+        }
+        
+        public void removeItineraire(Itineraire iti){
+            ensembleTrajets.remove(iti);
+        }
 
 }
