@@ -6,6 +6,7 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;
@@ -16,6 +17,7 @@ import devoo.h4301.views.VuePlan;
 import devoo.h4301.views.VueTroncon;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 
@@ -47,7 +49,7 @@ public class ControleurPlan {
     
     public void rafraichirVuePlan() {
         this.vuePlan.reset();
-        Plan plan = this.vuePlan.getPlan();
+        Plan plan =  vuePlan.getTournee().getPlan();
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
@@ -58,10 +60,15 @@ public class ControleurPlan {
         for (Troncon t : troncons) {
             this.vuePlan.ajouterTroncon(t);
         }
+        
+        LinkedList<Livraison> livs =  vuePlan.getTournee().getLivraisons();
+        for (Livraison l : livs) {
+            this.vuePlan.ajouterLiv(l);
+        }
     }
     
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
-        Plan p =  vuePlan.getPlan();
+        Plan p =  vuePlan.getTournee().getPlan();
         
         double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding + VuePlan.diamNoeud;
         double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding + VuePlan.diamNoeud;
@@ -78,8 +85,12 @@ public class ControleurPlan {
         }
     }
     
-    public void selectLivraison(Noeud noeud) {
-        this.controleurPrincipal.selectLivraison(noeud);
+    public void selectLivraison(Livraison liv) {
+        this.controleurPrincipal.selectLivraison(liv);
+    }
+    
+    public void createLiv(Noeud noeud) {
+        this.controleurPrincipal.createLiv(noeud);
     }
     
     //--------------------------------
@@ -89,8 +100,8 @@ public class ControleurPlan {
         return vuePlan;
     }
 
-    public void setVuePlan(Plan plan) {
-        this.vuePlan.setPlan(plan);
+    public void setTournee(Tournee tournee) {
+        this.vuePlan.setTournee(tournee);
         this.vuePlan.setBackground(Color.WHITE);
     }
 }

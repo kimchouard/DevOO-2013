@@ -112,18 +112,16 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
         // Lunch load of the map from the file URL asked
-        this.controleurPrincipal.chargerPlan();
+        this.controleurPrincipal.chargerPlan("");
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
-//        String urlXmlLivraisons = ouvrirFichier();
-        
-        // Lunch load of the deliveries from the file URL
+        this.controleurPrincipal.chargerLiv("");
     }//GEN-LAST:event_clickChargerLivraisons
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerPlanDebug();
+        this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
     }//GEN-LAST:event_clickDebug
 
     public JScrollPane getpDroit() {

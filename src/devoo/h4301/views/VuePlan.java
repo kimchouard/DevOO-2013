@@ -7,8 +7,10 @@
 package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
+import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,9 +23,10 @@ import java.util.ArrayList;
 public class VuePlan extends javax.swing.JPanel {
     private ControleurPlan controlerPlan;
     
-    private Plan plan;
+    private Tournee tournee;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
+    private ArrayList<VueLiv> vueLivs = new ArrayList();
     
     protected double zoomScale = 1.0;
     public static final int padding = 20;
@@ -46,7 +49,6 @@ public class VuePlan extends javax.swing.JPanel {
      * Creates new form VuePlan
      */
     public VuePlan(ControleurPlan controlerPlan) {
-        this.plan = new Plan();
         this.setControlerPlan(controlerPlan);
         initialize();
     }
@@ -63,6 +65,7 @@ public class VuePlan extends javax.swing.JPanel {
         this.updateUI();
         this.vueNoeuds.clear();
         this.vueTroncons.clear();
+        this.vueLivs.clear();
     }
     
     public void ajouterNoeud(Noeud noeud) {
@@ -75,25 +78,22 @@ public class VuePlan extends javax.swing.JPanel {
         v.setVisible(true);
     }
     
-    public void placerNoeud(VueNoeud vueNoeud) {
-        Noeud noeud = vueNoeud.getNoeud();
-        vueNoeud.setSize(diamNoeud, diamNoeud);
+    public void ajouterLiv(Livraison liv) {
+        VueLiv vl = new VueLiv(liv, this);
+        this.placerNoeud((VueNoeud) vl);
+        this.updateVuePlanFrame();
         
-        int xLocation = this.scaledCoordinateHorizontal(noeud.getX()) - vueNoeud.getWidth()/2;
-        int yLocation = this.scaledCoordinateVertical(noeud.getY()) - vueNoeud.getHeight()/2;
-        vueNoeud.setLocation(xLocation, yLocation);
+        this.vueLivs.add(vl);
+        this.add(vl);
+        vl.setVisible(true);
     }
     
-    public void selectNoeud(Noeud noeud) {
-        //Reset all the others noeuds
-        for (VueNoeud vn : this.vueNoeuds) {
-            if (vn.getNoeud().getId() != noeud.getId()) {
-                vn.setSelected(false);
-            }
-        }
+    public void placerNoeud(VueNoeud vueNoeud) {
+        vueNoeud.setSize(diamNoeud, diamNoeud);
         
-        //Do the check
-        controlerPlan.selectLivraison(noeud);
+        int xLocation = this.scaledCoordinateHorizontal(vueNoeud.getXNoeud()) - vueNoeud.getWidth()/2;
+        int yLocation = this.scaledCoordinateVertical(vueNoeud.getYNoeud()) - vueNoeud.getHeight()/2;
+        vueNoeud.setLocation(xLocation, yLocation);
     }
 
     public void ajouterTroncon(Troncon troncon) {
@@ -115,6 +115,22 @@ public class VuePlan extends javax.swing.JPanel {
         vueTroncon.setSize(this.scaledSize(larg) + diamNoeud, this.scaledSize(haut) + diamNoeud);
     }
     
+    public void selectLiv(Livraison liv) {
+        //Reset all the others noeuds
+        for (VueLiv vl : this.vueLivs) {
+            if (vl.getLiv().getDestination().getId() != vl.getLiv().getDestination().getId()) {
+                vl.setSelected(false);
+            }
+        }
+        
+        //Do the check
+        controlerPlan.selectLivraison(liv);
+    }
+    
+    public void createLiv(Noeud noeud) {
+        controlerPlan.createLiv(noeud);
+    }
+    
     public ArrayList<VueNoeud> getVueNoeuds() {
         return vueNoeuds;
     }
@@ -129,31 +145,31 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     private void updateVuePlanFrame() {
-        int planWidth = plan.getMaxX() - plan.getMinX();
-        int planHeight = plan.getMaxY() - plan.getMinY();
+        int planWidth = tournee.getPlan().getMaxX() - tournee.getPlan().getMinX();
+        int planHeight = tournee.getPlan().getMaxY() - tournee.getPlan().getMinY();
         
         Dimension dimension = new Dimension(this.scaledSize(planWidth) + padding*2, this.scaledSize(planHeight) + padding*2);
         this.setPreferredSize(dimension);
     }
     
     private int scaledCoordinateVertical(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - plan.getMinY()) ) + padding;
+        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinY()) ) + padding;
     }
     
     private int scaledCoordinateHorizontal(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - plan.getMinX()) ) + padding;
+        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinX()) ) + padding;
     }
     
     private int scaledSize(int size) {
         return (int)(this.zoomScale * size);
     }
 
-    public Plan getPlan() {
-        return plan;
+    public Tournee getTournee() {
+        return tournee;
     }
 
-    public void setPlan(Plan plan) {
-        this.plan = plan;
+    public void setTournee(Tournee tournee) {
+        this.tournee = tournee;
     }
 
     public ControleurPlan getControlerPlan() {

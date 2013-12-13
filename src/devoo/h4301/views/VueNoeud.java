@@ -17,11 +17,11 @@ import java.awt.Graphics;
  */
 public class VueNoeud extends javax.swing.JPanel {
     
-    private Noeud noeud;
-    private VuePlan vuePlan;
+    protected Noeud noeud;
+    protected VuePlan vuePlan;
     
-    private boolean selected;
-    private boolean hovered;
+    protected boolean selected;
+    protected boolean hovered;
     
     /**
      * Creates new form VueNoeud
@@ -35,11 +35,11 @@ public class VueNoeud extends javax.swing.JPanel {
      */
     public VueNoeud(Noeud noeud, VuePlan vuePlan) {
         this.setNoeud(noeud);
-        this.vuePlan = vuePlan;
+        this.setVuePlan(vuePlan);
         initialize();
     }
     
-    private void initialize() {
+    protected void initialize() {
         initComponents();
 
         this.setOpaque(false);
@@ -52,6 +52,14 @@ public class VueNoeud extends javax.swing.JPanel {
 
     public void setNoeud(Noeud noeud) {
         this.noeud = noeud;
+    }
+    
+    public int getXNoeud() {
+        return this.noeud.getX();
+    }
+    
+    public int getYNoeud() {
+        return this.noeud.getY();
     }
 
     public VuePlan getVuePlan() {
@@ -74,7 +82,7 @@ public class VueNoeud extends javax.swing.JPanel {
         this.selected = selected;
         
         if (selected) {
-            this.vuePlan.selectNoeud(this.noeud);
+            this.vuePlan.createLiv(this.noeud);
         }
         
         this.repaint();
