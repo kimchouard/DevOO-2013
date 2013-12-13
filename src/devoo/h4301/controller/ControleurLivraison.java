@@ -37,11 +37,12 @@ public class ControleurLivraison {
    
      public void afficherCreationLivraison(Noeud noeud) {
          VueEditLivraison liv = new VueEditLivraison();
+         
          // afficher l'item
      }
      
      public void afficherUneLivraison(){
-     
+         // a refaire
      }
      
     public void rafraichirVueListLivraison(Tournee tournee) {
