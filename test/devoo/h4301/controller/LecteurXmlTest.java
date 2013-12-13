@@ -86,14 +86,55 @@ public class LecteurXmlTest {
 
     /**
      * Test of construireLivraisonAPartirXML method, of class LecteurXml.
+     * @throws java.lang.Exception
      */
     @Test
     public void testConstruireLivraisonAPartirXML() throws Exception {
-        //Tournee tournee = lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison.xml");
+        Plan plan = lecteurXml.construirePlanAPartirXML("./test/xml/plan.xml");
+        Tournee tournee = lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison.xml");
         
-        //assertTrue("Right Entrepot Id", tournee.getEntrepot().getId()== 0);
-        //assertTrue("Right number plage horraire", tournee.getHoraires().size()== 2);
-
+        assertTrue("Right Entrepot Id", tournee.getEntrepot().getId()== 0);
+        assertTrue("Right number plage horraire", tournee.getHoraires().size()== 2);
+        assertTrue("Right number livraison", tournee.getLivraisons().size()== 3);
     }
     
+    /**
+     * Test of construireLivraisonAPartirXML method, of class LecteurXml.
+     * @throws java.lang.Exception
+     */
+    @Test(expected = Exception.class)
+    public void testConstruireLivraisonAvecPlusieurEntrepot() throws Exception {
+        lecteurXml.construirePlanAPartirXML("./test/xml/plan.xml");
+        lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison_MultipleEtrepot.xml");
+    }
+    
+    /**
+     * Test of construireLivraisonAPartirXML method, of class LecteurXml.
+     * @throws java.lang.Exception
+     */
+    @Test(expected = Exception.class)
+    public void testConstruireLivraisonAvecHorraireInverses() throws Exception {
+        lecteurXml.construirePlanAPartirXML("./test/xml/plan.xml");
+        lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison_horraireInversees.xml");
+    }
+    
+    /**
+     * Test of construireLivraisonAPartirXML method, of class LecteurXml.
+     * @throws java.lang.Exception
+     */
+    @Test(expected = Exception.class)
+    public void testConstruireLivraisonSansEntrepot() throws Exception {
+        lecteurXml.construirePlanAPartirXML("./test/xml/plan.xml");
+        lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison_sansEntrepot.xml");
+    }
+    
+    /**
+     * Test of construireLivraisonAPartirXML method, of class LecteurXml.
+     * @throws java.lang.Exception
+     */
+    @Test(expected = Exception.class)
+    public void testConstruireLivraisonSansRacine() throws Exception {
+        lecteurXml.construirePlanAPartirXML("./test/xml/plan.xml");
+        lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison_sansRacine.xml");
+    }
 }
