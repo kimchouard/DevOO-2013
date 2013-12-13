@@ -141,14 +141,16 @@ public class Troncon {
      */
     public void construireAPartirDomXML(Element noeudDOMRacine, Plan plan) throws Exception {
 
-/// todo : gerer les erreurs de syntaxe dans le fichier XML !
         this.nomRue = noeudDOMRacine.getAttribute("nomRue");
-        vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
-        longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
-        System.out.println("troncon créé");
-        Integer idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
-        destination = plan.getNoeudById(idDestination);
-        System.out.println("troncon créé totalement");
+        this.vitesse = Double.parseDouble((noeudDOMRacine.getAttribute("vitesse")));
+        this.longueur = Double.parseDouble((noeudDOMRacine.getAttribute("longueur")));
+        
+        if(this.vitesse <= 0 || this.longueur <= 0) {
+            throw new Exception("La vitesse ou la distance ne peuvent pas être négative ou nulle");
+        } else {
+            Integer idDestination = Integer.parseInt(noeudDOMRacine.getAttribute("destination"));
+            destination = plan.getNoeudById(idDestination);
+        }
     }
 
 }
