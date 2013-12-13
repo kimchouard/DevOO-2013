@@ -40,6 +40,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         undo = new javax.swing.JButton();
         pDroit = new javax.swing.JScrollPane();
         debug = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        log = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,15 +73,17 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
 
+        log.setColumns(20);
+        log.setRows(5);
+        jScrollPane1.setViewportView(log);
+
+        jLabel1.setText("Log");
+        jLabel1.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(chargerPlan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -90,6 +95,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(redo)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,10 +118,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(redo)
                     .addComponent(undo)
                     .addComponent(debug))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pGauche, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                    .addComponent(pDroit)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,18 +134,17 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
         // Lunch load of the map from the file URL asked
-        this.controleurPrincipal.chargerPlan();
+        this.controleurPrincipal.chargerPlan("");
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
-//        String urlXmlLivraisons = ouvrirFichier();
-        
-        // Lunch load of the deliveries from the file URL
+        this.controleurPrincipal.chargerLiv("");
     }//GEN-LAST:event_clickChargerLivraisons
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerPlanDebug();
+        this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
+        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
     }//GEN-LAST:event_clickDebug
 
     public JScrollPane getpDroit() {
@@ -134,11 +155,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         return pGauche;
     }
     
+    public void log(String log, boolean error) {
+        this.log.append("\n"+log);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chargerLiv;
     private javax.swing.JButton chargerPlan;
     private javax.swing.JButton debug;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea log;
     private javax.swing.JScrollPane pDroit;
     private javax.swing.JScrollPane pGauche;
     private javax.swing.JButton redo;
