@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import org.w3c.dom.Element;
 
 /**
@@ -76,4 +77,38 @@ public class PlageHoraire {
     public void setFin(Date fin) {
         this.fin = fin;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    /**
+     *Regarde l'égalité entre deux plages horaire.
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlageHoraire other = (PlageHoraire) obj;
+        if (!Objects.equals(this.debut, other.debut)) {
+            return false;
+        }
+        else if (!Objects.equals(this.fin, other.fin)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

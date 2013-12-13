@@ -52,7 +52,7 @@ public class Tournee {
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
      */
-    private Tournee() {
+    public Tournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
     }
@@ -79,12 +79,37 @@ public class Tournee {
     }
 
     /**
-     * Ajout d'une plage horaire dans la liste
+     * Ajout d'une plage horaire dans la liste. Vérifie que la plage horaire
+     * n'est pas déjà dans horaires.
      *
      * @param horaire à ajouter à horairess
+     * @throws Exception lévée en cas de doublons dans les plages horaires crées
      */
-    public void addHoraire(PlageHoraire horaire) {
+    public void addHoraire(PlageHoraire horaire) throws Exception {
+        if (this.horaires.contains(horaire) == true) {
+            MyException e = new MyException("Plusieurs plages horaires sont similaires dans le fichier");
+            throw e;
+        }
         this.horaires.add(horaire);
+
+    }
+
+    /**
+     * Vérifie que les plages horaires sont bien ordonnée : la date de fin d'une
+     * plage horaire doit être plus tôt que l'heure de début de la suivante.
+     *
+     * @throws Exception
+     */
+    public void cheekPlageHoraires() throws Exception {
+        LinkedList<PlageHoraire> list = this.getHoraires();
+        for (int i = 1; i < list.size(); i++) {
+            //compareTo renvoie 0 si date identique, >0 si début de i> fin de i-1
+            if (list.get(i).getDebut().compareTo(list.get(i - 1).getFin()) < 0) {
+                MyException e = new MyException("Les plages horaires se chevauchent ou ne sont pas dans le bon ordre");
+                throw e;
+            }
+        }
+        System.out.println("vérif pl ok");
     }
 
     /**
@@ -181,7 +206,7 @@ public class Tournee {
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
         NodeList listPlage = plagesElem.getElementsByTagName("Plage");
-        for (int i = 0; i <= listPlage.getLength(); i++) {
+        for (int i = 0; i < listPlage.getLength(); i++) {
             Element palgeElem = (Element) listPlage.item(i);
             PlageHoraire plage = new PlageHoraire();
             plage.construireAPartirDomXML(palgeElem);

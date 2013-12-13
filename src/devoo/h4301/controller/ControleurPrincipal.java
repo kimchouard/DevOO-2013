@@ -8,6 +8,8 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.*;
 import devoo.h4301.views.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 
@@ -21,6 +23,7 @@ public class ControleurPrincipal {
     private JFileChooser jFileChooserXML;
     
     private ControleurPlan controleurPlan;
+    private ControllerCommand commandeControleur;
     private LecteurXml lecteurXml;
 
     public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
@@ -28,6 +31,7 @@ public class ControleurPrincipal {
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan();
+        this.commandeControleur = new ControllerCommand();
         this.lecteurXml = new LecteurXml();
     }
     
@@ -43,6 +47,9 @@ public class ControleurPrincipal {
             System.out.println("Error: "+e.getMessage());
         }
         Plan p = Tournee.getInstance().getPlan();
+        
+        commandeControleur.resetCommand();
+        
         controleurPlan.setVuePlan(p);
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan();
@@ -51,11 +58,18 @@ public class ControleurPrincipal {
     }
     
     public void chargerPlanDebug() {
-        Plan p = initDebug();
-        controleurPlan.setVuePlan(p);
-        controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan();
-        controleurPlan.afficherPlan(panneauPlan);
+        try {
+            Plan p = initDebug();
+
+            commandeControleur.resetCommand();
+
+            controleurPlan.setVuePlan(p);
+            controleurPlan.scaleAutoVuePlan(panneauPlan);
+            controleurPlan.rafraichirVuePlan();
+            controleurPlan.afficherPlan(panneauPlan);
+        } catch (Exception ex) {
+            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     //--------------------------------
@@ -83,7 +97,7 @@ public class ControleurPrincipal {
         return null;
     }
     
-    private Plan initDebug() {
+    private Plan initDebug() throws Exception {
         Plan p = new Plan();
         
         Noeud n0 = new Noeud(0, 200, 200);
