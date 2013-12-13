@@ -122,6 +122,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
         this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
+        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
     }//GEN-LAST:event_clickDebug
 
     public JScrollPane getpDroit() {
