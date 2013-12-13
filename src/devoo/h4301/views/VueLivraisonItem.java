@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
+import devoo.h4301.model.PlageHoraire;
 import java.awt.Dimension;
 
 /**
@@ -51,7 +52,12 @@ public class VueLivraisonItem extends javax.swing.JPanel {
      public void setLivraison(Livraison liv){
         this.livraison = liv;
         
-        this.idClient.setText("cookie");
+        this.idLivraison.setText(this.livraison.getDestination().getId().toString());
+        this.nomClient.setText(this.livraison.getClient().getName());
+        
+        PlageHoraire ph = this.livraison.getHoraire();
+        String horaire = "De "+ph.getDebut().toString()+" à "+ph.getFin().toString();
+        this.plageHoraire.setText(horaire);
     }
 
     public ControleurLivraison getControleurLivraison() {
@@ -78,7 +84,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        idClient = new javax.swing.JLabel();
+        idLivraison = new javax.swing.JLabel();
         nomClient = new javax.swing.JLabel();
         plageHoraire = new javax.swing.JLabel();
         supprBouton = new javax.swing.JButton();
@@ -86,8 +92,8 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         setPreferredSize(new java.awt.Dimension(280, 50));
 
-        idClient.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        idClient.setText("[1]");
+        idLivraison.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        idLivraison.setText("[1]");
 
         nomClient.setText("Nom Client");
 
@@ -106,7 +112,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(idClient)
+                .addComponent(idLivraison)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomClient)
@@ -119,7 +125,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idClient)
+                    .addComponent(idLivraison)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(nomClient)
@@ -139,7 +145,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel idClient;
+    private javax.swing.JLabel idLivraison;
     private javax.swing.JLabel nomClient;
     private javax.swing.JLabel plageHoraire;
     private javax.swing.JButton supprBouton;

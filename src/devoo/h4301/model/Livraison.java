@@ -98,6 +98,8 @@ public class Livraison {
     public Client getClient() {
         return client;
     }
+    
+    
 
     /**
      * Setter sur le client
