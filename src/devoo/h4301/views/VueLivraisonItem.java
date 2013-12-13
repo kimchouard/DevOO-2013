@@ -19,7 +19,8 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
     private ControleurLivraison controleurLivraison;
-
+    
+    protected boolean selected;
     /**
      * Create new form VueLivraison 
      */
@@ -31,9 +32,16 @@ public class VueLivraisonItem extends javax.swing.JPanel {
      * Creates new form VueLivraison
      */
     public VueLivraisonItem(Livraison livraison, ControleurLivraison controleurLivraison) {
-        this.setLivraison(livraison);
-        this.setControleurLivraison(controleurLivraison);
+        this.livraison = livraison;
+        this.controleurLivraison = controleurLivraison;
         initialize();
+        
+        //Le suite est utile, ou pas !!!
+        this.idLivraison.setText(this.livraison.getDestination().getId().toString());
+        this.nomClient.setText(this.livraison.getClient().getName());
+        PlageHoraire ph = this.livraison.getHoraire();
+        String horaire = "De "+ph.getDebut().toString()+" à "+ph.getFin().toString();
+        this.plageHoraire.setText(horaire);
     }
     
     public void initialize() {
@@ -67,11 +75,22 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     public void setControleurLivraison(ControleurLivraison controleurLivraison) {
         this.controleurLivraison = controleurLivraison;
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    
+    
      
    /* @Override
     public void paintCoponent()
     {
-    
+        // s'inspirer de celle de noeud, avec un get color
     }
      */
      
@@ -139,6 +158,8 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // A modifié probablement 
+    // pas de suppression au niveau de la vue
     private void supprLiv(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprLiv
         this.controleurLivraison.supprLiv(this.livraison);
     }//GEN-LAST:event_supprLiv

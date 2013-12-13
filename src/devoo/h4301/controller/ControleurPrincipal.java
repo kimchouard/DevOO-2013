@@ -34,9 +34,10 @@ public class ControleurPrincipal {
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan(this);
+        this.lecteurXml = new LecteurXml();
         this.controleurLivraison = new ControleurLivraison(this);
         this.commandeControleur = new ControllerCommand();
-        this.lecteurXml = new LecteurXml();
+        
     }
     
     //--------------------------------
@@ -60,9 +61,6 @@ public class ControleurPrincipal {
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
-        
-        controleurLivraison.rafraichirVueListLivraison(t);
-        controleurLivraison.afficherListLivraison(panneauLiv);
     }
     
     public void chargerLiv(String urlLiv) {
@@ -76,10 +74,15 @@ public class ControleurPrincipal {
             } catch (Exception e) {
                 System.out.println("Error : "+e.getMessage());
             }
+            // observer 
             Tournee t = Tournee.getInstance();
             controleurPlan.setTournee(t);
             controleurPlan.rafraichirVuePlan(t);
             controleurPlan.afficherPlan(panneauPlan);
+        
+            // rajouter
+            controleurLivraison.rafraichirVueListLivraison(t);
+            controleurLivraison.afficherListLivraison(panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
@@ -98,11 +101,12 @@ public class ControleurPrincipal {
 //    }
     
     public void selectLivraison(Livraison liv) {
-        //TODO open edit liv on right
+        // éclairer la bonne livraison
     }
     
     public void createLiv(Noeud noeud) {
         //TODO Open add new liv on right
+        // avoir une vue (nouvelle classe) qui permet d'afficher les champs pour ajouter
     }
     
     //--------------------------------

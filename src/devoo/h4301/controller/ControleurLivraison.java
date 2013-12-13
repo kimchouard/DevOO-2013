@@ -9,6 +9,7 @@ package devoo.h4301.controller;
 import devoo.h4301.views.VueListLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
+import devoo.h4301.views.VueEditLivraison;
 import javax.swing.JScrollPane;
 
 /**
@@ -16,13 +17,14 @@ import javax.swing.JScrollPane;
  * @author Mimi
  */
 public class ControleurLivraison {
-    
-    private VueListLivraison vueListLivraison;
-    
     private ControleurPrincipal controleurPrincipal;
     
+    private VueListLivraison vueListLivraison;
+    private VueEditLivraison vueEditLivraison;
+    
      public ControleurLivraison(ControleurPrincipal controleurPrincipal) {
-        this.vueListLivraison = new VueListLivraison();
+        this.vueListLivraison = new VueListLivraison(this);
+        this.vueEditLivraison = new VueEditLivraison();
         this.controleurPrincipal = controleurPrincipal;
     }
      
@@ -30,6 +32,11 @@ public class ControleurLivraison {
         listLiv.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
     }
+     
+    // A faire !
+     public void afficherCreationLivraison() {
+            
+     }
      
     public void rafraichirVueListLivraison(Tournee tournee) {
         this.vueListLivraison.reset();

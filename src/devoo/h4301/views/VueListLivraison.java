@@ -25,8 +25,8 @@ public class VueListLivraison extends javax.swing.JPanel {
     /**
      * Creates new form VueLivraisonItem
      */
-    public VueListLivraison() {
-        //this.vueLivraisons = new 
+    public VueListLivraison(ControleurLivraison controleurLivraison) {
+        this.setControleurLivraison(controleurLivraison); 
         initialize();
     }
     
@@ -86,7 +86,7 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.setPreferredSize(dimension);
     }
     
-    
+    // fonction highligth (livraison), 
     
     
     /*private void updateVueLivraison() {
