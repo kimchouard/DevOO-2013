@@ -6,11 +6,15 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.fixture.domXml;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;
+import devoo.h4301.model.Tournee;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -85,6 +89,11 @@ public class LecteurXmlTest {
      */
     @Test
     public void testConstruireLivraisonAPartirXML() throws Exception {
+        Tournee tournee = lecteurXml.construireLivraisonAPartirXML("./test/xml/livraison.xml");
+        
+        assertTrue("Right Entrepot Id", tournee.getEntrepot().getId()== 0);
+        assertTrue("Right number plage horraire", tournee.getHoraires().size()== 2);
+
     }
     
 }
