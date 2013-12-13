@@ -105,8 +105,7 @@ public class ControleurPrincipal {
     }
     
     public void createLiv(Noeud noeud) {
-        //TODO Open add new liv on right
-        // avoir une vue (nouvelle classe) qui permet d'afficher les champs pour ajouter
+        this.controleurLivraison.afficherCreationLivraison(noeud);
     }
     
     //--------------------------------

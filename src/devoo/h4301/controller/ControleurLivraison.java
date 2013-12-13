@@ -8,6 +8,7 @@ package devoo.h4301.controller;
 
 import devoo.h4301.views.VueListLivraison;
 import devoo.h4301.model.Livraison;
+import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import javax.swing.JScrollPane;
@@ -33,9 +34,14 @@ public class ControleurLivraison {
         this.vueListLivraison.updateUI();
     }
      
-    // A faire !
-     public void afficherCreationLivraison() {
-            
+   
+     public void afficherCreationLivraison(Noeud noeud) {
+         VueEditLivraison liv = new VueEditLivraison();
+         // afficher l'item
+     }
+     
+     public void afficherUneLivraison(){
+     
      }
      
     public void rafraichirVueListLivraison(Tournee tournee) {
