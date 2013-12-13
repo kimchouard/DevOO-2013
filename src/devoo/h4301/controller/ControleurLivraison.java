@@ -29,15 +29,16 @@ public class ControleurLivraison {
         this.controleurPrincipal = controleurPrincipal;
     }
      
-     public void afficherListLivraison(JScrollPane listLiv) {
-        listLiv.setViewportView(vueListLivraison);
+     public void afficherListLivraison(JScrollPane paneRight) {
+        paneRight.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
     }
      
    
-     public void afficherCreationLivraison(Noeud noeud) {
-         VueEditLivraison liv = new VueEditLivraison();
-         liv.setVisible(true);
+     public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) {
+         VueEditLivraison viewNewLiv = new VueEditLivraison();
+         paneRight.setViewportView(viewNewLiv);
+         viewNewLiv.setVisible(true);
      }
      
      public void afficherUneLivraison(){

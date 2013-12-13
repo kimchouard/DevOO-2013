@@ -30,7 +30,7 @@ public class ControleurPrincipal {
 
     public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
-        this.setPanneauLiv(panneauLiv);
+        this.setPanneauLiv(scrollPaneLiv);
         this.setFenParent(fenParent);
         
         this.controleurPlan = new ControleurPlan(this);
@@ -105,7 +105,7 @@ public class ControleurPrincipal {
     }
     
     public void createLiv(Noeud noeud) {
-        this.controleurLivraison.afficherCreationLivraison(noeud);
+        this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
     }
     
     //--------------------------------
