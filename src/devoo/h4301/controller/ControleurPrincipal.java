@@ -49,7 +49,7 @@ public class ControleurPrincipal {
         Tournee t = Tournee.getInstance();
         controleurPlan.setTournee(t);
         controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan();
+        controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
     }
     
@@ -62,11 +62,11 @@ public class ControleurPrincipal {
             try {
                 this.lecteurXml.construireLivraisonAPartirXML(urlLiv);
             } catch (Exception e) {
-                System.out.println("Error: "+e.getMessage());
+                System.out.println("Error : "+e.getMessage());
             }
             Tournee t = Tournee.getInstance();
             controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan();
+            controleurPlan.rafraichirVuePlan(t);
             controleurPlan.afficherPlan(panneauPlan);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");

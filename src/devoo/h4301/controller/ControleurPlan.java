@@ -39,17 +39,17 @@ public class ControleurPlan {
     //  Public functions
     
     /**
-     * Affiche le plan à partir du singleton.
+     * Lie la vue plan avec le scroll pannel de la fenetre principale.
      */
-    
     public void afficherPlan(JScrollPane panneauPlan) {
         panneauPlan.setViewportView(vuePlan);
         this.vuePlan.updateUI();
     }
     
-    public void rafraichirVuePlan() {
+    public void rafraichirVuePlan(Tournee tournee) {
         this.vuePlan.reset();
-        Plan plan =  vuePlan.getTournee().getPlan();
+        this.vuePlan.setTournee(tournee);
+        Plan plan =  tournee.getPlan();
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
@@ -61,7 +61,7 @@ public class ControleurPlan {
             this.vuePlan.ajouterTroncon(t);
         }
         
-        LinkedList<Livraison> livs =  vuePlan.getTournee().getLivraisons();
+        LinkedList<Livraison> livs =  tournee.getLivraisons();
         for (Livraison l : livs) {
             this.vuePlan.ajouterLiv(l);
         }
