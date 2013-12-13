@@ -18,7 +18,8 @@ import java.awt.Graphics2D;
  */
 public class VueTroncon extends javax.swing.JPanel {
     
-    private Troncon troncon;
+    protected Troncon troncon;
+    protected VuePlan vuePlan;
     
     /**
      * Creates new form VueTroncon
@@ -30,12 +31,13 @@ public class VueTroncon extends javax.swing.JPanel {
     /**
      * Constructeur VueTroncon avec création du troncon
      */
-    public VueTroncon(Troncon troncon) {
+    public VueTroncon(Troncon troncon, VuePlan vuePlan) {
         this.setTroncon(troncon);
+        this.vuePlan = vuePlan;
         initialize();
     }
     
-    private void initialize() {
+    protected void initialize() {
         initComponents();
 
         this.setOpaque(false);
@@ -49,6 +51,14 @@ public class VueTroncon extends javax.swing.JPanel {
 
     public void setTroncon(Troncon troncon) {
         this.troncon = troncon;
+    }
+
+    public VuePlan getVuePlan() {
+        return vuePlan;
+    }
+
+    public void setVuePlan(VuePlan vuePlan) {
+        this.vuePlan = vuePlan;
     }
    
     @Override
