@@ -115,7 +115,6 @@ public class ControleurPrincipal {
         this.commandeControleur.addCommand(liv, deleted);
     }
     
-    // To do fonction qui redo / undo 
        
     //--------------------------------
     //  Private functions

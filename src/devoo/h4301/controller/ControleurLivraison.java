@@ -34,7 +34,8 @@ public class ControleurLivraison {
         this.vueListLivraison.updateUI();
     }
      
-     // To do pour undo et redo des fonction d'ajout et de suppression  sans l'affichage de l'edition
+     // To do pour undo et redo deux fonctions d'ajout et de suppression  sans l'affichage de l'edition
+     // Fonction mirroir de l'ajout et de la suppression donc avec correspondance métier etc
      
      
      
@@ -42,14 +43,9 @@ public class ControleurLivraison {
          VueEditLivraison viewNewLiv = new VueEditLivraison();
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);
-         // Enregistrement
-         
-        /*if (deleted){
-            Tournee.getInstance().supprimerLivraison(liv);
-        }
-        else{
-            Tournee.getInstance().addLivraison(liv);
-        }*/
+         // Récupération des différents champs
+         // Création Nouvelle livraison liv
+         //Tournee.getInstance().addLivraison(liv);
          //this.controleurPrincipal.addCommandeLivraison();
          
      }
@@ -68,11 +64,11 @@ public class ControleurLivraison {
     }
      
      public int supprLiv(Livraison liv) {
-         //To do parcourir le tableau et reoutrner 0 on delete
          for (int  i = 0; i < this.vueListLivraison.getVueLivraison().size() ; i++){
              if (this.vueListLivraison.getVueLivraison().get(i).getLivraison().equals(liv))
              {
                  this.vueListLivraison.getVueLivraison().remove(liv);
+                 Tournee.getInstance().supprimerLivraison(liv);  
                  return 0;
              }
          }
