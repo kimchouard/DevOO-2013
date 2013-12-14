@@ -164,6 +164,7 @@ public class Tournee {
      * @param livraison a ajouter à la tournée
      */
     public void addLivraison(Livraison livraison) {
+        // test à faire au niveau sémantique et chauvachement
         this.livraisons.add(livraison);
     }
 
