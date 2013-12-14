@@ -32,7 +32,7 @@ public class ControleurPrincipal {
         this.setFenParent(fenParent);
 
         this.controleurPlan = new ControleurPlan(this);
-        this.commandeControleur = new ControllerCommand();
+        this.commandeControleur = new ControllerCommand(fenParent);
         this.lecteurXml = new LecteurXml();
     }
 

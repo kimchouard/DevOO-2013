@@ -170,6 +170,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.controleurPrincipal.redo();
     }//GEN-LAST:event_redoActionPerformed
 
+    public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
+        redo.setEnabled(possibleRedo);
+        undo.setEnabled(possibleUndo);
+    }
+            
     public JScrollPane getpDroit() {
         return pDroit;
     }
