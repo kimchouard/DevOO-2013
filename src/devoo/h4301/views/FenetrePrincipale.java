@@ -68,8 +68,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         });
 
         redo.setText("Redo");
+        redo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redoActionPerformed(evt);
+            }
+        });
 
         undo.setText("Undo");
+        undo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoActionPerformed(evt);
+            }
+        });
 
         debug.setText("DEBUG");
         debug.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,6 +161,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
         this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
     }//GEN-LAST:event_clickDebug
+
+    private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed
+        this.controleurPrincipal.undo();
+    }//GEN-LAST:event_undoActionPerformed
+
+    private void redoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoActionPerformed
+        this.controleurPrincipal.redo();
+    }//GEN-LAST:event_redoActionPerformed
 
     public JScrollPane getpDroit() {
         return pDroit;

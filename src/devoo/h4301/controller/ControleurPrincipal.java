@@ -8,6 +8,8 @@ package devoo.h4301.controller;
 import devoo.h4301.model.*;
 import devoo.h4301.views.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 
@@ -252,5 +254,21 @@ public class ControleurPrincipal {
 
     public void setFenParent(FenetrePrincipale fenParent) {
         this.fenParent = fenParent;
+    }
+
+    public void undo(){
+        try {
+            this.commandeControleur.undo(Tournee.getInstance());
+        } catch (Exception ex) {
+            System.out.println("Impossible to undo");
+        }
+    }
+
+    public void redo() {
+        try {
+            this.commandeControleur.redo(Tournee.getInstance());
+        } catch (Exception ex) {
+            System.out.println("Impossible to redo");
+        }
     }
 }
