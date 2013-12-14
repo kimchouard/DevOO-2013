@@ -69,57 +69,57 @@ public class Plan {
             throw new Exception("Noeud avec un id identique existe deja");
         } else {
             if (noeuds.isEmpty()) {
-                this.setMinX(noeud.getX());
-                this.setMinY(noeud.getY());
-                this.setMaxX(noeud.getX());
-                this.setMaxY(noeud.getY());
+                this.minX = noeud.getX();
+                this.minY = noeud.getY();
+                this.maxX = noeud.getX();
+                this.maxY = noeud.getY();
             } else {
                 if (noeud.getX() > this.maxX) {
-                    this.setMaxX(noeud.getX());
+                    this.maxX = noeud.getX();
                 }
                 if (noeud.getY() > this.maxY) {
-                    this.setMaxY(noeud.getY());
+                    this.maxY = noeud.getY();
                 }
                 if (noeud.getX() < this.minX) {
-                    this.setMinX(noeud.getX());
+                    this.minX = noeud.getX();
                 }
                 if (noeud.getY() < this.minY) {
-                    this.setMinY(noeud.getY());
+                    this.minY = noeud.getY();
                 }
             }
 
             this.noeuds.add(noeud);
         }
     }
-    
-    public void setMinX(int minX) {
-        this.minX = minX;
-    }
 
-    public void setMinY(int minY) {
-        this.minY = minY;
-    }
-
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
-    }
-
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
-    }
-
+    /**
+     * Retrouner le postion minimale du plan en X
+     * @return minX
+     */
     public int getMinX() {
         return minX;
     }
 
+    /**
+     * Retrouner le postion minimale du plan en Y
+     * @return minY
+     */
     public int getMinY() {
         return minY;
     }
 
+    /**
+     * Retrouner le postion maximale du plan en X
+     * @return maxX
+     */
     public int getMaxX() {
         return maxX;
     }
 
+    /**
+     * Retrouner le postion maximale du plan en Y
+     * @return maxY
+     */
     public int getMaxY() {
         return maxY;
     }
