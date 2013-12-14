@@ -6,6 +6,7 @@
 package devoo.h4301.model;
 
 import devoo.h4301.outils.MyException;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import org.w3c.dom.Element;
@@ -48,6 +49,8 @@ public class Tournee {
      * Instance unique de Tournee, par défaut à nul
      */
     private static Tournee instanceTournee = null;
+    
+    ArrayList<Itineraire> itineraires;
 
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
@@ -67,6 +70,14 @@ public class Tournee {
             instanceTournee = new Tournee();
         }
         return instanceTournee;
+    }
+
+    public ArrayList<Itineraire> getItineraires() {
+        return itineraires;
+    }
+
+    public void setItineraires(ArrayList<Itineraire> itineraires) {
+        this.itineraires = itineraires;
     }
 
     /**

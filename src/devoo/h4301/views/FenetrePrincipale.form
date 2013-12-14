@@ -106,11 +106,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Redo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="redoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="undo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Undo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="pDroit">
       <Properties>
