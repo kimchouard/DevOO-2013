@@ -173,6 +173,17 @@ public class Tournee {
     public Noeud getEntrepot() {
         return entrepot;
     }
+    
+    public void supprimerLivraison(Livraison liv)
+    {
+        for (int  i = 0; i < this.livraisons.size() ; i++){
+             if (this.livraisons.get(i).equals(liv))
+             {
+                 this.livraisons.remove(i);
+                 break;
+             }
+         }
+    }
 
     /**
      * @param entrepot noeud attaché comme entrepot à la tournée
@@ -243,4 +254,8 @@ public class Tournee {
             }
         }
     }
+    
+    
+    
 }
+

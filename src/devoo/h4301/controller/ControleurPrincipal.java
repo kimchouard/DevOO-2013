@@ -83,7 +83,7 @@ public class ControleurPrincipal {
         
             // rajouter
             controleurLivraison.rafraichirVueListLivraison(t);
-            controleurLivraison.afficherListLivraison(panneauLiv);
+            controleurLivraison.afficherListLivraison(this.panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
@@ -106,8 +106,17 @@ public class ControleurPrincipal {
 
     public void createLiv(Noeud noeud) {
         this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+       
     }
 
+    
+    public void addCommandeLivraison(Livraison liv, boolean deleted)
+    {
+        this.commandeControleur.addCommand(liv, deleted);
+    }
+    
+    // To do fonction qui redo / undo 
+       
     //--------------------------------
     //  Private functions
     /**

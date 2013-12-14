@@ -34,11 +34,24 @@ public class ControleurLivraison {
         this.vueListLivraison.updateUI();
     }
      
-   
+     // To do pour undo et redo des fonction d'ajout et de suppression  sans l'affichage de l'edition
+     
+     
+     
      public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) {
          VueEditLivraison viewNewLiv = new VueEditLivraison();
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);
+         // Enregistrement
+         
+        /*if (deleted){
+            Tournee.getInstance().supprimerLivraison(liv);
+        }
+        else{
+            Tournee.getInstance().addLivraison(liv);
+        }*/
+         //this.controleurPrincipal.addCommandeLivraison();
+         
      }
      
      public void afficherUneLivraison(){

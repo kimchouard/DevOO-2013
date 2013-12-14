@@ -20,7 +20,7 @@ import java.util.LinkedList;
  */
 public class VueListLivraison extends javax.swing.JPanel {
 
-    private LinkedList<VueLivraisonItem> vueLivraisons = new LinkedList();
+    private LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
     private ControleurLivraison controleurLivraison;
     /**
      * Creates new form VueLivraisonItem
@@ -40,16 +40,16 @@ public class VueListLivraison extends javax.swing.JPanel {
     public void reset() {
         this.removeAll();
         this.updateUI();
-        this.vueLivraisons.clear();
-        this.vueLivraisons.clear();
+        this.vueLivraisonsItem.clear();
+        this.vueLivraisonsItem.clear();
     }
     
     public void ajouterLivraison(Livraison livraison) {
         VueLivraisonItem v = new VueLivraisonItem(livraison, this.controleurLivraison);
-        this.placerLivraison(v, this.vueLivraisons.size()-1);
+        this.placerLivraison(v, this.vueLivraisonsItem.size()-1);
         this.updateVueListLivraison();
         
-        this.vueLivraisons.add(v);
+        this.vueLivraisonsItem.add(v);
         this.add(v);
         v.setVisible(true);
     }
@@ -60,7 +60,7 @@ public class VueListLivraison extends javax.swing.JPanel {
     }
 
     public LinkedList<VueLivraisonItem> getVueLivraison() {
-        return vueLivraisons;
+        return vueLivraisonsItem;
     }
 
     public ControleurLivraison getControleurLivraison() {
