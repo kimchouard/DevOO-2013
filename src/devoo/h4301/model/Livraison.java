@@ -36,6 +36,16 @@ public class Livraison {
      */
     protected Client client;
 
+    public Livraison(Noeud destination, Integer colis, PlageHoraire horaire, Client client) {
+        this.destination = destination;
+        this.colis = colis;
+        this.horaire = horaire;
+        this.client = client;
+    }
+
+    
+    
+    
     /**
      * Getter sur la destination
      *

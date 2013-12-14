@@ -6,9 +6,11 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.model.Client;
 import devoo.h4301.views.VueListLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import javax.swing.JScrollPane;
@@ -29,8 +31,8 @@ public class ControleurLivraison {
         this.controleurPrincipal = controleurPrincipal;
     }
      
-     public void afficherListLivraison(JScrollPane paneRight) {
-        paneRight.setViewportView(vueListLivraison);
+     public void afficherListLivraison(JScrollPane panneauLiv) {
+        panneauLiv.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
     }
      
@@ -43,10 +45,17 @@ public class ControleurLivraison {
          VueEditLivraison viewNewLiv = new VueEditLivraison();
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);
-         // Récupération des différents champs
-         // Création Nouvelle livraison liv
-         //Tournee.getInstance().addLivraison(liv);
-         //this.controleurPrincipal.addCommandeLivraison();
+         Noeud newnoeud = new Noeud(); // récupérer champs
+         Integer colis =0; // récupérer champs et initaliser
+         Integer id = 0; // récupérer champs et initialiser
+         Client client = new Client(id);
+         String nom = "M"; // récupérer champs et initaliser
+         client.setName(nom);
+         PlageHoraire horaire = new PlageHoraire();
+         
+         Livraison liv = new Livraison(newnoeud, colis, horaire, client);
+         Tournee.getInstance().addLivraison(liv);
+         this.controleurPrincipal.addCommandeLivraison(liv, false);
          
      }
      

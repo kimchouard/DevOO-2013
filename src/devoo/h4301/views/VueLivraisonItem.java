@@ -124,6 +124,11 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                 supprLiv(evt);
             }
         });
+        supprBouton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprBoutonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -161,8 +166,13 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     // A modifié probablement 
     // pas de suppression au niveau de la vue
     private void supprLiv(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprLiv
-        this.controleurLivraison.supprLiv(this.livraison);
+        
     }//GEN-LAST:event_supprLiv
+
+    private void supprBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprBoutonActionPerformed
+        // TODO add your handling code here:
+        this.controleurLivraison.supprLiv(livraison);
+    }//GEN-LAST:event_supprBoutonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

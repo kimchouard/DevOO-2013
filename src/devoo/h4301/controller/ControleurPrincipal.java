@@ -105,6 +105,7 @@ public class ControleurPrincipal {
     }
 
     public void createLiv(Noeud noeud) {
+        // Tester si le noeud est bien une livraison alors afficher sans l'édition
         this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
        
     }
