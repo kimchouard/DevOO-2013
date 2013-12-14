@@ -14,6 +14,11 @@ public class Command {
     private Livraison Livraison;
     private Boolean deleted;
     
+    /**
+     * Constructeur par defaut
+     * @param liv livraison concernee
+     * @param deleted est vrai si la commande supprime la livraison associee 
+     */
     public Command (Livraison liv, Boolean deleted) {
         this.Livraison = liv;
         this.deleted = deleted;

@@ -7,6 +7,8 @@
 package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
+import devoo.h4301.outils.LogOutputStream;
+import java.io.PrintStream;
 import javax.swing.JScrollPane;
 
 /**
@@ -22,6 +24,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
      */
     public FenetrePrincipale() {
         initComponents();
+        PrintStream printStream = new PrintStream(new LogOutputStream(log));
+        System.setOut(printStream);
+        System.setErr(printStream);
     }
 
     /**
