@@ -41,7 +41,7 @@ public class ControleurLivraison {
      
      
      
-     public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) {
+     public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
          VueEditLivraison viewNewLiv = new VueEditLivraison();
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);

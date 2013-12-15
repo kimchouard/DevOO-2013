@@ -42,6 +42,9 @@ public class Livraison {
         this.horaire = horaire;
         this.client = client;
     }
+    
+    public Livraison(){
+    }
 
     
     

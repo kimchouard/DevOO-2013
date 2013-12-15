@@ -45,7 +45,7 @@ public class VueListLivraison extends javax.swing.JPanel {
     }
     
     public void ajouterLivraison(Livraison livraison) {
-        VueLivraisonItem v = new VueLivraisonItem(livraison, this.controleurLivraison);
+        VueLivraisonItem v = new VueLivraisonItem(livraison, this);
         this.placerLivraison(v, this.vueLivraisonsItem.size()-1);
         this.updateVueListLivraison();
         

@@ -78,7 +78,7 @@ public class ControllerCommand {
         }
     }
     
-    public static Command invertCommand(Tournee tournee, Command command) {
+    public static Command invertCommand(Tournee tournee, Command command) throws Exception {
         if (command.getDeleted()) {
             tournee.addLivraison(command.getLivraison());
         } else {

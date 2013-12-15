@@ -10,6 +10,8 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.PlageHoraire;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -18,7 +20,7 @@ import java.awt.Dimension;
 public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
-    private ControleurLivraison controleurLivraison;
+    private VueListLivraison vueListLivraison;
     
     protected boolean selected;
     /**
@@ -31,18 +33,20 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     /**
      * Creates new form VueLivraison
      */
-    public VueLivraisonItem(Livraison livraison, ControleurLivraison controleurLivraison) {
+    public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
         this.livraison = livraison;
-        this.controleurLivraison = controleurLivraison;
-        initialize();
+        this.vueListLivraison = vueListLivraison;
+        this.initialize();
         
-        //Le suite est utile, ou pas !!!
+    }
+        
+     /*   //Le suite est utile, ou pas !!!
         this.idLivraison.setText(this.livraison.getDestination().getId().toString());
         this.nomClient.setText(this.livraison.getClient().getName());
         PlageHoraire ph = this.livraison.getHoraire();
         String horaire = "De "+ph.getDebut().toString()+" à "+ph.getFin().toString();
         this.plageHoraire.setText(horaire);
-    }
+    */
     
     public void initialize() {
         initComponents();
@@ -68,14 +72,6 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.plageHoraire.setText(horaire);
     }
 
-    public ControleurLivraison getControleurLivraison() {
-        return controleurLivraison;
-    }
-
-    public void setControleurLivraison(ControleurLivraison controleurLivraison) {
-        this.controleurLivraison = controleurLivraison;
-    }
-
     public boolean isSelected() {
         return selected;
     }
@@ -83,16 +79,30 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+    public VueListLivraison getVueListLivraison() {
+        return vueListLivraison;
+    }
+
+    public void setVueListLivraison(VueListLivraison vueListLivraison) {
+        this.vueListLivraison = vueListLivraison;
+    }
+    
+    
     
     
     
      
-   /* @Override
-    public void paintCoponent()
+   //@Override
+    public void paintCoponent(Graphics g)
     {
         // s'inspirer de celle de noeud, avec un get color
+        Graphics2D graphics = (Graphics2D) g;
+//        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        super.paintComponent(g);
+        g.fillOval(0,0,this.getWidth(),this.getHeight());
     }
-     */
+    
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,7 +181,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
 
     private void supprBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprBoutonActionPerformed
         // TODO add your handling code here:
-        this.controleurLivraison.supprLiv(livraison);
+        
     }//GEN-LAST:event_supprBoutonActionPerformed
 
 
