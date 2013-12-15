@@ -29,8 +29,8 @@ public class GraphUtil implements Graph {
 	 * @param min a minimal arc cost such that <code>0 < min</code>
 	 * @param max a maximal arc cost such that <code>min < max</code>
 	 */
-        
-	public GraphUtil(Tournee ens) throws MyException
+
+       	public GraphUtil(Tournee ens) throws MyException
 	{	
                 LinkedList<Livraison> tabLivraison = ens.getLivraisons();
                 // Initialisation
@@ -130,7 +130,7 @@ public class GraphUtil implements Graph {
                                         Itineraire iti = new Itineraire();
                                         iti.setPrevLivraisonId(noeud1);
                                         iti.setNextLivraisonId(noeud2);
-                                        LinkedList<Troncon> ensembleTroncons = getPath(noeud1,noeud2,ens); 
+                                        LinkedList<Troncon> ensembleTroncons = getPath(noeud1,noeud2,ens.getPlan()); 
                                         cost[noeud1][noeud2] = calculCost(ensembleTroncons);
                                         iti.setEnsembleTroncons(ensembleTroncons);
                                         ensembleTrajets.add(iti);
@@ -145,7 +145,7 @@ public class GraphUtil implements Graph {
                                 Itineraire iti = new Itineraire();
                                 iti.setPrevLivraisonId(noeud1);
                                 iti.setNextLivraisonId(ens.getEntrepot().getId());
-                                LinkedList<Troncon> ensembleTroncons = getPath(noeud1,ens.getEntrepot().getId(),ens); 
+                                LinkedList<Troncon> ensembleTroncons = getPath(noeud1,ens.getEntrepot().getId(),ens.getPlan()); 
                                 cost[noeud1][ens.getEntrepot().getId()] = calculCost(ensembleTroncons);
                                 iti.setEnsembleTroncons(ensembleTroncons);
                                 ensembleTrajets.add(iti);
@@ -166,15 +166,15 @@ public class GraphUtil implements Graph {
             int i;
             for(i=0;i<Isize;i++){
                 cout = cout + itineraire.get(i).getDuree();
+                System.out.println(itineraire.get(i).getDuree());
             }
             return (int) cout;
         }
 	
 	
 	//Calculating cost between pt1 and pt2 using the sortest path of Djikstra 
-	public LinkedList<Troncon> getPath(int pt1, int pt2, Tournee ens) throws MyException
+	private LinkedList<Troncon> getPath(int pt1, int pt2, Plan P) throws MyException
 	{
-		Plan P = ens.getPlan();
 		ArrayList<Noeud> tabnoeuds = P.getNoeuds();
 		int Psize = tabnoeuds.size();
 		
@@ -200,9 +200,10 @@ public class GraphUtil implements Graph {
                     // On l'ajoute a vu
                     vu.add(newNoeud);
                     // On l'enlève de notvu
-                    notvu.remove(newNoeud);
+                    int indexNewNoeud = notvu.indexOf(newNoeud);
+                    notvu.remove(indexNewNoeud);
                     // De tous les voisins de newNoeud on ajoute à duree previous et notvu les voisins dont les durées à partir de newNoeud sont mini
-                    findDureeMini(newNoeud, ens, notvu,duree,previous,vu);
+                    findDureeMini(newNoeud, P, notvu,duree,previous,vu);
 		}
 		
                 //Find path
@@ -218,14 +219,14 @@ public class GraphUtil implements Graph {
                   path.add(pt2);
                 }
                 
-                LinkedList<Troncon> pathFinal = transformNoeudTroncon(path,ens);
+                LinkedList<Troncon> pathFinal = transformNoeudTroncon(path,P);
                 return pathFinal;
 	}
         
         // Transform group of Noeuds into group of Troncons
-        private LinkedList<Troncon> transformNoeudTroncon(LinkedList<Integer> path,Tournee ens) throws MyException
+        private LinkedList<Troncon> transformNoeudTroncon(LinkedList<Integer> path,Plan P) throws MyException
         {   
-                ArrayList<Troncon> tabtroncons = ens.getPlan().getTroncons();
+                ArrayList<Troncon> tabtroncons = P.getTroncons();
                 int tronSize = tabtroncons.size();
                 LinkedList<Troncon> pathFinal = new LinkedList<>();
                 Troncon inter;
@@ -234,11 +235,11 @@ public class GraphUtil implements Graph {
                 int cptPath;
                 for(cptPath=0;cptPath<pathSize-1;cptPath++)
                 {
-                    int debut = path.get(cptPath); 
-                    int fin = path.get(cptPath+1);
+                    int fin = path.get(cptPath); 
+                    int debut = path.get(cptPath+1);
                     
                     int cptTron = 0;
-                    while((cptTron<tronSize)||(findTron==false))
+                    while((cptTron<tronSize)&&(findTron==false))
                     {
                         if((tabtroncons.get(cptTron).getOrigine().getId()==debut ) 
                                 &&(tabtroncons.get(cptTron).getDestination().getId()== fin)) 
@@ -278,16 +279,16 @@ public class GraphUtil implements Graph {
 	}
 	
         // De tous les voisins de @param newNoeud on ajoute à duree previous et notvu les voisins dont les durées à la source à partir de newNoeud sont mini
-	private void findDureeMini(int newNoeud, Tournee ens, ArrayList<Integer> notvu, Map<Integer, Integer> duree, Map<Integer, Integer> previous,ArrayList<Integer> vu) 
+	private void findDureeMini(int newNoeud, Plan P, ArrayList<Integer> notvu, Map<Integer, Integer> duree, Map<Integer, Integer> previous,ArrayList<Integer> vu) 
 	{
-		ArrayList<Integer> voisins = getVoisins(newNoeud,ens,vu);
+		ArrayList<Integer> voisins = getVoisins(newNoeud,P,vu);
 		int voisinsSize = voisins.size() ;
                 int i;
 		for (i=0;i<voisinsSize;i++) 
 		{
-		  if (getShortestDuration(voisins.get(i),duree) > getShortestDuration(newNoeud,duree)+ getDuration(newNoeud, voisins.get(i), ens)) 
+		  if (getShortestDuration(voisins.get(i),duree) > getShortestDuration(newNoeud,duree)+ getDuration(newNoeud, voisins.get(i), P)) 
 		  {
-			duree.put(voisins.get(i), getShortestDuration(newNoeud,duree)+ getDuration(newNoeud, voisins.get(i), ens));
+			duree.put(voisins.get(i), getShortestDuration(newNoeud,duree)+ getDuration(newNoeud, voisins.get(i), P));
 			previous.put(voisins.get(i), newNoeud);
 			notvu.add(voisins.get(i));
 		  }
@@ -295,9 +296,9 @@ public class GraphUtil implements Graph {
 	}
 	
 	//Cherche les voisins non encore vus d'un point @param noeud pris comme origine 
-	private ArrayList<Integer> getVoisins(int noeud, Tournee ens,ArrayList<Integer> vu)
+	private ArrayList<Integer> getVoisins(int noeud, Plan P,ArrayList<Integer> vu)
 	{
-		ArrayList<Troncon> tabTroncons = ens.getPlan().getTroncons();
+		ArrayList<Troncon> tabTroncons = P.getTroncons();
                 ArrayList<Integer> voisins = new ArrayList<>();
                 int Tsize = tabTroncons.size();
                 int i =0;
@@ -314,9 +315,9 @@ public class GraphUtil implements Graph {
 	}
          
         //Cherche la durée entre un point et un autre qui sont VOISINS 
-	private int getDuration(int noeud1, int noeud2, Tournee ens)
+	private int getDuration(int noeud1, int noeud2, Plan P)
 	{
-                ArrayList<Troncon> tabTroncons = ens.getPlan().getTroncons();
+                ArrayList<Troncon> tabTroncons = P.getTroncons();
                 int Tsize = tabTroncons.size();
                 int i =0;
                 while(i<Tsize)
@@ -394,8 +395,8 @@ public class GraphUtil implements Graph {
                 minArcCost = newCout;
             }
         }
-
-         public ArrayList<Itineraire> getEnsembleTrajets(){
+        
+        public ArrayList<Itineraire> getEnsembleTrajets(){
             return ensembleTrajets;
         }
         
@@ -414,5 +415,7 @@ public class GraphUtil implements Graph {
         public void removeItineraire(Itineraire iti){
             ensembleTrajets.remove(iti);
         }
+
+
 
 }
