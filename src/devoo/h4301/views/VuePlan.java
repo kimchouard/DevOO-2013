@@ -141,7 +141,7 @@ public class VuePlan extends javax.swing.JPanel {
         controlerPlan.selectLivraison(liv);
     }
     
-    public void createLiv(Noeud noeud) {
+    public void createLiv(Noeud noeud) throws Exception {
         controlerPlan.createLiv(noeud);
     }
     

@@ -57,7 +57,7 @@ public class ControleurPrincipal {
         Tournee t = Tournee.getInstance();
         controleurPlan.setTournee(t);
 
-        commandeControleur.resetCommand();
+        //commandeControleur.resetCommand();
 
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan(t);
@@ -104,10 +104,11 @@ public class ControleurPrincipal {
         // éclairer la bonne livraison
     }
 
-    public void createLiv(Noeud noeud) {
+    public void createLiv(Noeud noeud) throws Exception {
         // Tester si le noeud est bien une livraison alors afficher sans l'édition
-        this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
-       
+       //this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+       //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
     }
 
     

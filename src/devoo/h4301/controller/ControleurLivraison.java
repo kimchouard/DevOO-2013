@@ -13,6 +13,8 @@ import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
+import devoo.h4301.views.VueLivraisonItem;
+import java.util.LinkedList;
 import javax.swing.JScrollPane;
 
 /**
@@ -34,12 +36,8 @@ public class ControleurLivraison {
      public void afficherListLivraison(JScrollPane panneauLiv) {
         panneauLiv.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
+     
     }
-     
-     // To do pour undo et redo deux fonctions d'ajout et de suppression  sans l'affichage de l'edition
-     // Fonction mirroir de l'ajout et de la suppression donc avec correspondance métier etc
-     
-     
      
      public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
          VueEditLivraison viewNewLiv = new VueEditLivraison();
@@ -59,13 +57,19 @@ public class ControleurLivraison {
          
      }
      
-     public void afficherUneLivraison(){
-         // a refaire
+     public void afficherUneLivraison(JScrollPane paneRight){
+         VueLivraisonItem vueLivraison = new VueLivraisonItem();
+         paneRight.setViewportView(vueLivraison);
      }
      
     public void rafraichirVueListLivraison(Tournee tournee) {
         this.vueListLivraison.reset();
         this.vueListLivraison.setTournee(tournee);
+        
+        LinkedList<Livraison> livraisons = tournee.getLivraisons();
+        for (Livraison l : livraisons) {
+            this.vueListLivraison.ajouterLivraison(l);
+        }
     }
      
      public VueListLivraison getVueListLisvraison() {
@@ -83,6 +87,13 @@ public class ControleurLivraison {
          }
          return 1;
      }
-    
      
+      // To do pour undo et redo deux fonctions d'ajout et de suppression  sans l'affichage de l'edition
+     // Fonction mirroir de l'ajout et de la suppression donc avec correspondance métier etc
+     // done
+    
+     public void ajoutLiv(Livraison liv) throws Exception {
+        Tournee.getInstance().addLivraison(liv);
+        this.controleurPrincipal.addCommandeLivraison(liv, false); // utile ?
+     }
 }

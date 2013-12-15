@@ -19,9 +19,11 @@ import java.util.LinkedList;
  * @author Mimi
  */
 public class VueListLivraison extends javax.swing.JPanel {
-
-    private LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
     private ControleurLivraison controleurLivraison;
+    
+    private Tournee tournne;
+    private LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
+    
     /**
      * Creates new form VueLivraisonItem
      */
@@ -41,7 +43,6 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.removeAll();
         this.updateUI();
         this.vueLivraisonsItem.clear();
-        this.vueLivraisonsItem.clear();
     }
     
     public void ajouterLivraison(Livraison livraison) {
@@ -52,6 +53,13 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.vueLivraisonsItem.add(v);
         this.add(v);
         v.setVisible(true);
+    }
+    
+      private void updateVueListLivraison() {
+        int listHeight = 50 * this.getVueLivraison().size();
+        
+        Dimension dimension = new Dimension(this.getWidth(), listHeight);
+        this.setPreferredSize(dimension);
     }
     
     public void placerLivraison(VueLivraisonItem vl, int rank) {
@@ -66,6 +74,10 @@ public class VueListLivraison extends javax.swing.JPanel {
     public ControleurLivraison getControleurLivraison() {
         return controleurLivraison;
     }
+    
+    public void setControleurLivraison(ControleurLivraison controleurLivraison) {
+        this.controleurLivraison = controleurLivraison;
+    }
 
     public void setTournee(Tournee tournee) {
         
@@ -75,16 +87,9 @@ public class VueListLivraison extends javax.swing.JPanel {
         }
     }
 
-    public void setControleurLivraison(ControleurLivraison controleurLivraison) {
-        this.controleurLivraison = controleurLivraison;
-    }
     
-    private void updateVueListLivraison() {
-        int listHeight = 50 * this.getVueLivraison().size();
-        
-        Dimension dimension = new Dimension(this.getWidth(), listHeight);
-        this.setPreferredSize(dimension);
-    }
+    
+  
     
     // fonction highligth (livraison), 
     
