@@ -23,23 +23,22 @@ public class ControllerGraph {
     private TSP tsp;
     private Tournee tournee;
     
-    public void BuildGraphe()throws MyException{
+    private void BuildGraphe()throws MyException{
         
         graphe = new GraphUtil(Tournee.getInstance());
         tsp = new TSP(graphe);
         tournee = Tournee.getInstance();
     }
     
-    //Lancé à chaque ajout/suppression de livraison
-    //Précondition: le tableau des livraisons a été mis à jour (ajout/suppression déjà reportés), 
-    //les deux listes contiennent les mêmes éléments
-    public void UpdateGraphe(int delay){
+    //Lancé à chaque nouvelle demande de calcul
+    public void UpdateGraphe(int delay) throws MyException{
         
         //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
         switch(tsp.solve(delay, graphe.getMaxArcCost()))
         {
             case OPTIMAL_SOLUTION_FOUND:
                 int[] nextTable = tsp.getNext();
+                BuildGraphe();
                 int tableIt = 0;
                 int max = graphe.getNbVertices();
                 LinkedList<Livraison> livraisons = tournee.getLivraisons();
@@ -87,17 +86,23 @@ public class ControllerGraph {
     }
     
     public void CleanGraph() throws MyException{
-        graphe.clearEnsembleTrajets();
         int[] nextTable = tsp.getNext();
         int tableIt=0;
+        ArrayList<Itineraire>listeItineraires = graphe.getEnsembleTrajets();
         while(tableIt<nextTable.length)
         {
-            Itineraire iti = new Itineraire();
-            iti.setEnsembleTroncons(graphe.getPath(nextTable[tableIt],nextTable[tableIt+1],tournee));
-            iti.setPrevLivraisonId(nextTable[tableIt]);
+            for(int i=0;i<listeItineraires.size();i++)
+            {
+                if(listeItineraires.get(i).getPrevLivraisonId() == nextTable[tableIt])
+                {
+                    if(listeItineraires.get(i).getNextLivraisonId() != nextTable[tableIt+1])
+                    {
+                        listeItineraires.remove(i);
+                    }
+                }
+                
+            }
             tableIt++;
-            iti.setNextLivraisonId(nextTable[tableIt]);
-            graphe.addItineraire(iti);
         }
     }
     
