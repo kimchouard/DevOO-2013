@@ -36,7 +36,8 @@ public class GraphUtil implements Graph {
 		nbVertices = tabLivraison.size();
 		cost = new int[nbVertices][nbVertices];
 		succ = new ArrayList<>();
-		
+		ensembleTrajets = new ArrayList<>();
+                
 		ArrayList<Integer> PlagesHoraires = getOrderedTabDuration(tabLivraison);
                 enterIdSuccAndCost(PlagesHoraires,tabLivraison,ens);		
 	}
@@ -380,6 +381,10 @@ public class GraphUtil implements Graph {
         
         public void setEnsembleTrajets(ArrayList<Itineraire> ensemble){
             ensembleTrajets = ensemble;
+        }
+        
+        public void clearEnsembleTrajets(){
+            ensembleTrajets.clear();
         }
         
         public void addItineraire(Itineraire iti){
