@@ -94,12 +94,16 @@ public class VueTroncon extends javax.swing.JPanel {
             yArrivee = this.getHeight() - ControleurPrincipal.diamNoeud/2;
         }
         
-        Graphics2D g2D = (Graphics2D) g;
-        Stroke s = new BasicStroke(ControleurPrincipal.largeurTraitTroncon);
-        g2D.setStroke(s);
         
-        g2D.setPaint(ControleurPrincipal.jauneMaps);
-        g2D.draw(new Line2D.Float(xDepart, yDepart, xArrivee, yArrivee));
+        Graphics2D g2D = (Graphics2D) g;
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon));
+        g2D.setPaint(ControleurPrincipal.blancMaps);
+        g2D.draw(new Line2D.Float(
+                xDepart,
+                yDepart,
+                xArrivee,
+                yArrivee));
     }
 
     /**
