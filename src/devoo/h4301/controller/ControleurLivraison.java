@@ -65,11 +65,6 @@ public class ControleurLivraison {
     public void rafraichirVueListLivraison(Tournee tournee) {
         this.vueListLivraison.reset();
         this.vueListLivraison.setTournee(tournee);
-        
-        LinkedList<Livraison> livraisons = tournee.getLivraisons();
-        for (Livraison l : livraisons) {
-            this.vueListLivraison.ajouterLivraison(l);
-        }
     }
      
      public VueListLivraison getVueListLisvraison() {

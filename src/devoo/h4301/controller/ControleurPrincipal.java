@@ -102,14 +102,15 @@ public class ControleurPrincipal {
 //    }
     public void selectLivraison(Livraison liv) {
         // éclairer la bonne livraison
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
+
     }
 
     public void createLiv(Noeud noeud) throws Exception {
         // Tester si le noeud est bien une livraison alors afficher sans l'édition
-       //this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+       this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
        //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
-        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
-    }
+     }
 
     
     public void addCommandeLivraison(Livraison liv, boolean deleted)
