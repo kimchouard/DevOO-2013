@@ -20,8 +20,7 @@ import java.util.LinkedList;
  */
 public class VueListLivraison extends javax.swing.JPanel {
     private ControleurLivraison controleurLivraison;
-    
-    private Tournee tournne;
+   
     private LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
     
     /**
@@ -89,6 +88,7 @@ public class VueListLivraison extends javax.swing.JPanel {
             this.ajouterLivraison(tournee.getLivraisons().get(i));
         }
     }
+   
 
     
     

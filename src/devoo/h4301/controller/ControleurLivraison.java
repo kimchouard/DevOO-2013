@@ -63,6 +63,8 @@ public class ControleurLivraison {
      }
      
     public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
+        this.vueListLivraison.removeAll();
+        this.vueListLivraison.updateUI();
         this.vueListLivraison.setTournee(tournee);
         paneRight.setViewportView(this.vueListLivraison);
         
