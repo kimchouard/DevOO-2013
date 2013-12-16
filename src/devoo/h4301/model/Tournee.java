@@ -163,7 +163,21 @@ public class Tournee {
      *
      * @param livraison a ajouter à la tournée
      */
-    public void addLivraison(Livraison livraison) {
+    public void addLivraison(Livraison livraison) throws Exception {
+       if(this.horaires.contains(livraison.getHoraire()) != true){
+           MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
+            throw e;
+       }
+       
+       Noeud dest = livraison.getDestination();
+       if (this.plan.getNoeuds().contains(dest) !=true){
+            MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
+            throw e;
+       }
+       if(dest.getX() == null || dest.getY() == null){
+           MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
+            throw f;
+       }
         this.livraisons.add(livraison);
     }
 
