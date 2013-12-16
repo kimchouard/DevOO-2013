@@ -94,6 +94,10 @@ public class VueTroncon extends javax.swing.JPanel {
             yArrivee = this.getHeight() - ControleurPrincipal.diamNoeud/2;
         }
         
+        dispLines(g, xArrivee, xDepart, yArrivee, yDepart);
+    }
+    
+    private void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         Graphics2D g2D = (Graphics2D) g;
         
         //Delta pour les bordures
@@ -108,24 +112,24 @@ public class VueTroncon extends javax.swing.JPanel {
                 xArrivee,
                 yArrivee));
         
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(getNewLine(-delta, xArrivee, xDepart, yArrivee, yDepart));
+    }
+    
+    private Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         int dX = (int) getDX(delta, xArrivee, xDepart, yArrivee, yDepart);
         int dY = (int) getDY(delta, xArrivee, xDepart, yArrivee, yDepart);
         
-        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
-        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
-        g2D.draw(new Line2D.Float(
-                xDepart + dX,
-                yDepart - dY,
-                xArrivee + dX,
-                yArrivee - dY));
-        
-        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
-        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
-        g2D.draw(new Line2D.Float(
+        return new Line2D.Float(
                 xDepart - dX,
                 yDepart + dY,
                 xArrivee - dX,
-                yArrivee + dY));
+                yArrivee + dY);
     }
     
     
@@ -133,6 +137,7 @@ public class VueTroncon extends javax.swing.JPanel {
         // Calcul de l'angle vis à vis de la verticale
         double x = xArrivee - xDepart;
         double y = yArrivee - yDepart;
+        
         return Math.atan(x / y);
     }
     
