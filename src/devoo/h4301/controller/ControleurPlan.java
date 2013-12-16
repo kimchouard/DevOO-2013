@@ -46,10 +46,12 @@ public class ControleurPlan {
         this.vuePlan.updateUI();
     }
     
-    public void rafraichirVuePlan(Tournee tournee) {
-        this.vuePlan.reset();
+    public void rafraichirVuePlan(Tournee tournee, JScrollPane panneauPlan) {
+        this.vuePlan = new VuePlan(this);
         this.vuePlan.setTournee(tournee);
         Plan plan =  tournee.getPlan();
+        
+        this.scaleAutoVuePlan(panneauPlan);
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
@@ -70,8 +72,8 @@ public class ControleurPlan {
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
         Plan p =  vuePlan.getTournee().getPlan();
         
-        double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding + VuePlan.diamNoeud;
-        double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding + VuePlan.diamNoeud;
+        double planWidth = p.getMaxX() - p.getMinX() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
+        double planHeight = p.getMaxY() - p.getMinY() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
         double panneauWidth = panneauPlan.getWidth();
         double panneauHeight = panneauPlan.getHeight();
         double scaleX = panneauWidth / planWidth;
@@ -102,6 +104,6 @@ public class ControleurPlan {
 
     public void setTournee(Tournee tournee) {
         this.vuePlan.setTournee(tournee);
-        this.vuePlan.setBackground(Color.WHITE);
+        this.vuePlan.setBackground(ControleurPrincipal.grisMaps);
     }
 }

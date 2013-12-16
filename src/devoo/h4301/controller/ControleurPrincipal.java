@@ -7,6 +7,7 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.*;
 import devoo.h4301.views.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,22 @@ import javax.swing.JScrollPane;
  * @author chouard
  */
 public class ControleurPrincipal {
+    // Constantes Couleur
+    public static final Color rougeMaps = new Color(217, 95, 87);
+    public static final Color blancMaps = new Color(255, 255, 255);
+    public static final Color jauneMaps = new Color(248, 228, 122);
+    public static final Color grisFonceMaps = new Color(200, 196, 186);
+    public static final Color grisMaps = new Color(231, 228, 219);
+    public static final Color vertMaps = new Color(207, 222, 171);
+    // Constantes Noeuds
+    public static final int diamNoeud = 15;
+    //Constante plan
+    public static final int padding = 20;
+    // Constantes Troncons
+    public static final float largeurTraitTroncon = 4;
+    public static final int xMinTroncon = 4;
+    public static final int yMinTroncon = 4;
+    
 
     private JScrollPane panneauPlan;
     private FenetrePrincipale fenParent;
@@ -53,8 +70,7 @@ public class ControleurPrincipal {
 
         commandeControleur.resetCommand();
 
-        controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan(t);
+        controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
     }
 
@@ -71,7 +87,7 @@ public class ControleurPrincipal {
             }
             Tournee t = Tournee.getInstance();
             controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
@@ -83,7 +99,7 @@ public class ControleurPrincipal {
             Tournee t = initDebug();
             controleurPlan.setTournee(t);
             controleurPlan.scaleAutoVuePlan(panneauPlan);
-            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
         } catch (Exception ex) {
             Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);

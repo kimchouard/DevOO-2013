@@ -7,6 +7,7 @@
 package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
@@ -29,21 +30,6 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueLiv> vueLivs = new ArrayList();
     
     protected double zoomScale = 1.0;
-    public static final int padding = 20;
-    
-    // Constantes Couleur
-    public static final Color rougeMaps = new Color(217, 95, 87);
-    public static final Color grisMaps = new Color(200, 196, 186);
-    public static final Color jauneMaps = new Color(248, 228, 122);
-    public static final Color blancMaps = new Color(255, 255, 255);
-    
-    // Constantes Noeuds
-    public static final int diamNoeud = 15;
-    
-    // Constantes Troncons
-    public static final int largeurTraitTroncon = 4;
-    public static final int yMinTroncon = 4;
-    public static final int xMinTroncon = 4;
 
     /**
      * Creates new form VuePlan
@@ -103,7 +89,7 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void placerNoeud(VueNoeud vueNoeud) {
-        vueNoeud.setSize(diamNoeud, diamNoeud);
+        vueNoeud.setSize(ControleurPrincipal.diamNoeud, ControleurPrincipal.diamNoeud);
         
         int xLocation = this.scaledCoordinateHorizontal(vueNoeud.getXNoeud()) - vueNoeud.getWidth()/2;
         int yLocation = this.scaledCoordinateVertical(vueNoeud.getYNoeud()) - vueNoeud.getHeight()/2;
@@ -122,11 +108,11 @@ public class VuePlan extends javax.swing.JPanel {
         
         int x = Math.min(troncon.getOrigine().getX(), troncon.getDestination().getX());
         int y = Math.min(troncon.getOrigine().getY(), troncon.getDestination().getY());
-        vueTroncon.setLocation(this.scaledCoordinateHorizontal(x) - diamNoeud/2, this.scaledCoordinateVertical(y) - diamNoeud/2);
+        vueTroncon.setLocation(this.scaledCoordinateHorizontal(x) - ControleurPrincipal.diamNoeud/2, this.scaledCoordinateVertical(y) - ControleurPrincipal.diamNoeud/2);
         
         int larg = Math.abs(troncon.getDestination().getX() - troncon.getOrigine().getX());
         int haut = Math.abs(troncon.getDestination().getY() - troncon.getOrigine().getY());
-        vueTroncon.setSize(this.scaledSize(larg) + diamNoeud, this.scaledSize(haut) + diamNoeud);
+        vueTroncon.setSize(this.scaledSize(larg) + ControleurPrincipal.diamNoeud, this.scaledSize(haut) + ControleurPrincipal.diamNoeud);
     }
     
     public void unselectNoeuds() {
@@ -167,16 +153,16 @@ public class VuePlan extends javax.swing.JPanel {
         int planWidth = tournee.getPlan().getMaxX() - tournee.getPlan().getMinX();
         int planHeight = tournee.getPlan().getMaxY() - tournee.getPlan().getMinY();
         
-        Dimension dimension = new Dimension(this.scaledSize(planWidth) + padding*2, this.scaledSize(planHeight) + padding*2);
+        Dimension dimension = new Dimension(this.scaledSize(planWidth) + ControleurPrincipal.padding*2, this.scaledSize(planHeight) + ControleurPrincipal.padding*2);
         this.setPreferredSize(dimension);
     }
     
     private int scaledCoordinateVertical(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinY()) ) + padding;
+        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinY()) ) + ControleurPrincipal.padding;
     }
     
     private int scaledCoordinateHorizontal(int coordonate) {
-        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinX()) ) + padding;
+        return (int)(this.zoomScale * (coordonate - tournee.getPlan().getMinX()) ) + ControleurPrincipal.padding;
     }
     
     private int scaledSize(int size) {

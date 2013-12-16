@@ -6,6 +6,8 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Livraison;
 import java.awt.Color;
 
@@ -60,9 +62,9 @@ public class VueLiv extends VueNoeud {
     
     public Color getColor() {
         if (this.selected || this.hovered) {
-            return VuePlan.jauneMaps;
+            return ControleurPrincipal.jauneMaps;
         } else {
-            return VuePlan.rougeMaps;
+            return ControleurPrincipal.rougeMaps;
         }
     }
 
