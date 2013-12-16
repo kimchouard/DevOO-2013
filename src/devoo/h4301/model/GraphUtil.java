@@ -2,6 +2,7 @@ package devoo.h4301.model;
 
 import devoo.h4301.outils.MyException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class GraphUtil implements Graph {
 		}
 		succ = new ArrayList<>();
 		
-		ArrayList<Integer> PlagesHoraires = getOrderedTabDuration(tabLivraison);
+		ArrayList<Date> PlagesHoraires = getOrderedTabDuration(tabLivraison);
                 enterIdSuccAndCost(PlagesHoraires,tabLivraison,ens);		
                 
                 // Definition of cost if it has not been defined yet
@@ -59,20 +60,20 @@ public class GraphUtil implements Graph {
 	}
         
        // CREATE AN ORDERED TAB OF DURATIONS
-        private ArrayList<Integer> getOrderedTabDuration(LinkedList<Livraison> tabLivraison)
+        private ArrayList<Date> getOrderedTabDuration(LinkedList<Livraison> tabLivraison)
         {
             int i;
-            int unePH;
+            Date unePH;
             boolean find = false ; 
-            ArrayList<Integer> PlagesHoraires =  new ArrayList<>();
+            ArrayList<Date> PlagesHoraires =  new ArrayList<>();
             
             for(i=0; i<nbVertices-1; i++)
             {
                     // Finding all the differents durations for all the vertices
-                    unePH = tabLivraison.get(i).getHoraire().getDebut().getMinutes();
+                    unePH = tabLivraison.get(i).getHoraire().getDebut();
                     // Finding if the duration is already in the tab "PlagesHoraires" if yes find = true
                     int j = 0;
-                    while(unePH>=PlagesHoraires.get(j))
+                    while(unePH.after(PlagesHoraires.get(j)) || unePH.equals(PlagesHoraires.get(j)))
                     {
                             if(PlagesHoraires.get(j) == unePH)
                             {
@@ -92,15 +93,15 @@ public class GraphUtil implements Graph {
         
         
         // ENTERING THE VERTICES IN SUCC AND COST 
-        private void enterIdSuccAndCost(ArrayList<Integer> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws MyException
+        private void enterIdSuccAndCost(ArrayList<Date> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws MyException
         {
-               	int PH1,PH2;
+               	Date PH1,PH2;
                // Insert entrepot at the beginning
                 int i;
                 ArrayList<Integer> suivantEntrepot = new ArrayList<>();
 		for(i=0; i<nbVertices-1; i++)
 		{
-			PH1 = tabLivraison.get(i).getHoraire().getDebut().getMinutes();
+			PH1 = tabLivraison.get(i).getHoraire().getDebut();
 			int indexPH1 = PlagesHoraires.indexOf(PH1);
 			if(indexPH1 == 0)
 			{
@@ -112,7 +113,7 @@ public class GraphUtil implements Graph {
 		// For each livraison minus entrepot
 		for(i=0; i<nbVertices-1; i++)
 		{
-			PH1 = tabLivraison.get(i).getHoraire().getDebut().getMinutes();
+			PH1 = tabLivraison.get(i).getHoraire().getDebut();
 			int indexPH1 = PlagesHoraires.indexOf(PH1);
 			int noeud1 = tabLivraison.get(i).getDestination().getId();
                         ArrayList<Integer> l = new ArrayList<>();
@@ -120,7 +121,7 @@ public class GraphUtil implements Graph {
 			int j;
 			for(j=0; j<nbVertices-1; j++)
 			{
-				PH2 = tabLivraison.get(j).getHoraire().getDebut().getMinutes();
+				PH2 = tabLivraison.get(j).getHoraire().getDebut();
 				int indexPH2 = PlagesHoraires.indexOf(PH2);
 				int noeud2 = tabLivraison.get(j).getDestination().getId();
 				// If duration of vertex2 is = or +1 of duration of vertex 1 -> enter in succ
