@@ -32,6 +32,7 @@ public class ControleurPrincipal {
     public static final int padding = 20;
     // Constantes Troncons
     public static final float largeurTraitTroncon = 4;
+    public static final float contourTroncon = 1;
     public static final int xMinTroncon = 4;
     public static final int yMinTroncon = 4;
     

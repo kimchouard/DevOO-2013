@@ -94,16 +94,56 @@ public class VueTroncon extends javax.swing.JPanel {
             yArrivee = this.getHeight() - ControleurPrincipal.diamNoeud/2;
         }
         
-        
         Graphics2D g2D = (Graphics2D) g;
         
-        g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon));
+        //Delta pour les bordures
+        double delta = ControleurPrincipal.largeurTraitTroncon + ControleurPrincipal.contourTroncon;
+        
+        // x2 car 2 troncons: aller / retour
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon*2));
         g2D.setPaint(ControleurPrincipal.blancMaps);
         g2D.draw(new Line2D.Float(
                 xDepart,
                 yDepart,
                 xArrivee,
                 yArrivee));
+        
+        int dX = (int) getDX(delta, xArrivee, xDepart, yArrivee, yDepart);
+        int dY = (int) getDY(delta, xArrivee, xDepart, yArrivee, yDepart);
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(new Line2D.Float(
+                xDepart + dX,
+                yDepart - dY,
+                xArrivee + dX,
+                yArrivee - dY));
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(new Line2D.Float(
+                xDepart - dX,
+                yDepart + dY,
+                xArrivee - dX,
+                yArrivee + dY));
+    }
+    
+    
+    private double getAlpha(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        // Calcul de l'angle vis à vis de la verticale
+        double x = xArrivee - xDepart;
+        double y = yArrivee - yDepart;
+        return Math.atan(x / y);
+    }
+    
+    private double getDX(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
+        return delta * Math.cos(alpha);
+    }
+    
+    private double getDY(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
+        return delta * Math.sin(alpha);
     }
 
     /**
