@@ -83,7 +83,6 @@ public class VueListLivraison extends javax.swing.JPanel {
     }
 
     public void setTournee(Tournee tournee) {
-       
         this.vueLivraisonsItem.clear();
         for(int i = 0; i < tournee.getLivraisons().size(); i++)
         {

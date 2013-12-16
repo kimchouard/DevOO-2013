@@ -158,6 +158,12 @@ public class Tournee {
         return livraisons;
     }
 
+    public void setLivraisons(LinkedList<Livraison> livraisons) {
+        this.livraisons = livraisons;
+    }
+    
+    
+
     /**
      * Ajout d'une livraison dans la liste de livraison de la tournée
      *
