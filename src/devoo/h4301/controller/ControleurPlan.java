@@ -15,7 +15,6 @@ import devoo.h4301.views.FenetrePrincipale;
 import devoo.h4301.views.VueNoeud;
 import devoo.h4301.views.VuePlan;
 import devoo.h4301.views.VueTroncon;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JFileChooser;

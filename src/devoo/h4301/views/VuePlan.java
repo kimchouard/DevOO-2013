@@ -42,7 +42,7 @@ public class VuePlan extends javax.swing.JPanel {
     private void initialize() {
         initComponents();
 
-        this.setOpaque(false);
+        this.setOpaque(true);
         this.setVisible(true); 
     }
     

@@ -261,6 +261,7 @@ public class ControleurPrincipal {
     }
 
     public void setPanneauPlan(JScrollPane panneauPlan) {
+        panneauPlan.setBackground(ControleurPrincipal.grisMaps);
         this.panneauPlan = panneauPlan;
     }
 
