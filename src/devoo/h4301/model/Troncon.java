@@ -40,6 +40,14 @@ public class Troncon {
      */
     protected double vitesse;
 
+    /**
+     * Constructeur en passant les attributs en paramètre
+     * @param origine Noeud origine
+     * @param destination Noeud destination
+     * @param nomRue Nom de la rue
+     * @param longueur Longueur du troncon
+     * @param vitesse Vitesse du troncon
+     */
     public Troncon(Noeud origine, Noeud destination, String nomRue, double longueur, double vitesse) {
         this.origine = origine;
         this.destination = destination;
@@ -48,6 +56,9 @@ public class Troncon {
         this.vitesse = vitesse;
     }
 
+    /**
+     * Constructeur par dafaut de troncon
+     */
     public Troncon() {
     }
     

@@ -6,6 +6,7 @@
 package devoo.h4301.model;
 
 import devoo.h4301.outils.MyException;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import org.w3c.dom.Element;
@@ -48,6 +49,8 @@ public class Tournee {
      * Instance unique de Tournee, par défaut à nul
      */
     private static Tournee instanceTournee = null;
+    
+    ArrayList<Itineraire> itineraires;
 
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
@@ -67,6 +70,14 @@ public class Tournee {
             instanceTournee = new Tournee();
         }
         return instanceTournee;
+    }
+
+    public ArrayList<Itineraire> getItineraires() {
+        return itineraires;
+    }
+
+    public void setItineraires(ArrayList<Itineraire> itineraires) {
+        this.itineraires = itineraires;
     }
 
     /**
@@ -152,7 +163,21 @@ public class Tournee {
      *
      * @param livraison a ajouter à la tournée
      */
-    public void addLivraison(Livraison livraison) {
+    public void addLivraison(Livraison livraison) throws Exception {
+       if(this.horaires.contains(livraison.getHoraire()) != true){
+           MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
+            throw e;
+       }
+       
+       Noeud dest = livraison.getDestination();
+       if (this.plan.getNoeuds().contains(dest) !=true){
+            MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
+            throw e;
+       }
+       if(dest.getX() == null || dest.getY() == null){
+           MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
+            throw f;
+       }
         this.livraisons.add(livraison);
     }
 

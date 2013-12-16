@@ -7,6 +7,8 @@
 package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
+import devoo.h4301.outils.LogOutputStream;
+import java.io.PrintStream;
 import javax.swing.JScrollPane;
 
 /**
@@ -22,6 +24,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
      */
     public FenetrePrincipale() {
         initComponents();
+        PrintStream printStream = new PrintStream(new LogOutputStream(log));
+        System.setOut(printStream);
+        System.setErr(printStream);
     }
 
     /**
@@ -63,8 +68,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         });
 
         redo.setText("Redo");
+        redo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redoActionPerformed(evt);
+            }
+        });
 
         undo.setText("Undo");
+        undo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoActionPerformed(evt);
+            }
+        });
 
         debug.setText("DEBUG");
         debug.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,10 +158,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
-        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        this.controleurPrincipal.chargerDebug();
+//        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
     }//GEN-LAST:event_clickDebug
 
+    private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed
+        this.controleurPrincipal.undo();
+    }//GEN-LAST:event_undoActionPerformed
+
+    private void redoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoActionPerformed
+        this.controleurPrincipal.redo();
+    }//GEN-LAST:event_redoActionPerformed
+
+    public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
+        redo.setEnabled(possibleRedo);
+        undo.setEnabled(possibleUndo);
+    }
+            
     public JScrollPane getpDroit() {
         return pDroit;
     }

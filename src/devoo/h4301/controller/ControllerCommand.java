@@ -9,6 +9,7 @@ package devoo.h4301.controller;
 import devoo.h4301.model.Command;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
+import devoo.h4301.views.FenetrePrincipale;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +17,16 @@ import java.util.ArrayList;
  * @author pmdartus
  */
 public class ControllerCommand {
-    private ArrayList <Command> undoStack = new ArrayList();
-    private ArrayList <Command> redoStack = new ArrayList();
+    private final ArrayList <Command> undoStack = new ArrayList();
+    private final ArrayList <Command> redoStack = new ArrayList();
+    private FenetrePrincipale fenetrePrincipale;
 
     public ControllerCommand() {
+    }
+
+    ControllerCommand(FenetrePrincipale fenParent) {
+        this.fenetrePrincipale = fenParent;
+        this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
     }
     
     public Boolean possibleUndo() {
@@ -33,12 +40,14 @@ public class ControllerCommand {
     public void resetCommand() {
         undoStack.clear();
         redoStack.clear();
+        this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
     }
     
     public void addCommand(Livraison livraison, Boolean deleted ) {
         redoStack.clear();
         Command executedCommand = new Command(livraison, deleted);
         undoStack.add(executedCommand);
+        this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
     }
     
     public void undo(Tournee tournee) throws Exception {
@@ -48,6 +57,8 @@ public class ControllerCommand {
             
             redoStack.add(invertedCommand);
             undoStack.remove(undoStack.size()-1);
+            
+            this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
         } else {
             throw new Exception("Aucune commande a undo");
         }
@@ -60,12 +71,14 @@ public class ControllerCommand {
             
             undoStack.add(invertedCommand);
             redoStack.remove(redoStack.size()-1);
+            
+            this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
         } else {
             throw new Exception("Aucune commande a redo");
         }
     }
     
-    public static Command invertCommand(Tournee tournee, Command command) {
+    public static Command invertCommand(Tournee tournee, Command command) throws Exception {
         if (command.getDeleted()) {
             tournee.addLivraison(command.getLivraison());
         } else {
