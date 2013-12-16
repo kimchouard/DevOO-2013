@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 
 /**
  *
@@ -93,7 +94,7 @@ public class VueTroncon extends javax.swing.JPanel {
             yArrivee = this.getHeight() - VuePlan.diamNoeud/2;
         }
         
-        g.drawLine(xDepart, yDepart, xArrivee, yArrivee);
+        g2D.draw(new Line2D.Float(xDepart, yDepart, xArrivee, yArrivee));
     }
 
     /**
