@@ -34,9 +34,9 @@ public class VueLivraisonItem extends javax.swing.JPanel {
      * Creates new form VueLivraison
      */
     public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
-        this.livraison = livraison;
-        this.vueListLivraison = vueListLivraison;
         this.initialize();
+        this.setLivraison(livraison);
+        this.vueListLivraison = vueListLivraison;
         
     }
         
@@ -50,8 +50,6 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     
     public void initialize() {
         initComponents();
-        
-        this.setPreferredSize(new Dimension(280, 150));
         
         this.setOpaque(false);
         this.setVisible(true);
@@ -94,14 +92,14 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     
      
    //@Override
-    public void paintCoponent(Graphics g)
-    {
-        // s'inspirer de celle de noeud, avec un get color
-        Graphics2D graphics = (Graphics2D) g;
-//        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        super.paintComponent(g);
-        g.fillOval(0,0,this.getWidth(),this.getHeight());
-    }
+//    public void paintCoponent(Graphics g)
+//    {
+//        // s'inspirer de celle de noeud, avec un get color
+////        Graphics2D graphics = (Graphics2D) g;
+////        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+////        super.paintComponent(g);
+////        g.fillOval(0,0,this.getWidth(),this.getHeight());
+//    }
     
      
     /**

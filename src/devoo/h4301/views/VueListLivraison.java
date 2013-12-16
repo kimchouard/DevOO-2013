@@ -47,22 +47,25 @@ public class VueListLivraison extends javax.swing.JPanel {
     
     public void ajouterLivraison(Livraison livraison) {
         VueLivraisonItem v = new VueLivraisonItem(livraison, this);
+        this.vueLivraisonsItem.add(v);
+        
         this.placerLivraison(v, this.vueLivraisonsItem.size()-1);
         this.updateVueListLivraison();
         
-        this.vueLivraisonsItem.add(v);
         this.add(v);
         v.setVisible(true);
     }
     
       private void updateVueListLivraison() {
-        int listHeight = 50 * this.getVueLivraison().size();
+        int listHeight = 50 * this.vueLivraisonsItem.size();
         
-        Dimension dimension = new Dimension(this.getWidth(), listHeight);
+        Dimension dimension = new Dimension(280, listHeight);
         this.setPreferredSize(dimension);
     }
     
     public void placerLivraison(VueLivraisonItem vl, int rank) {
+        vl.setSize(280, 150);
+        
         int yLocation = rank * 50;
         vl.setLocation(0, yLocation);
     }
