@@ -33,11 +33,11 @@ public class VueLiv extends VueNoeud {
     }
     
     public void setSelected(boolean selected) {
-        this.selected = selected;
-        
         if (selected) {
             this.vuePlan.selectLiv(this.liv);
         }
+        
+        this.selected = selected;
         
         this.repaint();
     }

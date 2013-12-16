@@ -79,11 +79,11 @@ public class VueNoeud extends javax.swing.JPanel {
     }
     
     public void setSelected(boolean selected) {
-        this.selected = selected;
-        
         if (selected) {
             this.vuePlan.createLiv(this.noeud);
         }
+        
+        this.selected = selected;
         
         this.repaint();
     }

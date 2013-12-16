@@ -129,19 +129,24 @@ public class VuePlan extends javax.swing.JPanel {
         vueTroncon.setSize(this.scaledSize(larg) + diamNoeud, this.scaledSize(haut) + diamNoeud);
     }
     
-    public void selectLiv(Livraison liv) {
+    public void unselectNoeuds() {
         //Reset all the others noeuds
         for (VueLiv vl : this.vueLivs) {
-            if (vl.getLiv().getDestination().getId() != vl.getLiv().getDestination().getId()) {
-                vl.setSelected(false);
-            }
+           vl.setSelected(false);
         }
-        
+        for (VueNoeud vn : this.vueNoeuds) {
+           vn.setSelected(false);
+        }
+    }
+    
+    public void selectLiv(Livraison liv) {
         //Do the check
+        unselectNoeuds();
         controlerPlan.selectLivraison(liv);
     }
     
     public void createLiv(Noeud noeud) {
+        unselectNoeuds();
         controlerPlan.createLiv(noeud);
     }
     
