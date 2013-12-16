@@ -37,44 +37,8 @@ public class ControllerGraph {
         switch(tsp.solve(delay, graphe.getMaxArcCost()))
         {
             case OPTIMAL_SOLUTION_FOUND:
-                int[] nextTable = tsp.getNext();
                 BuildGraphe();
-                int tableIt = 0;
-                int max = graphe.getNbVertices();
-                LinkedList<Livraison> livraisons = tournee.getLivraisons();
-                Livraison intrus = null;
-                for(int i=0;i<max;i++)
-                {
-                    //on compare notre liste de livraisons au nouveau calcul
-                    if(livraisons.get(i).getDestination().getId() == nextTable[tableIt])
-                    {
-                        // tant que les livraisons sont ordonnées, on continue
-                        tableIt++;
-                    }
-                    else
-                    {
-                        //première incohérence, on la stocke
-                        if(intrus == null)
-                        {
-                            intrus = livraisons.get(i);
-                        }
-                        //deuxième incohérence, signifie qu'il faut remplacer à cette position
-                        else
-                        {
-                            //signifie qu'il y a eu permutation, on permute
-                            if(intrus == livraisons.get(i))
-                            {
-                                
-                            }
-                            //signifie qu'il y a eu ajout ou suppression
-                            if(intrus != livraisons.get(i))
-                            {
-                                
-                            }
-                        }
-                    }
-                }
-                graphe.getEnsembleTrajets();
+                CleanGraphe();
                 break;
             case SOLUTION_FOUND:
                 break;
@@ -85,7 +49,7 @@ public class ControllerGraph {
         }
     }
     
-    public void CleanGraph() throws MyException{
+    private void CleanGraphe() throws MyException{
         int[] nextTable = tsp.getNext();
         int tableIt=0;
         ArrayList<Itineraire>listeItineraires = graphe.getEnsembleTrajets();
