@@ -50,23 +50,6 @@ public class ControllerCommandTest {
     }
 
     /**
-     * Test of possibleRedo method, of class ControllerCommand.
-     */
-    @Test
-    public void testPossibleRedo() throws Exception {
-        assertEquals("Redo is not possible", controllerCommand.possibleRedo(), false);  
-
-        Livraison liv = new Livraison();
-        controllerCommand.addCommand(liv, true);
-        
-        Tournee tournee = new Tournee();
-        controllerCommand.undo(tournee);
-        
-        assertEquals("Redo is possible", controllerCommand.possibleRedo(), true);
-        assertEquals("Undo is not possible", controllerCommand.possibleUndo(), false);
-    }
-
-    /**
      * Test of resetCommand method, of class ControllerCommand.
      */
     @Test
