@@ -78,17 +78,17 @@ public class ControleurPrincipal {
         }
     }
 
-//    public void chargerPlanDebug() {
-//        try {
-//            Tournee t = initDebug();
-//            controleurPlan.setTournee(t);
-//            controleurPlan.scaleAutoVuePlan(panneauPlan);
-//            controleurPlan.rafraichirVuePlan();
-//            controleurPlan.afficherPlan(panneauPlan);
-//        } catch (Exception ex) {
-//            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void chargerDebug() {
+        try {
+            Tournee t = initDebug();
+            controleurPlan.setTournee(t);
+            controleurPlan.scaleAutoVuePlan(panneauPlan);
+            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.afficherPlan(panneauPlan);
+        } catch (Exception ex) {
+            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void selectLivraison(Livraison liv) {
         //TODO open edit liv on right
     }
@@ -128,22 +128,22 @@ public class ControleurPrincipal {
 
         //Création du plan : noeuds et tronçons
         Noeud n0 = new Noeud(0, 200, 200);
-        Noeud n1 = new Noeud(0, 100, 100);
-        Noeud n2 = new Noeud(0, 150, 100);
-        Noeud n3 = new Noeud(0, 200, 100);
-        Noeud n4 = new Noeud(0, 250, 100);
-        Noeud n5 = new Noeud(0, 300, 100);
-        Noeud n6 = new Noeud(0, 300, 150);
-        Noeud n7 = new Noeud(0, 300, 200);
-        Noeud n8 = new Noeud(0, 300, 250);
-        Noeud n9 = new Noeud(0, 300, 300);
-        Noeud n10 = new Noeud(0, 250, 300);
-        Noeud n11 = new Noeud(0, 200, 300);
-        Noeud n12 = new Noeud(0, 150, 300);
-        Noeud n13 = new Noeud(0, 100, 300);
-        Noeud n14 = new Noeud(0, 100, 250);
-        Noeud n15 = new Noeud(0, 100, 200);
-        Noeud n16 = new Noeud(0, 100, 150);
+        Noeud n1 = new Noeud(1, 100, 100);
+        Noeud n2 = new Noeud(2, 150, 100);
+        Noeud n3 = new Noeud(3, 200, 100);
+        Noeud n4 = new Noeud(4, 250, 100);
+        Noeud n5 = new Noeud(5, 300, 100);
+        Noeud n6 = new Noeud(6, 300, 150);
+        Noeud n7 = new Noeud(7, 300, 200);
+        Noeud n8 = new Noeud(8, 300, 250);
+        Noeud n9 = new Noeud(9, 300, 300);
+        Noeud n10 = new Noeud(10, 250, 300);
+        Noeud n11 = new Noeud(11, 200, 300);
+        Noeud n12 = new Noeud(12, 150, 300);
+        Noeud n13 = new Noeud(13, 100, 300);
+        Noeud n14 = new Noeud(14, 100, 250);
+        Noeud n15 = new Noeud(15, 100, 200);
+        Noeud n16 = new Noeud(16, 100, 150);
         p.addNoeud(n0);
         p.addNoeud(n1);
         p.addNoeud(n2);
