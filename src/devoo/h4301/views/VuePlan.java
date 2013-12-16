@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.ControleurPlan;
 import devoo.h4301.controller.ControleurPrincipal;
+import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
@@ -28,6 +29,7 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     private ArrayList<VueLiv> vueLivs = new ArrayList();
+    private ArrayList<VueItineraire> vueItin = new ArrayList();
     
     protected double zoomScale = 1.0;
 
@@ -101,6 +103,32 @@ public class VuePlan extends javax.swing.JPanel {
         this.placerTroncon(v);
         this.vueTroncons.add(v);
         this.add(v);
+    }
+    
+    public void ajouterItineraire(Troncon t) {
+        if (getVueItineraire(t) == null) {
+            VueItineraire vi = new VueItineraire(t, this);
+            this.placerTroncon((VueTroncon) vi);
+            this.updateVuePlanFrame();
+
+            this.vueItin.add(vi);
+            this.add(vi);
+            vi.setVisible(true);
+        } else {
+            System.out.println("Gérer les multi troncons!");
+        }
+    }
+    
+    public VueItineraire getVueItineraire(Troncon t) {
+        for (VueItineraire vi : this.vueItin) {
+            if( (vi.getTroncon().getDestination().getId() == t.getDestination().getId())
+             || (vi.getTroncon().getOrigine().getId() == t.getOrigine().getId())
+            ) {
+                return vi;
+            }
+        }
+        
+        return null;
     }
     
     public void placerTroncon(VueTroncon vueTroncon) {

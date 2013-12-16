@@ -97,7 +97,7 @@ public class VueTroncon extends javax.swing.JPanel {
         dispLines(g, xArrivee, xDepart, yArrivee, yDepart);
     }
     
-    private void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+    protected void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         Graphics2D g2D = (Graphics2D) g;
         
         //Delta pour les bordures
@@ -121,7 +121,7 @@ public class VueTroncon extends javax.swing.JPanel {
         g2D.draw(getNewLine(-delta, xArrivee, xDepart, yArrivee, yDepart));
     }
     
-    private Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+    protected Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         int dX = (int) getDX(delta, xArrivee, xDepart, yArrivee, yDepart);
         int dY = (int) getDY(delta, xArrivee, xDepart, yArrivee, yDepart);
         
@@ -133,7 +133,7 @@ public class VueTroncon extends javax.swing.JPanel {
     }
     
     
-    private double getAlpha(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+    protected double getAlpha(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         // Calcul de l'angle vis à vis de la verticale
         double x = xArrivee - xDepart;
         double y = yArrivee - yDepart;
@@ -141,12 +141,12 @@ public class VueTroncon extends javax.swing.JPanel {
         return Math.atan(x / y);
     }
     
-    private double getDX(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+    protected double getDX(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
         return delta * Math.cos(alpha);
     }
     
-    private double getDY(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+    protected double getDY(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
         return delta * Math.sin(alpha);
     }

@@ -6,6 +6,7 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
@@ -60,6 +61,13 @@ public class ControleurPlan {
         LinkedList<Livraison> livs =  tournee.getLivraisons();
         for (Livraison l : livs) {
             this.vuePlan.ajouterLiv(l);
+        }
+        
+        ArrayList<Itineraire> itineraires = tournee.getItineraires();
+        for (Itineraire i : itineraires) {
+            for (Troncon t : i.getEnsembleTroncons()) {
+                this.vuePlan.ajouterItineraire(t);
+            }
         }
         
         ArrayList<Troncon> troncons = plan.getTroncons();
