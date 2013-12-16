@@ -47,6 +47,7 @@ public class ControleurPlan {
     }
     
     public void rafraichirVuePlan(Tournee tournee) {
+        
         this.vuePlan.reset();
         this.vuePlan.setTournee(tournee);
         Plan plan =  tournee.getPlan();

@@ -82,8 +82,8 @@ public class ControleurPrincipal {
             controleurPlan.afficherPlan(panneauPlan);
         
             // rajouter
-            controleurLivraison.rafraichirVueListLivraison(t);
-            controleurLivraison.afficherListLivraison(this.panneauLiv);
+            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+            //controleurLivraison.afficherListLivraison(this.panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
