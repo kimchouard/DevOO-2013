@@ -59,6 +59,11 @@ public class Tournee {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
     }
+    
+    public void resetTournee() {
+        livraisons = new LinkedList<Livraison>();
+        horaires = new LinkedList<PlageHoraire>();
+    }
 
     /**
      * Point d'accès pour l'instance unique du singleton
@@ -222,6 +227,7 @@ public class Tournee {
      * fichierXML
      */
     public void construireAPartirDomXML(Element racine) throws Exception {
+        this.resetTournee();
 
         //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
