@@ -12,6 +12,8 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -84,7 +86,11 @@ public class VueNoeud extends javax.swing.JPanel {
         this.selected = selected;
         
         if (selected) {
-            this.vuePlan.createLiv(this.noeud);
+            try {
+                this.vuePlan.createLiv(this.noeud);
+            } catch (Exception ex) {
+                Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         this.repaint();
