@@ -120,7 +120,7 @@ public class ControleurPrincipal {
     }
     public void selectLivraison(Livraison liv) {
         // éclairer la bonne livraison
-        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
 
     }
 

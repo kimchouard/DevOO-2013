@@ -22,8 +22,9 @@ import java.text.SimpleDateFormat;
 public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
-    private VueListLivraison vueListLivraison;
+    //private VueListLivraison vueListLivraison;
     private final DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+    private ControleurLivraison controleurLivraison;
     
     protected boolean selected;
     /**
@@ -36,12 +37,20 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     /**
      * Creates new form VueLivraison
      */
-    public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
+    /*public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
         this.initialize();
         this.setLivraison(livraison);
         this.vueListLivraison = vueListLivraison;
         
+    }*/
+    
+    
+    public VueLivraisonItem(ControleurLivraison controleurLivraison, Livraison liv){
+        this.initialize();
+        this.controleurLivraison = controleurLivraison;
+        this.livraison = liv;
     }
+            
         
      /*   //Le suite est utile, ou pas !!!
         this.idLivraison.setText(this.livraison.getDestination().getId().toString());
@@ -81,15 +90,6 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.selected = selected;
     }
 
-    public VueListLivraison getVueListLivraison() {
-        return vueListLivraison;
-    }
-
-    public void setVueListLivraison(VueListLivraison vueListLivraison) {
-        this.vueListLivraison = vueListLivraison;
-    }
-    
-    
     
     
     
@@ -168,7 +168,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addComponent(plageHoraire)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(supprBouton)
                 .addContainerGap())
         );
@@ -182,7 +182,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
 
     private void supprBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprBoutonActionPerformed
         // TODO add your handling code here:
-        
+        controleurLivraison.supprimerLivraison(livraison);
     }//GEN-LAST:event_supprBoutonActionPerformed
 
 

@@ -70,8 +70,8 @@ public class ControleurLivraison {
          
      }
      
-     public void afficherUneLivraison(JScrollPane paneRight){
-         VueLivraisonItem vueLivraison = new VueLivraisonItem();
+     public void afficherUneLivraison(JScrollPane paneRight, Livraison liv ){
+         VueLivraisonItem vueLivraison = new VueLivraisonItem(this, liv);
          paneRight.setViewportView(vueLivraison);
      }
      
@@ -102,6 +102,15 @@ public class ControleurLivraison {
              }
          }
          return 1;
+     }
+     
+     public void supprimerLivraison(Livraison liv){
+         this.supprLiv(liv);
+         this.controleurPrincipal.addCommandeLivraison(liv, true);
+         this.vueListLivraison.removeAll();
+         this.vueListLivraison.updateUI();
+         this.vueListLivraison.setTournee(Tournee.getInstance());
+         this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
      }
      
       // To do pour undo et redo deux fonctions d'ajout et de suppression  sans l'affichage de l'edition
