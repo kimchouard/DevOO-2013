@@ -75,6 +75,11 @@ public class ControleurLivraison {
          paneRight.setViewportView(vueLivraison);
      }
      
+     public void effacerVueListLivraison(JScrollPane paneRight){
+         this.vueListLivraison.removeAll();
+        this.vueListLivraison.updateUI();
+     }
+     
     public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
@@ -105,7 +110,7 @@ public class ControleurLivraison {
     
      public void ajoutLiv(Livraison liv) throws Exception {
         Tournee.getInstance().addLivraison(liv);
-        this.controleurPrincipal.addCommandeLivraison(liv, false); // utile ?
+        this.controleurPrincipal.addCommandeLivraison(liv, false);
      }
      
      public boolean recupererLivraison(String nom, String colis ){

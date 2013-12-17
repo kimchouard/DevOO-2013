@@ -62,6 +62,7 @@ public class ControleurPrincipal {
         controleurPlan.scaleAutoVuePlan(panneauPlan);
         controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
+        controleurLivraison.effacerVueListLivraison(this.panneauLiv );
     }
 
     public void chargerLiv(String urlLiv) {
