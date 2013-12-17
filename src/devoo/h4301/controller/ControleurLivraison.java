@@ -80,6 +80,12 @@ public class ControleurLivraison {
         this.vueListLivraison.updateUI();
      }
      
+     public void effacerItemLivraison(JScrollPane panneauLiv)
+     {
+         this.vueEditLivraison.removeAll();
+         this.vueEditLivraison.updateUI();
+     }
+     
     public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
@@ -106,7 +112,7 @@ public class ControleurLivraison {
      
      public void supprimerLivraison(Livraison liv){
          this.supprLiv(liv);
-         this.controleurPrincipal.addCommandeLivraison(liv, true);
+         //this.controleurPrincipal.addCommandeLivraison(liv, true);
          this.vueListLivraison.removeAll();
          this.vueListLivraison.updateUI();
          this.vueListLivraison.setTournee(Tournee.getInstance());
