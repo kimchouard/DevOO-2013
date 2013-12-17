@@ -12,6 +12,8 @@ import devoo.h4301.model.PlageHoraire;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -21,6 +23,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
     private VueListLivraison vueListLivraison;
+    private final DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     
     protected boolean selected;
     /**
@@ -66,7 +69,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.nomClient.setText(this.livraison.getClient().getName());
         
         PlageHoraire ph = this.livraison.getHoraire();
-        String horaire = "De "+ph.getDebut().toString()+" à "+ph.getFin().toString();
+        String horaire = "De "+ formatter.format(ph.getDebut())+" à "+ formatter.format(ph.getFin());
         this.plageHoraire.setText(horaire);
     }
 
