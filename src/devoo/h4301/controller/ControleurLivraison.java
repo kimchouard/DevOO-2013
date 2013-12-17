@@ -14,6 +14,8 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
+import static java.sql.Types.NULL;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JScrollPane;
 
@@ -29,7 +31,7 @@ public class ControleurLivraison {
     
      public ControleurLivraison(ControleurPrincipal controleurPrincipal) {
         this.vueListLivraison = new VueListLivraison(this);
-        this.vueEditLivraison = new VueEditLivraison();
+        this.vueEditLivraison = new VueEditLivraison(this);
         this.controleurPrincipal = controleurPrincipal;
     }
      
@@ -39,21 +41,32 @@ public class ControleurLivraison {
      
     }
      
+     public void afficherListLivraisonInitiale(){
+         (this.controleurPrincipal.getPanneauLiv()).setViewportView(vueListLivraison);
+         this.vueListLivraison.updateUI();
+     }
+     
      public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
-         VueEditLivraison viewNewLiv = new VueEditLivraison();
+         VueEditLivraison viewNewLiv = new VueEditLivraison(this, noeud);
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);
-         Noeud newnoeud = new Noeud(); // récupérer champs
-         Integer colis =0; // récupérer champs et initaliser
-         Integer id = 0; // récupérer champs et initialiser
-         Client client = new Client(id);
-         String nom = "M"; // récupérer champs et initaliser
+     }
+     
+     public void creationLivraison(Noeud noeud, String nom, String colis1) throws Exception{
+         Client client = new Client(0);
          client.setName(nom);
-         PlageHoraire horaire = new PlageHoraire();
          
-         Livraison liv = new Livraison(newnoeud, colis, horaire, client);
-         Tournee.getInstance().addLivraison(liv);
-         this.controleurPrincipal.addCommandeLivraison(liv, false);
+         int colis = 7;
+         PlageHoraire horaire = new PlageHoraire();
+         Date deb = new Date(2000, 11, 20, 13, 12);
+         Date fin = new Date(2000, 11, 22, 00, 00);
+         
+         horaire.setDebut(deb);
+         horaire.setFin(fin);
+         
+         Livraison liv = new Livraison(noeud, colis, horaire, client);
+         this.ajoutLiv(liv);
+         this.afficherListLivraisonInitiale();
          
      }
      
@@ -93,5 +106,10 @@ public class ControleurLivraison {
      public void ajoutLiv(Livraison liv) throws Exception {
         Tournee.getInstance().addLivraison(liv);
         this.controleurPrincipal.addCommandeLivraison(liv, false); // utile ?
+     }
+     
+     public boolean recupererLivraison(String nom, String colis ){
+        return false;
+        
      }
 }

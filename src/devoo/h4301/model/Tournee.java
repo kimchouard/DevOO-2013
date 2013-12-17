@@ -185,6 +185,8 @@ public class Tournee {
             throw e;
        }
        
+    
+       
        Noeud dest = livraison.getDestination();
        if (this.plan.getNoeuds().contains(dest) !=true){
             MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
