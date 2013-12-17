@@ -194,6 +194,22 @@ public class Tournee {
        }
         this.livraisons.add(livraison);
     }
+    
+    public int ajoutLivraison(Livraison livraison){
+       if(this.horaires.contains(livraison.getHoraire()) != true){
+            return 1; //La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
+       }
+      
+       Noeud dest = livraison.getDestination();
+       if (this.plan.getNoeuds().contains(dest) !=true){
+           return 2; //La destination de la livraison n'est pas connu dans le plan
+       }
+       if(dest.getX() == null || dest.getY() == null){
+           return 3;//Les coordonnées de la destination ne sont pas correctement renseignés
+       }
+        this.livraisons.add(livraison);
+        return 4;
+    }
 
     /**
      * @return le noeud entrepot de la tournée

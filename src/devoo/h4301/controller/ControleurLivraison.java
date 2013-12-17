@@ -109,10 +109,22 @@ public class ControleurLivraison {
      // done
     
      public void ajoutLiv(Livraison liv) throws Exception {
-        Tournee.getInstance().addLivraison(liv);
-        this.controleurPrincipal.addCommandeLivraison(liv, false);
+        int result = Tournee.getInstance().ajoutLivraison(liv); 
+        switch (result) {
+            case 1 : // La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
+                
+                break;
+            case 2 ://La destination de la livraison n'est pas connu dans le plan
+                
+                break;
+            case 3 ://Les coordonnées de la destination ne sont pas correctement renseignés
+                
+                break;
+            case 4 : // la livraison a bien été ajoutée
+                
+                break;
      }
-     
+     }
      public boolean recupererLivraison(String nom, String colis ){
         return false;
         
