@@ -57,9 +57,9 @@ public class ControllerGraph {
         {
             for(int i=0;i<listeItineraires.size();i++)
             {
-                if(listeItineraires.get(i).getPrevLivraisonId() == nextTable[tableIt])
+                if(listeItineraires.get(i).getPrevLivraison().getDestination().getId() == nextTable[tableIt])
                 {
-                    if(listeItineraires.get(i).getNextLivraisonId() != nextTable[tableIt+1])
+                    if(listeItineraires.get(i).getNextLivraison().getDestination().getId() != nextTable[tableIt+1])
                     {
                         listeItineraires.remove(i);
                     }

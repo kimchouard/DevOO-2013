@@ -15,12 +15,35 @@ import java.util.Map;
  */
 
 public class GraphUtil implements Graph {
+        /**
+         * Integer. Stocke le nombre de sommets du graphe
+         */
 	private int nbVertices;
+        
+        /**
+         * Integer. Stocke le cout maximal à tout instant. Initialisé à 0
+         */
 	private int maxArcCost;
+        
+        /**
+         * Integer. Stocke le cout minimal à tout instant. Initialisé à max_value_integer
+         */
 	private int minArcCost;
+        
+        /**
+         * Array of int. Contient les couts de chaque livraison. cost[i] = cost[i-1]+i.cost
+         */
 	private int[][] cost; 
+        
+        /**
+         * ArrayList of Itineraire. Contient l'ensemble des itinéraires. Attention: doit contenir l'entrepot au début et à la fin.
+         */
 	private ArrayList<Itineraire> ensembleTrajets;
-	private ArrayList<ArrayList<Integer>> succ; 
+	
+        /**
+         * ArrayList of ArrayList of Integer. Contient l'ensemble des successeurs d'une livraison (basé sur son id). succ[i][j] = jème successeur de i
+         */
+        private ArrayList<ArrayList<Integer>> succ; 
 
 	/**
 	 * Creates a graph such that each vertex is connected to the vertices which are in the same duration of the day , or the duration +1 and
@@ -36,6 +59,7 @@ public class GraphUtil implements Graph {
                 LinkedList<Livraison> tabLivraison = ens.getLivraisons();
                 // Initialisation
 		nbVertices = tabLivraison.size()+1;
+                System.out.println("vertices: "+nbVertices);
                 maxArcCost = 0;
                 minArcCost = Integer.MAX_VALUE;
 		cost = new int[nbVertices][nbVertices];
@@ -45,10 +69,10 @@ public class GraphUtil implements Graph {
 			}
 		}
 		succ = new ArrayList<>();
-		
-		ArrayList<Date> PlagesHoraires = getOrderedTabDuration(tabLivraison);
-                enterIdSuccAndCost(PlagesHoraires,tabLivraison,ens);		
+		ensembleTrajets = new ArrayList<>();
                 
+		ArrayList<Date> PlagesHoraires = getOrderedTabDuration(tabLivraison);
+                enterIdSuccAndCost(PlagesHoraires,tabLivraison,ens);
                 // Definition of cost if it has not been defined yet
                 for (int i = 0; i < nbVertices; i++) {
 			for (int j = 0; j < nbVertices; j++) {
@@ -60,7 +84,7 @@ public class GraphUtil implements Graph {
 	}
         
        // CREATE AN ORDERED TAB OF DURATIONS
-        private ArrayList<Date> getOrderedTabDuration(LinkedList<Livraison> tabLivraison)
+        public ArrayList<Date> getOrderedTabDuration(LinkedList<Livraison> tabLivraison)
         {
             int i;
             Date unePH;
@@ -73,7 +97,7 @@ public class GraphUtil implements Graph {
                     unePH = tabLivraison.get(i).getHoraire().getDebut();
                     // Finding if the duration is already in the tab "PlagesHoraires" if yes find = true
                     int j = 0;
-                    while(unePH.after(PlagesHoraires.get(j)) || unePH.equals(PlagesHoraires.get(j)))
+                    while(j<PlagesHoraires.size() && (unePH.after(PlagesHoraires.get(j)) || unePH.equals(PlagesHoraires.get(j))))
                     {
                             if(PlagesHoraires.get(j) == unePH)
                             {
@@ -93,7 +117,7 @@ public class GraphUtil implements Graph {
         
         
         // ENTERING THE VERTICES IN SUCC AND COST 
-        private void enterIdSuccAndCost(ArrayList<Date> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws MyException
+        public void enterIdSuccAndCost(ArrayList<Date> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws MyException
         {
                	Date PH1,PH2;
                // Insert entrepot at the beginning
@@ -108,14 +132,25 @@ public class GraphUtil implements Graph {
                                 suivantEntrepot.add(tabLivraison.get(i).getDestination().getId());
 			}
 		}
-                succ.add(ens.getEntrepot().getId(),suivantEntrepot);
-
-		// For each livraison minus entrepot
+                succ.add(0,suivantEntrepot);
+                //Set path from entrepot to first livraison
+                Itineraire start = new Itineraire();
+                Livraison first = tabLivraison.getFirst();
+                start.setNextLivraison(first);
+                Livraison e = new Livraison();
+                e.setDestination(ens.getEntrepot());
+                e.setHorraire(first.getHoraire());
+                start.setPrevLivraison(e);
+                start.setEnsembleTroncons(getPath(e.getDestination().getId(), first.getDestination().getId(), ens.getPlan()));
+		ensembleTrajets.add(start);
+                
+                // For each livraison minus entrepot
 		for(i=0; i<nbVertices-1; i++)
 		{
 			PH1 = tabLivraison.get(i).getHoraire().getDebut();
 			int indexPH1 = PlagesHoraires.indexOf(PH1);
-			int noeud1 = tabLivraison.get(i).getDestination().getId();
+			Livraison livr1 = tabLivraison.get(i);
+                        int noeud1 = livr1.getDestination().getId();
                         ArrayList<Integer> l = new ArrayList<>();
 
 			int j;
@@ -123,19 +158,28 @@ public class GraphUtil implements Graph {
 			{
 				PH2 = tabLivraison.get(j).getHoraire().getDebut();
 				int indexPH2 = PlagesHoraires.indexOf(PH2);
-				int noeud2 = tabLivraison.get(j).getDestination().getId();
+				Livraison livr2 = tabLivraison.get(j);
+                                int noeud2 = livr2.getDestination().getId();
 				// If duration of vertex2 is = or +1 of duration of vertex 1 -> enter in succ
-				if((indexPH1 == indexPH2) || (indexPH2 == indexPH1+1))
+				if((livr1 != livr2) && ((indexPH1 == indexPH2) || (indexPH2 == indexPH1+1)))
 				{
 					l.add(noeud2);
                                         Itineraire iti = new Itineraire();
-                                        iti.setPrevLivraisonId(noeud1);
-                                        iti.setNextLivraisonId(noeud2);
+                                        iti.setPrevLivraison(livr1);
+                                        iti.setNextLivraison(livr2);
+                                        System.out.println("index: "+i+" "+j);
+                                        System.out.println("noeuds: "+noeud1+" "+noeud2);
                                         LinkedList<Troncon> ensembleTroncons = getPath(noeud1,noeud2,ens.getPlan()); 
-                                        cost[noeud1][noeud2] = calculCost(ensembleTroncons);
+                                        cost[i][j] = calculCost(ensembleTroncons);
                                         iti.setEnsembleTroncons(ensembleTroncons);
+                                        for(int k=0;k<ensembleTroncons.size();k++)
+                                        {
+                                            System.out.println("troncon"+ensembleTroncons.get(k).getOrigine().getId());
+                                        }
+                                        System.out.println("iti: p "+iti.getPrevLivraison().getDestination().getId()+" n "+iti.getNextLivraison().getDestination().getId());
+                                        System.out.println(ensembleTrajets);
                                         ensembleTrajets.add(iti);
-                                        setMinMax(cost[noeud1][noeud2]);
+                                        setMinMax(cost[i][j]);
 				}
 			}
 			
@@ -144,16 +188,19 @@ public class GraphUtil implements Graph {
 			{
 				l.add(ens.getEntrepot().getId());
                                 Itineraire iti = new Itineraire();
-                                iti.setPrevLivraisonId(noeud1);
-                                iti.setNextLivraisonId(ens.getEntrepot().getId());
-                                LinkedList<Troncon> ensembleTroncons = getPath(noeud1,ens.getEntrepot().getId(),ens.getPlan()); 
-                                cost[noeud1][ens.getEntrepot().getId()] = calculCost(ensembleTroncons);
+                                iti.setPrevLivraison(livr2);
+                                Livraison entrepot = new Livraison();
+                                entrepot.setDestination(ens.getEntrepot());
+                                entrepot.setHorraire(livr1.getHoraire());
+                                iti.setNextLivraison(entrepot);
+                                LinkedList<Troncon> ensembleTroncons = getPath(noeud1,ens.getEntrepot().getId(),ens.getPlan());
+                                cost[i][ens.getEntrepot().getId()] = calculCost(ensembleTroncons);
                                 iti.setEnsembleTroncons(ensembleTroncons);
                                 ensembleTrajets.add(iti);
-                                setMinMax(cost[noeud1][ens.getEntrepot().getId()]);
+                                setMinMax(cost[i][ens.getEntrepot().getId()]);
 			}
-			
-			succ.add(noeud1,l);
+			System.out.println("range "+noeud1);
+			succ.add(i+1,l);
 		}
                 
                 
@@ -163,6 +210,7 @@ public class GraphUtil implements Graph {
         private int calculCost(LinkedList<Troncon> itineraire)
         {
             double cout = 0;
+            System.out.println("coucou");
             int Isize = itineraire.size();
             int i;
             for(i=0;i<Isize;i++){

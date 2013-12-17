@@ -9,20 +9,20 @@ import java.util.LinkedList;
 
 /**
  *Classe Itineraire, à but utilitaire car elle stocke la succession de troncons 
- * pour aller d'une livraison d'id<code>prevLivraisonId</code> à une livraison
- * d'id <code>nextLivraisonId</code>
+ * pour aller d'une livraison <code>prevLivraison</code> à une livraison
+ * <code>nextLivraison</code>
  * @author cedric dupuis
  */
 public class Itineraire {
     /**
-     * Entier, id de la livraison de départ
+     * Livraison de départ
      */
-    private int prevLivraisonId;
+    private Livraison prevLivraison;
     
     /**
-     * Entier, id de la livraison d'arrivée
+     *Livraison d'arrivée
      */
-    private int nextLivraisonId;
+    private Livraison nextLivraison;
     
     /**
      * Liste chainée de Troncons, ordonnée 
@@ -38,33 +38,33 @@ public class Itineraire {
     
     /**
      * Setter
-     * @param int previous 
+     * @param Livraison previous 
      */
-    public void setPrevLivraisonId(int previous){
-        prevLivraisonId = previous;
+    public void setPrevLivraison(Livraison previous){
+        prevLivraison = previous;
     }
     /**
      * Getter
-     * @return int prevLivraisonId
+     * @return Livraison prevLivraison
      */
-    public int getPrevLivraisonId(){
-        return prevLivraisonId;
+    public Livraison getPrevLivraison(){
+        return prevLivraison;
     }
     
     /**
      * Setter
-     * @param int next 
+     * @param Livraison next 
      */
-    public void setNextLivraisonId(int next){
-        nextLivraisonId = next;
+    public void setNextLivraison(Livraison next){
+        nextLivraison = next;
     }
     
     /**
      * Getter
-     * @return int nextLivraisonId 
+     * @return Livraison nextLivraison 
      */
-    public int getNextLivraisonId(){
-        return nextLivraisonId;
+    public Livraison getNextLivraison(){
+        return nextLivraison;
     }
     
     /**
