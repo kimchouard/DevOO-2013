@@ -36,25 +36,33 @@ public class Livraison {
      */
     protected Client client;
 
+    /**
+     * Constructeur avec paramètres
+     *
+     * @param destination
+     * @param colis
+     * @param horaire
+     * @param client
+     */
     public Livraison(Noeud destination, Integer colis, PlageHoraire horaire, Client client) {
         this.destination = destination;
         this.colis = colis;
         this.horaire = horaire;
         this.client = client;
     }
-    
-    public Livraison(){
+
+    /**
+     *Constructeur
+     */
+    public Livraison() {
     }
 
-    
-    
-    
     /**
      * Getter sur la destination
      *
      * @return la destination
      */
-   public Noeud getDestination() {
+    public Noeud getDestination() {
         return destination;
     }
 
@@ -111,8 +119,6 @@ public class Livraison {
     public Client getClient() {
         return client;
     }
-    
-    
 
     /**
      * Setter sur le client
@@ -122,13 +128,13 @@ public class Livraison {
     public void setClient(Client client) {
         this.client = client;
     }
-    
+
     /**
      * Setter sur la livraison
+     *
      * @param livraison à mettre à la place de la livraison actuelle
      */
-    public void setLivraison(Livraison livraison)
-    {
+    public void setLivraison(Livraison livraison) {
         this.client = livraison.getClient();
         this.colis = livraison.getColis();
         this.destination = livraison.getDestination();

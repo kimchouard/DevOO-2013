@@ -38,12 +38,19 @@ public class Client {
     public Client(Integer id) {
         this.id = id;
     }
-    
 
+    /**
+     *Getter sur le nom 
+     * @return le nom du client
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *Setter sur le nom du client
+     * @param name nom du client
+     */
     public void setName(String name) {
         this.name = name;
     }

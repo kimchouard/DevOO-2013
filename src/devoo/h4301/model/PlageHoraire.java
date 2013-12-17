@@ -14,13 +14,20 @@ import java.util.Objects;
 import org.w3c.dom.Element;
 
 /**
- * Classe plageHoraire
+ * Classe plageHoraire comprenant une date de début et une date de fin
  *
  * @author pmdartus
  */
 public class PlageHoraire {
     
+     /**
+     *Date de début de la plage horaire
+     */
     private Date debut;
+    
+     /**
+     *Date de fin de la plage horaire
+     */
     private Date fin;
 
     /**
@@ -43,6 +50,11 @@ public class PlageHoraire {
         }
     }
     
+     /**
+     * Construit une date à partir des informations contenue dans une string
+     * @param stringHeure string à traduire
+     * @return Date la date construite
+     */
     private Date construireDateAPartirString(String stringHeure) throws ParseException {
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date convertedDate = formatter.parse(stringHeure);
@@ -78,10 +90,19 @@ public class PlageHoraire {
         this.fin = fin;
     }
     
+    /**
+     *Construit une string à partir de la date appellante
+     * @return String la string contenant les informations de la date
+     */
     public String toString() {
         return "Entre " + time(this.debut) + " et " + time(this.fin);
      }
      
+    /**
+     *Construit une string à partir de la date passée en paramètre
+     * @param date date à traduire en string
+     * @return String la string contenant les informations de la date
+     */
     private String time (Date date){
                 return date.getHours() + ":" + date.getMinutes();
     }

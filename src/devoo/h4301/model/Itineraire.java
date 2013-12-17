@@ -3,57 +3,97 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package devoo.h4301.model;
 
 import java.util.LinkedList;
 
 /**
+ * Classe représentant un itinéraire. Un itinéraire est un ensemble de tronçon
+ * ordonnés constituant un trajet entre deux noeuds.
  *
  * @author pmdartus
  */
 public class Itineraire {
-     private int prevLivraisonId;
+
+    private int prevLivraisonId;
     private int nextLivraisonId;
     private LinkedList<Troncon> ensembleTroncons;
-    
-    public Itineraire(){
+
+    /**
+     *Constructeur
+     */
+    public Itineraire() {
         ensembleTroncons = new LinkedList();
     }
-    
-    public void setPrevLivraisonId(int previous){
+
+    /**
+     *Setter sur l'id du noeud précèdent
+     * @param previous id du noeud précèdent
+     */
+    public void setPrevLivraisonId(int previous) {
         prevLivraisonId = previous;
     }
-    
-    public int getPrevLivraisonId(){
+
+    /**
+     *Getter sur l'id du noeud précèdent
+     * @return l'id du noeud précèdent
+     */
+    public int getPrevLivraisonId() {
         return prevLivraisonId;
     }
-    
-    public void setNextLivraisonId(int next){
+
+    /**
+     *Setter sur le prochain noeud
+     * @param next id du prochain noeud
+     */
+    public void setNextLivraisonId(int next) {
         nextLivraisonId = next;
     }
-    
-    public int getNextLivraisonId(){
+
+    /**
+     *Getter sur le prochain noeud
+     * @returnl'id du prochain noeud
+     */
+    public int getNextLivraisonId() {
         return nextLivraisonId;
     }
-    
-    public void setEnsembleTroncons(LinkedList<Troncon> ensemble){
+
+    /**
+     *Setter sur un ensemble de tronçon
+     * @param ensemble liste de tronçon
+     */
+    public void setEnsembleTroncons(LinkedList<Troncon> ensemble) {
         ensembleTroncons = ensemble;
     }
-    
-    public void addTroncon(Troncon troncon){
+
+    /**
+     *Ajout d'un tronçon la liste tronçon
+     * @param troncon à ajouter
+     */
+    public void addTroncon(Troncon troncon) {
         ensembleTroncons.add(troncon);
     }
-    
-    public void removeTroncon(Troncon troncon){
+
+    /**
+     *Supprime un tronçon de la liste tronçons
+     * @param troncon à supprimer
+     */
+    public void removeTroncon(Troncon troncon) {
         ensembleTroncons.remove(troncon);
     }
-    
-    public void clearEnsembleTroncons(){
+
+    /**
+     *Supprime l'ensemble des tronçons
+     */
+    public void clearEnsembleTroncons() {
         ensembleTroncons.clear();
     }
-    
-    public LinkedList<Troncon> getEnsembleTroncons(){
+
+    /**
+     *Getter sur la liste des tronçons
+     * @return tronçons
+     */
+    public LinkedList<Troncon> getEnsembleTroncons() {
         return ensembleTroncons;
     }
 }
