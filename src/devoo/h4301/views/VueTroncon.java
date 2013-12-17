@@ -6,11 +6,15 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Troncon;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.geom.Line2D;
 
 /**
  *
@@ -65,35 +69,72 @@ public class VueTroncon extends javax.swing.JPanel {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(VuePlan.jauneMaps);
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.setStroke(new BasicStroke(VuePlan.largeurTraitTroncon));
         
         int xDepart, yDepart, xArrivee, yArrivee;
         
-        if (this.getWidth() <= VuePlan.xMinTroncon) {
-            xDepart = VuePlan.xMinTroncon/2;
-            xArrivee = VuePlan.xMinTroncon/2;
+        if (this.getWidth() <= ControleurPrincipal.xMinTroncon) {
+            xDepart = ControleurPrincipal.xMinTroncon/2;
+            xArrivee = ControleurPrincipal.xMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getX() > this.getTroncon().getDestination().getX()) {
-            xDepart = this.getWidth() - VuePlan.diamNoeud/2;
-            xArrivee = VuePlan.diamNoeud/2;
+            xDepart = this.getWidth() - ControleurPrincipal.diamNoeud/2;
+            xArrivee = ControleurPrincipal.diamNoeud/2;
         } else {
-            xDepart = VuePlan.diamNoeud/2;
-            xArrivee = this.getWidth() - VuePlan.diamNoeud/2;
+            xDepart = ControleurPrincipal.diamNoeud/2;
+            xArrivee = this.getWidth() - ControleurPrincipal.diamNoeud/2;
         }
         
-        if (this.getHeight() <= VuePlan.yMinTroncon) {
-            yDepart = VuePlan.yMinTroncon/2;
-            yArrivee = VuePlan.yMinTroncon/2;
+        if (this.getHeight() <= ControleurPrincipal.yMinTroncon) {
+            yDepart = ControleurPrincipal.yMinTroncon/2;
+            yArrivee = ControleurPrincipal.yMinTroncon/2;
         } else if (this.getTroncon().getOrigine().getY() > this.getTroncon().getDestination().getY()) {
-            yDepart = this.getHeight() - VuePlan.diamNoeud/2;
-            yArrivee = VuePlan.diamNoeud/2;
+            yDepart = this.getHeight() - ControleurPrincipal.diamNoeud/2;
+            yArrivee = ControleurPrincipal.diamNoeud/2;
         } else {
-            yDepart = VuePlan.diamNoeud/2;
-            yArrivee = this.getHeight() - VuePlan.diamNoeud/2;
+            yDepart = ControleurPrincipal.diamNoeud/2;
+            yArrivee = this.getHeight() - ControleurPrincipal.diamNoeud/2;
         }
         
-        g.drawLine(xDepart, yDepart, xArrivee, yArrivee);
+        dispLines(g, xArrivee, xDepart, yArrivee, yDepart);
+    }
+    
+    protected void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        Graphics2D g2D = (Graphics2D) g;
+        
+        //Delta pour les bordures
+        double delta = ControleurPrincipal.largeurTraitTroncon + ControleurPrincipal.contourTroncon;
+        
+        // x2 car 2 troncons: aller / retour
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon*2));
+        g2D.setPaint(ControleurPrincipal.blancMaps);
+        g2D.draw(new Line2D.Float(
+                xDepart,
+                yDepart,
+                xArrivee,
+                yArrivee));
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));
+        
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.contourTroncon));
+        g2D.setPaint(ControleurPrincipal.grisFonceMaps);
+        g2D.draw(getNewLine(-delta, xArrivee, xDepart, yArrivee, yDepart));
+    }
+    
+    protected Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        // Calcul de l'angle vis à vis de la verticale
+        double x = xArrivee - xDepart;
+        double y = yArrivee - yDepart;
+        double alpha = Math.atan(x / y);
+        
+        int dX = (int) (delta * Math.cos(alpha));
+        int dY = (int) (delta * Math.sin(alpha));
+        
+        return new Line2D.Float(
+                xDepart - dX,
+                yDepart + dY,
+                xArrivee - dX,
+                yArrivee + dY);
     }
 
     /**

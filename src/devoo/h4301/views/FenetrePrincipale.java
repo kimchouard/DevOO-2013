@@ -51,6 +51,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pGauche.setBackground(new java.awt.Color(231, 228, 219));
         pGauche.setAutoscrolls(true);
 
         chargerPlan.setText("Charger Plan");

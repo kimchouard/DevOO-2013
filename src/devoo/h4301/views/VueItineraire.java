@@ -6,66 +6,51 @@
 
 package devoo.h4301.views;
 
-import devoo.h4301.controller.ControleurPlan;
 import devoo.h4301.controller.ControleurPrincipal;
-import devoo.h4301.model.Livraison;
+import devoo.h4301.model.Itineraire;
+import devoo.h4301.model.Troncon;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 
 /**
  *
  * @author chouard
  */
-public class VueLiv extends VueNoeud {
-    private Livraison liv;
-
+public class VueItineraire extends VueTroncon {
     /**
-     * Creates new form VueLiv
+     * Creates new form VueItineraire
      */
-    public VueLiv() {
+    public VueItineraire(Troncon troncon, VuePlan vuePlan) {
+        this.setTroncon(troncon);
+        this.vuePlan = vuePlan;
+        initialize();
+    }
+    
+    protected void initialize() {
         initComponents();
+
+        this.setOpaque(false);
+        this.setVisible(true);
+        this.setBackground(Color.BLACK); 
     }
     
-    /**
-     * Constructeur VueNoeud avec création du noeud
-     */
-    public VueLiv(Livraison liv, VuePlan vuePlan ) {
-        this.setLiv(liv);
-        this.setVuePlan(vuePlan);
-        this.initialize();
-    }
-    
-    public void setSelected(boolean selected) {
-        if (selected) {
-            this.vuePlan.selectLiv(this.liv);
+    @Override
+    protected void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
+        Graphics2D g2D = (Graphics2D) g;
+        
+        //Delta pour les bordures
+        double delta = ControleurPrincipal.largeurTraitTroncon;
+        
+        if ( (yArrivee - yDepart) < 0 ) {
+            delta = -delta;
         }
         
-        this.selected = selected;
-        
-        this.repaint();
-    }
-
-    public Livraison getLiv() {
-        return liv;
-    }
-
-    public void setLiv(Livraison liv) {
-        this.liv = liv;
-    }
-    
-    public int getXNoeud() {
-        return this.liv.getDestination().getX();
-    }
-    
-    public int getYNoeud() {
-        return this.liv.getDestination().getY();
-    }
-    
-    public Color getColor() {
-        if (this.selected || this.hovered) {
-            return ControleurPrincipal.jauneMaps;
-        } else {
-            return ControleurPrincipal.rougeMaps;
-        }
+        g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon));
+        g2D.setPaint(ControleurPrincipal.jauneMaps);
+        g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));
     }
 
     /**

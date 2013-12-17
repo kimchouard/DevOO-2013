@@ -50,7 +50,7 @@ public class Tournee {
      */
     private static Tournee instanceTournee = null;
     
-    ArrayList<Itineraire> itineraires;
+    private ArrayList<Itineraire> itineraires;
 
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
