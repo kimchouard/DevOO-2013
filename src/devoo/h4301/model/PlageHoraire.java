@@ -77,6 +77,14 @@ public class PlageHoraire {
     public void setFin(Date fin) {
         this.fin = fin;
     }
+    
+    public String toString() {
+        return "Entre " + time(this.debut) + " et " + time(this.fin);
+     }
+     
+    private String time (Date date){
+                return date.getHours() + ":" + date.getMinutes();
+    }
 
     /**
      *

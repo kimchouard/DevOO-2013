@@ -58,6 +58,13 @@ public class Tournee {
     public Tournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
+    }
+    
+    public void resetTournee() {
+        livraisons = new LinkedList<Livraison>();
+        horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
     }
 
     /**
@@ -158,10 +165,17 @@ public class Tournee {
         return livraisons;
     }
 
+    public void setLivraisons(LinkedList<Livraison> livraisons) {
+        this.livraisons = livraisons;
+    }
+    
+    
+
     /**
      * Ajout d'une livraison dans la liste de livraison de la tournée
      *
      * @param livraison a ajouter à la tournée
+     * @throws Exception
      */
     public void addLivraison(Livraison livraison) throws Exception {
        if(this.horaires.contains(livraison.getHoraire()) != true){
@@ -187,6 +201,17 @@ public class Tournee {
     public Noeud getEntrepot() {
         return entrepot;
     }
+    
+    public void supprimerLivraison(Livraison liv)
+    {
+        for (int  i = 0; i < this.livraisons.size() ; i++){
+             if (this.livraisons.get(i).equals(liv))
+             {
+                 this.livraisons.remove(i);
+                 break;
+             }
+         }
+    }
 
     /**
      * @param entrepot noeud attaché comme entrepot à la tournée
@@ -206,6 +231,7 @@ public class Tournee {
      * fichierXML
      */
     public void construireAPartirDomXML(Element racine) throws Exception {
+        this.resetTournee();
 
         //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
@@ -257,4 +283,8 @@ public class Tournee {
             }
         }
     }
+    
+    
+    
 }
+

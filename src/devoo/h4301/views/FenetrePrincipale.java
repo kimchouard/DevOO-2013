@@ -82,6 +82,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
 
+        pDroit.setAutoscrolls(true);
+
         debug.setText("DEBUG");
         debug.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,6 +153,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
         // Lunch load of the map from the file URL asked
         this.controleurPrincipal.chargerPlan("");
+       
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons

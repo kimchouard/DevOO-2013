@@ -98,7 +98,7 @@ public class ControleurPlan {
         this.controleurPrincipal.selectLivraison(liv);
     }
     
-    public void createLiv(Noeud noeud) {
+    public void createLiv(Noeud noeud) throws Exception {
         this.controleurPrincipal.createLiv(noeud);
     }
     

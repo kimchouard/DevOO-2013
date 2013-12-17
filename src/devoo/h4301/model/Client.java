@@ -34,7 +34,22 @@ public class Client {
      *Constructeur client
      * @param id du client à créer
      */
+    
     public Client(Integer id) {
         this.id = id;
     }
+    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+
+
 }
+

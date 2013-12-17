@@ -28,8 +28,8 @@ public class VuePlan extends javax.swing.JPanel {
     private Tournee tournee;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
-    private ArrayList<VueLiv> vueLivs = new ArrayList();
     private ArrayList<VueItineraire> vueItin = new ArrayList();
+    private ArrayList<VueLivraisonNoeud> vueLivs = new ArrayList();
     
     protected double zoomScale = 1.0;
 
@@ -79,7 +79,7 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterLiv(Livraison liv) {
-        VueLiv vl = new VueLiv(liv, this);
+        VueLivraisonNoeud vl = new VueLivraisonNoeud(liv, this);
         this.placerNoeud((VueNoeud) vl);
         this.updateVuePlanFrame();
         
@@ -145,7 +145,7 @@ public class VuePlan extends javax.swing.JPanel {
     
     public void unselectNoeuds() {
         //Reset all the others noeuds
-        for (VueLiv vl : this.vueLivs) {
+        for (VueLivraisonNoeud vl : this.vueLivs) {
            vl.setSelected(false);
         }
         for (VueNoeud vn : this.vueNoeuds) {
@@ -159,7 +159,7 @@ public class VuePlan extends javax.swing.JPanel {
         controlerPlan.selectLivraison(liv);
     }
     
-    public void createLiv(Noeud noeud) {
+    public void createLiv(Noeud noeud) throws Exception {
         unselectNoeuds();
         controlerPlan.createLiv(noeud);
     }

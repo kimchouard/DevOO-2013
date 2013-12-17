@@ -9,6 +9,7 @@ package devoo.h4301.controller;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
+import devoo.h4301.views.FenetrePrincipale;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -21,10 +22,13 @@ import org.junit.Test;
 public class ControllerCommandTest {
     
     ControllerCommand controllerCommand;
+    FenetrePrincipale fenPrinc;
+
     
     @Before
     public void setUp() {
-        controllerCommand = new ControllerCommand();
+        fenPrinc = new FenetrePrincipale();
+        controllerCommand = new ControllerCommand(fenPrinc);
     }
     
     @After
@@ -43,23 +47,6 @@ public class ControllerCommandTest {
         controllerCommand.addCommand(liv, false);
         
         assertEquals("Undo is possible", controllerCommand.possibleUndo(), true);        
-    }
-
-    /**
-     * Test of possibleRedo method, of class ControllerCommand.
-     */
-    @Test
-    public void testPossibleRedo() throws Exception {
-        assertEquals("Redo is not possible", controllerCommand.possibleRedo(), false);  
-
-        Livraison liv = new Livraison();
-        controllerCommand.addCommand(liv, true);
-        
-        Tournee tournee = new Tournee();
-        controllerCommand.undo(tournee);
-        
-        assertEquals("Redo is possible", controllerCommand.possibleRedo(), true);
-        assertEquals("Undo is not possible", controllerCommand.possibleUndo(), false);
     }
 
     /**

@@ -38,20 +38,26 @@ public class ControleurPrincipal {
     
 
     private JScrollPane panneauPlan;
+    private JScrollPane panneauLiv;
     private FenetrePrincipale fenParent;
     private JFileChooser jFileChooserXML;
 
     private ControleurPlan controleurPlan;
+    private ControleurLivraison controleurLivraison;
     private ControllerCommand commandeControleur;
     private LecteurXml lecteurXml;
 
-    public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
+    public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
+        this.setPanneauLiv(scrollPaneLiv);
         this.setFenParent(fenParent);
 
         this.controleurPlan = new ControleurPlan(this);
         this.commandeControleur = new ControllerCommand(fenParent);
         this.lecteurXml = new LecteurXml();
+        this.controleurLivraison = new ControleurLivraison(this);
+        this.commandeControleur = new ControllerCommand();
+        
     }
 
     //--------------------------------
@@ -69,7 +75,7 @@ public class ControleurPrincipal {
         Tournee t = Tournee.getInstance();
         controleurPlan.setTournee(t);
 
-        commandeControleur.resetCommand();
+        //commandeControleur.resetCommand();
 
         controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
@@ -86,10 +92,15 @@ public class ControleurPrincipal {
             } catch (Exception e) {
                 System.out.println("Error : " + e.getMessage());
             }
+            // observer 
             Tournee t = Tournee.getInstance();
             controleurPlan.setTournee(t);
             controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
+        
+            // rajouter
+            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+            //controleurLivraison.afficherListLivraison(this.panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
@@ -107,13 +118,24 @@ public class ControleurPrincipal {
         }
     }
     public void selectLivraison(Livraison liv) {
-        //TODO open edit liv on right
+        // éclairer la bonne livraison
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
+
     }
 
-    public void createLiv(Noeud noeud) {
-        //TODO Open add new liv on right
-    }
+    public void createLiv(Noeud noeud) throws Exception {
+        // Tester si le noeud est bien une livraison alors afficher sans l'édition
+       this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+       //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
+     }
 
+    
+    public void addCommandeLivraison(Livraison liv, boolean deleted)
+    {
+        this.commandeControleur.addCommand(liv, deleted);
+    }
+    
+       
     //--------------------------------
     //  Private functions
     /**
@@ -270,6 +292,14 @@ public class ControleurPrincipal {
     public void setPanneauPlan(JScrollPane panneauPlan) {
         panneauPlan.setBackground(ControleurPrincipal.grisMaps);
         this.panneauPlan = panneauPlan;
+    }
+
+    public JScrollPane getPanneauLiv() {
+        return panneauLiv;
+    }
+
+    public void setPanneauLiv(JScrollPane panneauLiv) {
+        this.panneauLiv = panneauLiv;
     }
 
     public FenetrePrincipale getFenParent() {
