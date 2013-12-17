@@ -9,7 +9,6 @@ package devoo.h4301.views;
 import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
-import static devoo.h4301.views.VuePlan.padding;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.LinkedList;

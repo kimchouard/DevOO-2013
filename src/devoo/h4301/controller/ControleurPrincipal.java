@@ -7,6 +7,7 @@ package devoo.h4301.controller;
 
 import devoo.h4301.model.*;
 import devoo.h4301.views.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,23 @@ import javax.swing.JScrollPane;
  * @author chouard
  */
 public class ControleurPrincipal {
+    // Constantes Couleur
+    public static final Color rougeMaps = new Color(217, 95, 87);
+    public static final Color blancMaps = new Color(255, 255, 255);
+    public static final Color jauneMaps = new Color(248, 228, 122);
+    public static final Color grisFonceMaps = new Color(200, 196, 186);
+    public static final Color grisMaps = new Color(231, 228, 219);
+    public static final Color vertMaps = new Color(207, 222, 171);
+    // Constantes Noeuds
+    public static final int diamNoeud = 15;
+    //Constante plan
+    public static final int padding = 20;
+    // Constantes Troncons
+    public static final float largeurTraitTroncon = 4;
+    public static final float contourTroncon = 1;
+    public static final int xMinTroncon = 4;
+    public static final int yMinTroncon = 4;
+    
 
     private JScrollPane panneauPlan;
     private JScrollPane panneauLiv;
@@ -59,8 +77,7 @@ public class ControleurPrincipal {
 
         //commandeControleur.resetCommand();
 
-        controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan(t);
+        controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
         controleurLivraison.effacerVueListLivraison(this.panneauLiv );
     }
@@ -79,7 +96,7 @@ public class ControleurPrincipal {
             // observer 
             Tournee t = Tournee.getInstance();
             controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
         
             // rajouter
@@ -90,17 +107,17 @@ public class ControleurPrincipal {
         }
     }
 
-//    public void chargerPlanDebug() {
-//        try {
-//            Tournee t = initDebug();
-//            controleurPlan.setTournee(t);
-//            controleurPlan.scaleAutoVuePlan(panneauPlan);
-//            controleurPlan.rafraichirVuePlan();
-//            controleurPlan.afficherPlan(panneauPlan);
-//        } catch (Exception ex) {
-//            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void chargerDebug() {
+        try {
+            Tournee t = initDebug();
+            controleurPlan.setTournee(t);
+            controleurPlan.scaleAutoVuePlan(panneauPlan);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
+            controleurPlan.afficherPlan(panneauPlan);
+        } catch (Exception ex) {
+            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void selectLivraison(Livraison liv) {
         // éclairer la bonne livraison
         this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
@@ -151,22 +168,22 @@ public class ControleurPrincipal {
 
         //Création du plan : noeuds et tronçons
         Noeud n0 = new Noeud(0, 200, 200);
-        Noeud n1 = new Noeud(0, 100, 100);
-        Noeud n2 = new Noeud(0, 150, 100);
-        Noeud n3 = new Noeud(0, 200, 100);
-        Noeud n4 = new Noeud(0, 250, 100);
-        Noeud n5 = new Noeud(0, 300, 100);
-        Noeud n6 = new Noeud(0, 300, 150);
-        Noeud n7 = new Noeud(0, 300, 200);
-        Noeud n8 = new Noeud(0, 300, 250);
-        Noeud n9 = new Noeud(0, 300, 300);
-        Noeud n10 = new Noeud(0, 250, 300);
-        Noeud n11 = new Noeud(0, 200, 300);
-        Noeud n12 = new Noeud(0, 150, 300);
-        Noeud n13 = new Noeud(0, 100, 300);
-        Noeud n14 = new Noeud(0, 100, 250);
-        Noeud n15 = new Noeud(0, 100, 200);
-        Noeud n16 = new Noeud(0, 100, 150);
+        Noeud n1 = new Noeud(1, 100, 100);
+        Noeud n2 = new Noeud(2, 150, 100);
+        Noeud n3 = new Noeud(3, 200, 100);
+        Noeud n4 = new Noeud(4, 250, 100);
+        Noeud n5 = new Noeud(5, 300, 100);
+        Noeud n6 = new Noeud(6, 300, 150);
+        Noeud n7 = new Noeud(7, 300, 200);
+        Noeud n8 = new Noeud(8, 300, 250);
+        Noeud n9 = new Noeud(9, 300, 300);
+        Noeud n10 = new Noeud(10, 250, 300);
+        Noeud n11 = new Noeud(11, 200, 300);
+        Noeud n12 = new Noeud(12, 150, 300);
+        Noeud n13 = new Noeud(13, 100, 300);
+        Noeud n14 = new Noeud(14, 100, 250);
+        Noeud n15 = new Noeud(15, 100, 200);
+        Noeud n16 = new Noeud(16, 100, 150);
         p.addNoeud(n0);
         p.addNoeud(n1);
         p.addNoeud(n2);
@@ -228,8 +245,6 @@ public class ControleurPrincipal {
         p.addTroncon(t18);
         p.addTroncon(t19);
         p.addTroncon(t20);
-        p.addTroncon(t21);
-        p.addTroncon(t22);
 
         //Ajout du plan et de l'entrepot à la tournée
         t.setPlan(p);
@@ -244,7 +259,13 @@ public class ControleurPrincipal {
         itin.setPrevLivraisonId(n0.getId());
         itin.setNextLivraisonId(n3.getId());
         itin.addTroncon(t1);
-        itin.addTroncon(t17);
+        itin.addTroncon(t3);
+        itin.addTroncon(t5);
+        itin.addTroncon(t7);
+        itin.addTroncon(t9);
+        itin.addTroncon(t11);
+        itin.addTroncon(t13);
+        itin.addTroncon(t15);
         ensembleTrajets.add(itin);
 
         //Va de 6 à 9
@@ -254,6 +275,8 @@ public class ControleurPrincipal {
         itine.addTroncon(t18);
         itine.addTroncon(t19);
         itine.addTroncon(t20);
+        itine.addTroncon(t21);
+        itine.addTroncon(t22);
         ensembleTrajets.add(itine);
 
         
@@ -268,6 +291,7 @@ public class ControleurPrincipal {
     }
 
     public void setPanneauPlan(JScrollPane panneauPlan) {
+        panneauPlan.setBackground(ControleurPrincipal.grisMaps);
         this.panneauPlan = panneauPlan;
     }
 

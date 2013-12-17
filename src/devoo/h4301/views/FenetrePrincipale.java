@@ -51,6 +51,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pGauche.setBackground(new java.awt.Color(231, 228, 219));
         pGauche.setAutoscrolls(true);
 
         chargerPlan.setText("Charger Plan");
@@ -161,8 +162,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
-        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        this.controleurPrincipal.chargerDebug();
+//        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
     }//GEN-LAST:event_clickDebug
 
     private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed

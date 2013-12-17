@@ -6,6 +6,8 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.controller.ControleurPlan;
+import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Noeud;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -83,8 +85,6 @@ public class VueNoeud extends javax.swing.JPanel {
     }
     
     public void setSelected(boolean selected) {
-        this.selected = selected;
-        
         if (selected) {
             try {
                 this.vuePlan.createLiv(this.noeud);
@@ -92,6 +92,8 @@ public class VueNoeud extends javax.swing.JPanel {
                 Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        this.selected = selected;
         
         this.repaint();
     }
@@ -105,9 +107,9 @@ public class VueNoeud extends javax.swing.JPanel {
     
     public Color getColor() {
         if (this.selected || this.hovered) {
-            return VuePlan.rougeMaps;
+            return ControleurPrincipal.rougeMaps;
         } else {
-            return VuePlan.grisMaps;
+            return ControleurPrincipal.grisMaps;
         }
     }
     

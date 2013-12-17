@@ -50,7 +50,7 @@ public class Tournee {
      */
     private static Tournee instanceTournee = null;
     
-    ArrayList<Itineraire> itineraires;
+    private ArrayList<Itineraire> itineraires;
 
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
@@ -58,11 +58,13 @@ public class Tournee {
     public Tournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
     }
     
     public void resetTournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
     }
 
     /**
@@ -173,10 +175,6 @@ public class Tournee {
      * Ajout d'une livraison dans la liste de livraison de la tournée
      *
      * @param livraison a ajouter à la tournée
-     */
-    /**
-     *
-     * @param livraison
      * @throws Exception
      */
     public void addLivraison(Livraison livraison) throws Exception {
@@ -184,8 +182,6 @@ public class Tournee {
            MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
             throw e;
        }
-       
-    
        
        Noeud dest = livraison.getDestination();
        if (this.plan.getNoeuds().contains(dest) !=true){
