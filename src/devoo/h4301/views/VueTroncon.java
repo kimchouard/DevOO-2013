@@ -122,33 +122,19 @@ public class VueTroncon extends javax.swing.JPanel {
     }
     
     protected Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
-        int dX = (int) getDX(delta, xArrivee, xDepart, yArrivee, yDepart);
-        int dY = (int) getDY(delta, xArrivee, xDepart, yArrivee, yDepart);
+        // Calcul de l'angle vis à vis de la verticale
+        double x = xArrivee - xDepart;
+        double y = yArrivee - yDepart;
+        double alpha = Math.atan(x / y);
+        
+        int dX = (int) (delta * Math.cos(alpha));
+        int dY = (int) (delta * Math.sin(alpha));
         
         return new Line2D.Float(
                 xDepart - dX,
                 yDepart + dY,
                 xArrivee - dX,
                 yArrivee + dY);
-    }
-    
-    
-    protected double getAlpha(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
-        // Calcul de l'angle vis à vis de la verticale
-        double x = xArrivee - xDepart;
-        double y = yArrivee - yDepart;
-        
-        return Math.atan(x / y);
-    }
-    
-    protected double getDX(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
-        double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
-        return delta * Math.cos(alpha);
-    }
-    
-    protected double getDY(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
-        double alpha = getAlpha(delta, xArrivee, xDepart, yArrivee, yDepart);
-        return delta * Math.sin(alpha);
     }
 
     /**

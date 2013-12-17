@@ -122,7 +122,7 @@ public class VuePlan extends javax.swing.JPanel {
     public VueItineraire getVueItineraire(Troncon t) {
         for (VueItineraire vi : this.vueItin) {
             if( (vi.getTroncon().getDestination().getId() == t.getDestination().getId())
-             || (vi.getTroncon().getOrigine().getId() == t.getOrigine().getId())
+             && (vi.getTroncon().getOrigine().getId() == t.getOrigine().getId())
             ) {
                 return vi;
             }

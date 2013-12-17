@@ -44,8 +44,12 @@ public class VueItineraire extends VueTroncon {
         //Delta pour les bordures
         double delta = ControleurPrincipal.largeurTraitTroncon;
         
+        if ( (yArrivee - yDepart) < 0 ) {
+            delta = -delta;
+        }
+        
         g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon));
-        g2D.setPaint(Color.RED);
+        g2D.setPaint(ControleurPrincipal.jauneMaps);
         g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));
     }
 

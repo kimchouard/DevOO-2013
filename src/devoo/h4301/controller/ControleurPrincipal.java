@@ -222,8 +222,6 @@ public class ControleurPrincipal {
         p.addTroncon(t18);
         p.addTroncon(t19);
         p.addTroncon(t20);
-        p.addTroncon(t21);
-        p.addTroncon(t22);
 
         //Ajout du plan et de l'entrepot à la tournée
         t.setPlan(p);
@@ -238,7 +236,13 @@ public class ControleurPrincipal {
         itin.setPrevLivraisonId(n0.getId());
         itin.setNextLivraisonId(n3.getId());
         itin.addTroncon(t1);
-        itin.addTroncon(t17);
+        itin.addTroncon(t3);
+        itin.addTroncon(t5);
+        itin.addTroncon(t7);
+        itin.addTroncon(t9);
+        itin.addTroncon(t11);
+        itin.addTroncon(t13);
+        itin.addTroncon(t15);
         ensembleTrajets.add(itin);
 
         //Va de 6 à 9
@@ -248,6 +252,8 @@ public class ControleurPrincipal {
         itine.addTroncon(t18);
         itine.addTroncon(t19);
         itine.addTroncon(t20);
+        itine.addTroncon(t21);
+        itine.addTroncon(t22);
         ensembleTrajets.add(itine);
 
         
