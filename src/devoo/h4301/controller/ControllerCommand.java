@@ -19,13 +19,15 @@ import java.util.ArrayList;
 public class ControllerCommand {
     private final ArrayList <Command> undoStack = new ArrayList();
     private final ArrayList <Command> redoStack = new ArrayList();
+    private ControleurPrincipal controleurPrincipal;
     private FenetrePrincipale fenetrePrincipale;
 
     public ControllerCommand() {
     }
 
-    ControllerCommand(FenetrePrincipale fenParent) {
+    ControllerCommand(ControleurPrincipal controleurPrincipal, FenetrePrincipale fenParent) {
         this.fenetrePrincipale = fenParent;
+        this.controleurPrincipal = controleurPrincipal;
         this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
     }
     
@@ -59,6 +61,8 @@ public class ControllerCommand {
             undoStack.remove(undoStack.size()-1);
             
             this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
+            
+            this.controleurPrincipal.reloadUI();
         } else {
             throw new Exception("Aucune commande a undo");
         }
@@ -73,6 +77,8 @@ public class ControllerCommand {
             redoStack.remove(redoStack.size()-1);
             
             this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
+            
+            this.controleurPrincipal.reloadUI();
         } else {
             throw new Exception("Aucune commande a redo");
         }

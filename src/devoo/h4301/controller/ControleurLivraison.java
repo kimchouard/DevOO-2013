@@ -14,9 +14,6 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
-import static java.sql.Types.NULL;
-import java.util.Date;
-import java.util.LinkedList;
 import javax.swing.JScrollPane;
 
 /**
@@ -24,39 +21,56 @@ import javax.swing.JScrollPane;
  * @author Mimi
  */
 public class ControleurLivraison {
-    private ControleurPrincipal controleurPrincipal;
     
-    private VueListLivraison vueListLivraison;
-    private VueEditLivraison vueEditLivraison;
+    private final ControleurPrincipal controleurPrincipal;
     
-     public ControleurLivraison(ControleurPrincipal controleurPrincipal) {
+    private final VueListLivraison vueListLivraison;
+    private final VueEditLivraison vueEditLivraison;
+
+    /**
+     * Constructeur standard du controlleur de livraison
+     * @param controleurPrincipal instance du controlleur principal
+     */
+    public ControleurLivraison(ControleurPrincipal controleurPrincipal) {
         this.vueListLivraison = new VueListLivraison(this);
         this.vueEditLivraison = new VueEditLivraison(this);
         this.controleurPrincipal = controleurPrincipal;
     }
-     
-     public void afficherListLivraison(JScrollPane panneauLiv) {
+
+    /**
+     * Afficher la liste des livraisons dans la panneau de droite
+     * @param panneauLiv 
+     */
+    public void afficherListLivraison(JScrollPane panneauLiv) {
         panneauLiv.setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
-     
     }
-     
-     public void afficherNewList(){
-         
-     }
-     
-     public void afficherListLivraisonInitiale(){
-         (this.controleurPrincipal.getPanneauLiv()).setViewportView(vueListLivraison);
+
+    /**
+     * Afficher la liste des livraisons initiale
+     */
+    public void afficherListLivraisonInitiale() {
+         this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
          this.vueListLivraison.updateUI();
      }
-     
-     public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
+
+    /**
+     * Afficher le panneau de création de livraison
+     * @param paneRight panneau de droite
+     * @param noeud Noeud de livraison
+     * @throws Exception
+     */
+    public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
          VueEditLivraison viewNewLiv = new VueEditLivraison(this, noeud);
          paneRight.setViewportView(viewNewLiv);
          viewNewLiv.setVisible(true);
      }
-     
-     public void creationLivraison(Noeud noeud) {
+
+    /**
+     * Création d'une livraison
+     * @param noeud Noeud de livraison
+     */
+    public void creationLivraison(Noeud noeud) {
          Client client = new Client(0);
          client.setName("Mimi");
          
@@ -77,79 +91,86 @@ public class ControleurLivraison {
          this.ajoutLiv(liv);
          this.afficherListLivraisonInitiale();
      }
-     
-     public void afficherUneLivraison(JScrollPane paneRight, Livraison liv ){
+
+    /**
+     * Afficher une livraison
+     * @param paneRight Panneau de droite
+     * @param liv Livraison considérée
+     */
+    public void afficherUneLivraison(JScrollPane paneRight, Livraison liv ) {
          VueLivraisonItem vueLivraison = new VueLivraisonItem(this, liv);
          paneRight.setViewportView(vueLivraison);
      }
-     
-     public void effacerVueListLivraison(JScrollPane paneRight){
-         this.vueListLivraison.removeAll();
+
+    /**
+     * Effacer la vue List livraison
+     * @param paneRight
+     */
+    public void effacerVueListLivraison(JScrollPane paneRight) {
+        this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
      }
-     
-     public void effacerItemLivraison(JScrollPane panneauLiv)
-     {
+
+    /**
+     * Effacer la vue Edit Livraison
+     * @param panneauLiv
+     */
+    public void effacerItemLivraison(JScrollPane panneauLiv) {
          this.vueEditLivraison.removeAll();
          this.vueEditLivraison.updateUI();
      }
      
+    /**
+     * Rafraichir la Vue Liste Livraison
+     * @param tournee Nouvelle tournee a considérer
+     * @param paneRight Panneau de droite
+     */
     public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
         this.vueListLivraison.setTournee(tournee);
         paneRight.setViewportView(this.vueListLivraison);
-        
     }
-     
-     public VueListLivraison getVueListLisvraison() {
+
+    /**
+     * Gettre de la Vue Liste Livraison
+     * @return instace de la vue
+     */
+    public VueListLivraison getVueListLisvraison() {
         return vueListLivraison;
     }
-     
-     public int supprLiv(Livraison liv) {
-         for (int  i = 0; i < this.vueListLivraison.getVueLivraison().size() ; i++){
-             if (this.vueListLivraison.getVueLivraison().get(i).getLivraison().equals(liv))
-             {
-                 this.vueListLivraison.getVueLivraison().remove(liv);
-                 Tournee.getInstance().supprimerLivraison(liv);  
-                 return 0;
-             }
-         }
-         return 1;
+
+
+
+    /**
+     * Supprimer la livraison synchronisée
+     * @param liv la dite livraison
+     */
+    public void supprimerLivraison(Livraison liv){
+        try {
+            Tournee.getInstance().supprimerLivraison(liv);
+            this.controleurPrincipal.addCommandeLivraison(liv, true);
+            this.controleurPrincipal.reloadUI();
+        } catch (Exception ex) {
+            System.out.println("Impossible de supprimer la livraison");
+            return;
+        }
      }
-     
-     public void supprimerLivraison(Livraison liv){
-         this.supprLiv(liv);
-         //this.controleurPrincipal.addCommandeLivraison(liv, true);
-         this.vueListLivraison.removeAll();
-         this.vueListLivraison.updateUI();
-         this.vueListLivraison.setTournee(Tournee.getInstance());
-         this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
-     }
-     
-      // To do pour undo et redo deux fonctions d'ajout et de suppression  sans l'affichage de l'edition
-     // Fonction mirroir de l'ajout et de la suppression donc avec correspondance métier etc
-     // done
     
-     public void ajoutLiv(Livraison liv){
-        int result = Tournee.getInstance().ajoutLivraison(liv); 
-        switch (result) {
-            case 1 : // La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
-                
-                break;
-            case 2 ://La destination de la livraison n'est pas connu dans le plan
-                
-                break;
-            case 3 ://Les coordonnées de la destination ne sont pas correctement renseignés
-                
-                break;
-            case 4 : // la livraison a bien été ajoutée
-                this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
-                break;
-     }
-     }
-     public boolean recupererLivraison(String nom, String colis ){
-        return false;
+    /**
+     *
+     * @param liv
+     */
         
+     public void ajoutLiv(Livraison liv){
+        try { 
+            Tournee.getInstance().addLivraison(liv);
+            this.controleurPrincipal.addCommandeLivraison(liv, false);
+        } catch (Exception ex) {
+            System.out.println("Impossible d'ajouter la livraison");
+            return;
+        }
+        this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
      }
+
 }
