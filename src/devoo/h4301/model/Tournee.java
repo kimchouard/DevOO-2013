@@ -250,14 +250,16 @@ public class Tournee {
      * Supprime une livraison de la liste livraisons de la tournée
      *
      * @param liv livraison a supprimer
+     * @throws java.lang.Exception
      */
-    public void supprimerLivraison(Livraison liv) {
+    public void supprimerLivraison(Livraison liv) throws Exception {
         for (int i = 0; i < this.livraisons.size(); i++) {
             if (this.livraisons.get(i).equals(liv)) {
                 this.livraisons.remove(i);
-                break;
+                return;
             }
         }
+        throw new Exception("Impossible de supprimer la dite livraison");
     }
 
     /**
