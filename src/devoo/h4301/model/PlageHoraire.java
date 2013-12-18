@@ -104,7 +104,8 @@ public class PlageHoraire {
      * @return String la string contenant les informations de la date
      */
     private String time (Date date){
-                return date.getHours() + ":" + date.getMinutes();
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        return formatter.format(date);
     }
 
     /**
