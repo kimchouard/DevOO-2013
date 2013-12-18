@@ -11,7 +11,6 @@ import devoo.h4301.views.*;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,7 @@ import javax.swing.JScrollPane;
  *
  * @author chouard
  */
-public class ControleurPrincipal {
+public final class ControleurPrincipal {
     // Constantes Couleur
     public static final Color rougeMaps = new Color(217, 95, 87);
     public static final Color blancMaps = new Color(255, 255, 255);
@@ -46,11 +45,11 @@ public class ControleurPrincipal {
     private FenetrePrincipale fenParent;
     private JFileChooser jFileChooserXML;
 
-    private ControleurPlan controleurPlan;
-    private ControleurLivraison controleurLivraison;
+    private final ControleurPlan controleurPlan;
+    private final ControleurLivraison controleurLivraison;
     private ControleurGraph controleurGraph;
     private ControllerCommand commandeControleur;
-    private LecteurXml lecteurXml;
+    private final LecteurXml lecteurXml;
 
     public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
@@ -61,7 +60,7 @@ public class ControleurPrincipal {
         this.commandeControleur = new ControllerCommand(fenParent);
         this.lecteurXml = new LecteurXml();
         this.controleurLivraison = new ControleurLivraison(this);
-        this.commandeControleur = new ControllerCommand();
+        this.commandeControleur = new ControllerCommand(this.fenParent);
         this.controleurGraph = new ControleurGraph();
         
     }
@@ -81,7 +80,7 @@ public class ControleurPrincipal {
         Tournee t = Tournee.getInstance();
         controleurPlan.setTournee(t);
 
-        //commandeControleur.resetCommand();
+        commandeControleur.resetCommand();
 
         controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
@@ -100,8 +99,9 @@ public class ControleurPrincipal {
             }
             // observer 
             Tournee t = Tournee.getInstance();
-            
-           this.controleurGraph.UpdateGraphe(t);
+            commandeControleur.resetCommand();
+
+            this.controleurGraph.UpdateGraphe(t);
            
             controleurPlan.setTournee(t);
             controleurPlan.rafraichirVuePlan(t, panneauPlan);

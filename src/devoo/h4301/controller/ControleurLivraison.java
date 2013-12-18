@@ -65,9 +65,10 @@ public class ControleurLivraison {
          horaire.setFin(fin);
          
          Livraison liv = new Livraison(noeud, colis, horaire, client);
+         controleurPrincipal.addCommandeLivraison(liv, false);
+
          this.ajoutLiv(liv);
          this.afficherListLivraisonInitiale();
-         
      }
      
      public void afficherUneLivraison(JScrollPane paneRight){
