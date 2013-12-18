@@ -41,6 +41,10 @@ public class ControleurLivraison {
      
     }
      
+     public void afficherNewList(){
+         
+     }
+     
      public void afficherListLivraisonInitiale(){
          (this.controleurPrincipal.getPanneauLiv()).setViewportView(vueListLivraison);
          this.vueListLivraison.updateUI();
@@ -52,17 +56,20 @@ public class ControleurLivraison {
          viewNewLiv.setVisible(true);
      }
      
-     public void creationLivraison(Noeud noeud, String nom, String colis1) throws Exception{
+     public void creationLivraison(Noeud noeud) {
          Client client = new Client(0);
-         client.setName(nom);
+         client.setName("Mimi");
          
          int colis = 7;
-         PlageHoraire horaire = new PlageHoraire();
-         Date deb = new Date(2000, 11, 20, 13, 12);
-         Date fin = new Date(2000, 11, 22, 00, 00);
          
-         horaire.setDebut(deb);
-         horaire.setFin(fin);
+         String hd = "8:0/0";
+         String hf = "12:0/0";
+         PlageHoraire horaire = new PlageHoraire();
+         //Date deb = new Date(2000, 11, 20, 08, 00);
+         //Date fin = new Date(2000, 11, 20, 12, 00);
+         
+         //horaire.setDebut(deb);
+         //horaire.setFin(fin);
          
          Livraison liv = new Livraison(noeud, colis, horaire, client);
          this.ajoutLiv(liv);
@@ -123,7 +130,7 @@ public class ControleurLivraison {
      // Fonction mirroir de l'ajout et de la suppression donc avec correspondance métier etc
      // done
     
-     public void ajoutLiv(Livraison liv) throws Exception {
+     public void ajoutLiv(Livraison liv){
         int result = Tournee.getInstance().ajoutLivraison(liv); 
         switch (result) {
             case 1 : // La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
@@ -136,7 +143,7 @@ public class ControleurLivraison {
                 
                 break;
             case 4 : // la livraison a bien été ajoutée
-                
+                this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
                 break;
      }
      }
