@@ -27,6 +27,7 @@ public class ControleurPrincipal {
     public static final Color rougeMaps = new Color(217, 95, 87);
     public static final Color blancMaps = new Color(255, 255, 255);
     public static final Color jauneMaps = new Color(248, 228, 122);
+    public static final Color bleuMaps = new Color(77, 118, 194);
     public static final Color grisFonceMaps = new Color(200, 196, 186);
     public static final Color grisMaps = new Color(231, 228, 219);
     public static final Color vertMaps = new Color(207, 222, 171);

@@ -58,9 +58,17 @@ public class ControleurPlan {
             this.vuePlan.ajouterNoeud(n);
         }
         
+//        ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
         LinkedList<Livraison> livs =  tournee.getLivraisons();
+        int start = 0;
         for (Livraison l : livs) {
-            this.vuePlan.ajouterLiv(l);
+            //Si c'est l'entrepot
+            if (start == 0) {
+                this.vuePlan.ajouterEntrepot(l);
+                start++;
+            } else {
+                this.vuePlan.ajouterLiv(l);
+            }
         }
         
         ArrayList<Itineraire> itineraires = controleurPrincipal.getControleurGraph().getItineraires();

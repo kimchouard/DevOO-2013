@@ -83,6 +83,15 @@ public class VuePlan extends javax.swing.JPanel {
     
     public void ajouterLiv(Livraison liv) {
         VueLivraisonNoeud vl = new VueLivraisonNoeud(liv, this);
+        ajouterVueLiv(vl, liv);
+    }
+    
+    public void ajouterEntrepot(Livraison liv) {
+        VueNoeudEntrepot ve = new VueNoeudEntrepot(liv, this);
+        ajouterVueLiv((VueLivraisonNoeud) ve, liv);
+    }
+    
+    private void ajouterVueLiv(VueLivraisonNoeud vl, Livraison liv) {
         this.placerNoeud((VueNoeud) vl);
         this.updateVuePlanFrame();
         
