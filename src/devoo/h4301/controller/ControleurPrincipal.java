@@ -84,7 +84,11 @@ public final class ControleurPrincipal {
 
         controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
-    }
+        controleurLivraison.effacerVueListLivraison(this.panneauLiv );
+        controleurLivraison.effacerItemLivraison(this.panneauLiv);
+        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+    
+    }   
 
     public void chargerLiv(String urlLiv) throws MyException {
         if (Tournee.getInstance().getPlan() != null) {
@@ -106,6 +110,7 @@ public final class ControleurPrincipal {
             controleurPlan.setTournee(t);
             controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
+            controleurLivraison.effacerItemLivraison(panneauLiv);
         
             // rajouter
             controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
@@ -128,7 +133,7 @@ public final class ControleurPrincipal {
     }
     public void selectLivraison(Livraison liv) {
         // éclairer la bonne livraison
-        this.controleurLivraison.afficherUneLivraison(this.panneauLiv);
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
 
     }
 

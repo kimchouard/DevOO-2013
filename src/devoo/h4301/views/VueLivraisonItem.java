@@ -22,8 +22,9 @@ import java.text.SimpleDateFormat;
 public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
-    private VueListLivraison vueListLivraison;
+    //private VueListLivraison vueListLivraison;
     private final DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+    private ControleurLivraison controleurLivraison;
     
     protected boolean selected;
     /**
@@ -36,12 +37,21 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     /**
      * Creates new form VueLivraison
      */
-    public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
+    /*public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
         this.initialize();
         this.setLivraison(livraison);
         this.vueListLivraison = vueListLivraison;
         
+    }*/
+    
+    
+    public VueLivraisonItem(ControleurLivraison controleurLivraison, Livraison liv){
+        this.initialize();
+        this.controleurLivraison = controleurLivraison;
+        this.setLivraison(liv);
+        
     }
+            
         
      /*   //Le suite est utile, ou pas !!!
         this.idLivraison.setText(this.livraison.getDestination().getId().toString());
@@ -81,15 +91,6 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.selected = selected;
     }
 
-    public VueListLivraison getVueListLivraison() {
-        return vueListLivraison;
-    }
-
-    public void setVueListLivraison(VueListLivraison vueListLivraison) {
-        this.vueListLivraison = vueListLivraison;
-    }
-    
-    
     
     
     
@@ -118,6 +119,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         nomClient = new javax.swing.JLabel();
         plageHoraire = new javax.swing.JLabel();
         supprBouton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         setPreferredSize(new java.awt.Dimension(280, 50));
@@ -141,18 +143,31 @@ public class VueLivraisonItem extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(idLivraison)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomClient)
-                    .addComponent(plageHoraire))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(idLivraison)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomClient)
+                            .addComponent(plageHoraire))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)))
                 .addComponent(supprBouton)
                 .addContainerGap())
         );
@@ -168,8 +183,10 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addComponent(plageHoraire)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(supprBouton)
+                .addContainerGap(56, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supprBouton)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -182,12 +199,18 @@ public class VueLivraisonItem extends javax.swing.JPanel {
 
     private void supprBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprBoutonActionPerformed
         // TODO add your handling code here:
-        
+        controleurLivraison.supprimerLivraison(livraison);
     }//GEN-LAST:event_supprBoutonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.controleurLivraison.afficherListLivraisonInitiale();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel idLivraison;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel nomClient;
     private javax.swing.JLabel plageHoraire;
     private javax.swing.JButton supprBouton;

@@ -154,7 +154,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                         .addComponent(buttonConfirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(boutonAnnuler)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +182,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                     .addComponent(boutonAnnuler))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel3)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         nom.getAccessibleContext().setAccessibleName("nomClient");
@@ -200,10 +200,11 @@ public class VueEditLivraison extends javax.swing.JPanel {
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
         // TODO add your handling code here:
-      try {
-          this.controleurLivraison.creationLivraison(this.noeud , this.nom.getText(), this.colis.getText());
-          }
-      catch(Exception e){}
+      //this.controleurLivraison.ajoutLiv(this.liv);
+        //try {
+          this.controleurLivraison.creationLivraison(this.noeud );
+        //  }
+      //catch(Exception e){}*/
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed
