@@ -168,7 +168,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addComponent(plageHoraire)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(supprBouton)
                 .addContainerGap())
         );
