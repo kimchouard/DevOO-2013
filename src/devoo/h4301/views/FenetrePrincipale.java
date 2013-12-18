@@ -8,7 +8,10 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
+import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -143,8 +146,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -166,8 +169,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerDebug();
-//        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        try {
+            this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        } catch (MyException ex) {
+            System.out.print(ex.toString());
+        }
     }//GEN-LAST:event_clickDebug
 
     private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed
