@@ -49,8 +49,8 @@ public class Tournee {
      * Instance unique de Tournee, par défaut à nul
      */
     private static Tournee instanceTournee = null;
-    
-    ArrayList<Itineraire> itineraires;
+
+    private ArrayList<Itineraire> itineraires;
 
     /**
      * Constructeur privé de Tournee. Initialise la liste de livraison
@@ -58,6 +58,16 @@ public class Tournee {
     public Tournee() {
         livraisons = new LinkedList<Livraison>();
         horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
+    }
+
+    /**
+     * Remet à zéro la tournée
+     */
+    public void resetTournee() {
+        livraisons = new LinkedList<Livraison>();
+        horaires = new LinkedList<PlageHoraire>();
+        itineraires = new ArrayList<Itineraire>();
     }
 
     /**
@@ -72,12 +82,35 @@ public class Tournee {
         return instanceTournee;
     }
 
+    /**
+     * Getter sur itiniraires
+     *
+     * @return la liste itineraires de la tournee
+     */
     public ArrayList<Itineraire> getItineraires() {
         return itineraires;
     }
 
+    /**
+     * Setter sur la liste itineraires
+     *
+     * @param itineraires
+     */
     public void setItineraires(ArrayList<Itineraire> itineraires) {
         this.itineraires = itineraires;
+    }
+
+    /**
+     * Vérifie que la tournée a bien un plan
+     *
+     * @return true si la tournée a une instance de plan, false sinon
+     */
+    public Boolean hasAPlan() {
+        if (this.plan == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -159,26 +192,51 @@ public class Tournee {
     }
 
     /**
+     *
+     * @param livraisons
+     */
+    public void setLivraisons(LinkedList<Livraison> livraisons) {
+        this.livraisons = livraisons;
+    }
+
+    /**
      * Ajout d'une livraison dans la liste de livraison de la tournée
      *
      * @param livraison a ajouter à la tournée
+     * @throws Exception
      */
     public void addLivraison(Livraison livraison) throws Exception {
-       if(this.horaires.contains(livraison.getHoraire()) != true){
-           MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
+        if (this.horaires.contains(livraison.getHoraire()) != true) {
+            MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
             throw e;
-       }
-       
-       Noeud dest = livraison.getDestination();
-       if (this.plan.getNoeuds().contains(dest) !=true){
+        }
+
+        Noeud dest = livraison.getDestination();
+        if (this.plan.getNoeuds().contains(dest) != true) {
             MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
             throw e;
+        }
+        if (dest.getX() == null || dest.getY() == null) {
+            MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
+            throw f;
+        }
+        this.livraisons.add(livraison);
+    }
+    
+    public int ajoutLivraison(Livraison livraison){
+       if(this.horaires.contains(livraison.getHoraire()) != true){
+            return 1; //La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
+       }
+      
+       Noeud dest = livraison.getDestination();
+       if (this.plan.getNoeuds().contains(dest) !=true){
+           return 2; //La destination de la livraison n'est pas connu dans le plan
        }
        if(dest.getX() == null || dest.getY() == null){
-           MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
-            throw f;
+           return 3;//Les coordonnées de la destination ne sont pas correctement renseignés
        }
         this.livraisons.add(livraison);
+        return 4;
     }
 
     /**
@@ -186,6 +244,20 @@ public class Tournee {
      */
     public Noeud getEntrepot() {
         return entrepot;
+    }
+
+    /**
+     * Supprime une livraison de la liste livraisons de la tournée
+     *
+     * @param liv livraison a supprimer
+     */
+    public void supprimerLivraison(Livraison liv) {
+        for (int i = 0; i < this.livraisons.size(); i++) {
+            if (this.livraisons.get(i).equals(liv)) {
+                this.livraisons.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -206,6 +278,7 @@ public class Tournee {
      * fichierXML
      */
     public void construireAPartirDomXML(Element racine) throws Exception {
+        this.resetTournee();
 
         //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
@@ -257,4 +330,5 @@ public class Tournee {
             }
         }
     }
+
 }

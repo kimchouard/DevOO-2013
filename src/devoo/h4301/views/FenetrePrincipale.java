@@ -8,7 +8,10 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
+import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -51,6 +54,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pGauche.setBackground(new java.awt.Color(231, 228, 219));
         pGauche.setAutoscrolls(true);
 
         chargerPlan.setText("Charger Plan");
@@ -80,6 +84,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 undoActionPerformed(evt);
             }
         });
+
+        pDroit.setAutoscrolls(true);
 
         debug.setText("DEBUG");
         debug.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,8 +146,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -150,16 +156,25 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void clickChargerPlan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerPlan
         // Lunch load of the map from the file URL asked
         this.controleurPrincipal.chargerPlan("");
+       
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
-        this.controleurPrincipal.chargerLiv("");
+        try {
+            this.controleurPrincipal.chargerLiv("");
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }//GEN-LAST:event_clickChargerLivraisons
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
-        this.controleurPrincipal.chargerDebug();
-//        this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        try {
+            this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+        } catch (MyException ex) {
+            System.out.print(ex.toString());
+        }
     }//GEN-LAST:event_clickDebug
 
     private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed

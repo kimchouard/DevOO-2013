@@ -82,7 +82,7 @@ public class ControllerCommand {
         if (command.getDeleted()) {
             tournee.addLivraison(command.getLivraison());
         } else {
-            // Supprimer livraison
+            tournee.supprimerLivraison(command.getLivraison());
         }
         
         command.setDeleted(!command.getDeleted());

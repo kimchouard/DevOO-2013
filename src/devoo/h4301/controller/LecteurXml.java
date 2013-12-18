@@ -49,6 +49,7 @@ public class LecteurXml {
      */
     public Plan construirePlanAPartirXML(String nomFichier) throws Exception {
         Plan plan = new Plan();
+        Tournee.getInstance().resetTournee();
         Tournee.getInstance().setPlan(plan);
         File planXML = ouvrirFichier(nomFichier);
 

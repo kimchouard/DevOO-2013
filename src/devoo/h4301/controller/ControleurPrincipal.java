@@ -6,8 +6,12 @@
 package devoo.h4301.controller;
 
 import devoo.h4301.model.*;
+import devoo.h4301.outils.MyException;
 import devoo.h4301.views.*;
-import java.util.ArrayList;
+import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -17,23 +21,48 @@ import javax.swing.JScrollPane;
  *
  * @author chouard
  */
-public class ControleurPrincipal {
+public final class ControleurPrincipal {
+    // Constantes Couleur
+    public static final Color rougeMaps = new Color(217, 95, 87);
+    public static final Color blancMaps = new Color(255, 255, 255);
+    public static final Color jauneMaps = new Color(248, 228, 122);
+    public static final Color grisFonceMaps = new Color(200, 196, 186);
+    public static final Color grisMaps = new Color(231, 228, 219);
+    public static final Color vertMaps = new Color(207, 222, 171);
+    // Constantes Noeuds
+    public static final int diamNoeud = 15;
+    //Constante plan
+    public static final int padding = 20;
+    // Constantes Troncons
+    public static final float largeurTraitTroncon = 4;
+    public static final float contourTroncon = 1;
+    public static final int xMinTroncon = 4;
+    public static final int yMinTroncon = 4;
+    
 
     private JScrollPane panneauPlan;
+    private JScrollPane panneauLiv;
     private FenetrePrincipale fenParent;
     private JFileChooser jFileChooserXML;
 
-    private ControleurPlan controleurPlan;
+    private final ControleurPlan controleurPlan;
+    private final ControleurLivraison controleurLivraison;
+    private ControleurGraph controleurGraph;
     private ControllerCommand commandeControleur;
-    private LecteurXml lecteurXml;
+    private final LecteurXml lecteurXml;
 
-    public ControleurPrincipal(JScrollPane scrollPanePlan, FenetrePrincipale fenParent) {
+    public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
+        this.setPanneauLiv(scrollPaneLiv);
         this.setFenParent(fenParent);
 
         this.controleurPlan = new ControleurPlan(this);
         this.commandeControleur = new ControllerCommand(fenParent);
         this.lecteurXml = new LecteurXml();
+        this.controleurLivraison = new ControleurLivraison(this);
+        this.commandeControleur = new ControllerCommand(this.fenParent);
+        this.controleurGraph = new ControleurGraph();
+        
     }
 
     //--------------------------------
@@ -53,12 +82,15 @@ public class ControleurPrincipal {
 
         commandeControleur.resetCommand();
 
-        controleurPlan.scaleAutoVuePlan(panneauPlan);
-        controleurPlan.rafraichirVuePlan(t);
+        controleurPlan.rafraichirVuePlan(t, panneauPlan);
         controleurPlan.afficherPlan(panneauPlan);
-    }
+        controleurLivraison.effacerVueListLivraison(this.panneauLiv );
+        controleurLivraison.effacerItemLivraison(this.panneauLiv);
+        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+    
+    }   
 
-    public void chargerLiv(String urlLiv) {
+    public void chargerLiv(String urlLiv) throws MyException {
         if (Tournee.getInstance().getPlan() != null) {
             if (urlLiv == "") {
                 urlLiv = ouvrirFichier();
@@ -69,10 +101,20 @@ public class ControleurPrincipal {
             } catch (Exception e) {
                 System.out.println("Error : " + e.getMessage());
             }
+            // observer 
             Tournee t = Tournee.getInstance();
+            commandeControleur.resetCommand();
+
+            this.controleurGraph.UpdateGraphe(t);
+           
             controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
+            controleurLivraison.effacerItemLivraison(panneauLiv);
+        
+            // rajouter
+            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+            //controleurLivraison.afficherListLivraison(this.panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
@@ -83,20 +125,38 @@ public class ControleurPrincipal {
             Tournee t = initDebug();
             controleurPlan.setTournee(t);
             controleurPlan.scaleAutoVuePlan(panneauPlan);
-            controleurPlan.rafraichirVuePlan(t);
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
             controleurPlan.afficherPlan(panneauPlan);
         } catch (Exception ex) {
             Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void selectLivraison(Livraison liv) {
-        //TODO open edit liv on right
+        // éclairer la bonne livraison
+        this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
+
     }
 
-    public void createLiv(Noeud noeud) {
-        //TODO Open add new liv on right
+    public void createLiv(Noeud noeud) throws Exception {
+        // Tester si le noeud est bien une livraison alors afficher sans l'édition
+       this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+       //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
+     }
+
+    
+    public void addCommandeLivraison(Livraison liv, boolean deleted)
+    {
+        this.commandeControleur.addCommand(liv, deleted);
     }
 
+    public ControleurGraph getControleurGraph() {
+        return controleurGraph;
+    }
+
+    public void setControleurGraph(ControleurGraph controleurGraph) {
+        this.controleurGraph = controleurGraph;
+    }
+       
     //--------------------------------
     //  Private functions
     /**
@@ -122,120 +182,63 @@ public class ControleurPrincipal {
         return null;
     }
 
-    private Tournee initDebug() throws Exception {
-        Plan p = new Plan();
-        Tournee t = new Tournee();
-
-        //Création du plan : noeuds et tronçons
-        Noeud n0 = new Noeud(0, 200, 200);
-        Noeud n1 = new Noeud(1, 100, 100);
-        Noeud n2 = new Noeud(2, 150, 100);
-        Noeud n3 = new Noeud(3, 200, 100);
-        Noeud n4 = new Noeud(4, 250, 100);
-        Noeud n5 = new Noeud(5, 300, 100);
-        Noeud n6 = new Noeud(6, 300, 150);
-        Noeud n7 = new Noeud(7, 300, 200);
-        Noeud n8 = new Noeud(8, 300, 250);
-        Noeud n9 = new Noeud(9, 300, 300);
-        Noeud n10 = new Noeud(10, 250, 300);
-        Noeud n11 = new Noeud(11, 200, 300);
-        Noeud n12 = new Noeud(12, 150, 300);
-        Noeud n13 = new Noeud(13, 100, 300);
-        Noeud n14 = new Noeud(14, 100, 250);
-        Noeud n15 = new Noeud(15, 100, 200);
-        Noeud n16 = new Noeud(16, 100, 150);
-        p.addNoeud(n0);
-        p.addNoeud(n1);
-        p.addNoeud(n2);
-        p.addNoeud(n3);
-        p.addNoeud(n4);
-        p.addNoeud(n5);
-        p.addNoeud(n6);
-        p.addNoeud(n7);
-        p.addNoeud(n8);
-        p.addNoeud(n9);
-        p.addNoeud(n10);
-        p.addNoeud(n11);
-        p.addNoeud(n12);
-        p.addNoeud(n13);
-        p.addNoeud(n14);
-        p.addNoeud(n15);
-        p.addNoeud(n16);
-
-        Troncon t1 = new Troncon(n0, n1, "t1", 20.5, 1.5);
-        Troncon t2 = new Troncon(n0, n2, "t2", 20.5, 1.5);
-        Troncon t3 = new Troncon(n0, n3, "t3", 20.5, 1.5);
-        Troncon t4 = new Troncon(n0, n4, "t4", 20.5, 1.5);
-        Troncon t5 = new Troncon(n0, n5, "t5", 20.5, 1.5);
-        Troncon t6 = new Troncon(n0, n6, "t6", 20.5, 1.5);
-        Troncon t7 = new Troncon(n0, n7, "t7", 20.5, 1.5);
-        Troncon t8 = new Troncon(n0, n8, "t8", 20.5, 1.5);
-        Troncon t9 = new Troncon(n0, n9, "t9", 20.5, 1.5);
-        Troncon t10 = new Troncon(n0, n10, "t10", 20.5, 1.5);
-        Troncon t11 = new Troncon(n0, n11, "t11", 20.5, 1.5);
-        Troncon t12 = new Troncon(n0, n12, "t12", 20.5, 1.5);
-        Troncon t13 = new Troncon(n0, n13, "t13", 20.5, 1.5);
-        Troncon t14 = new Troncon(n0, n14, "t14", 20.5, 1.5);
-        Troncon t15 = new Troncon(n0, n15, "t15", 20.5, 1.5);
-        Troncon t16 = new Troncon(n0, n16, "t16", 20.5, 1.5);
-        Troncon t17 = new Troncon(n1, n3, "t17", 20.5, 1.5);
-        Troncon t18 = new Troncon(n6, n7, "t18", 20.5, 1.5);
-        Troncon t19 = new Troncon(n7, n8, "t19", 20.5, 1.5);
-        Troncon t20 = new Troncon(n8, n9, "t20", 20.5, 1.5);
-        Troncon t21 = new Troncon(n9, n0, "t20", 20.5, 1.5);
-        Troncon t22 = new Troncon(n3, n0, "t20", 20.5, 1.5);
-
-        p.addTroncon(t1);
-        p.addTroncon(t2);
-        p.addTroncon(t3);
-        p.addTroncon(t4);
-        p.addTroncon(t5);
-        p.addTroncon(t6);
-        p.addTroncon(t7);
-        p.addTroncon(t8);
-        p.addTroncon(t9);
-        p.addTroncon(t10);
-        p.addTroncon(t11);
-        p.addTroncon(t12);
-        p.addTroncon(t13);
-        p.addTroncon(t14);
-        p.addTroncon(t15);
-        p.addTroncon(t16);
-        p.addTroncon(t17);
-        p.addTroncon(t18);
-        p.addTroncon(t19);
-        p.addTroncon(t20);
-        p.addTroncon(t21);
-        p.addTroncon(t22);
-
-        //Ajout du plan et de l'entrepot à la tournée
-        t.setPlan(p);
-        t.setEntrepot(n0);
-
-        //Création du tableau d'itinéraire 
-        ArrayList<Itineraire> ensembleTrajets = new ArrayList<Itineraire>();
-
-        //Création d'itinéraires ajoutés au tableau
-        //Va de 0 à 3
-        Itineraire itin = new Itineraire();
-        itin.setPrevLivraisonId(n0.getId());
-        itin.setNextLivraisonId(n3.getId());
-        itin.addTroncon(t1);
-        itin.addTroncon(t17);
-        ensembleTrajets.add(itin);
-
-        //Va de 6 à 9
-        Itineraire itine = new Itineraire();
-        itine.setPrevLivraisonId(n6.getId());
-        itine.setNextLivraisonId(n9.getId());
-        itine.addTroncon(t18);
-        itine.addTroncon(t19);
-        itine.addTroncon(t20);
-        ensembleTrajets.add(itine);
-
-        
-        t.setItineraires(ensembleTrajets);
-        return t;
+    private Tournee initDebug() throws Exception {Tournee tournee = new Tournee();
+        Noeud entrepot = new Noeud(0, 0, 0);
+        tournee.setEntrepot(entrepot);
+        PlageHoraire ph = new PlageHoraire();
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        Date debut = formatter.parse("12:00:00");
+        Date fin = formatter.parse("13:00:00");
+        ph.setDebut(debut);
+        ph.setFin(fin);
+        Noeud a = new Noeud(1, 1, 1);
+        Noeud b = new Noeud(2,2,2);
+        Noeud c = new Noeud(3,3,3);
+        Noeud d = new Noeud(4,4,4);
+        Troncon t1 = new Troncon(entrepot, a, null, 1, 2);
+        Troncon t5 = new Troncon(a, entrepot, null, 5, 25);
+        Troncon t2 = new Troncon(entrepot, c, null, 5, 25);
+        Troncon t8 = new Troncon(c, d, null, 5, 25);
+        Troncon t9 = new Troncon(d, b, null, 5, 25);
+        Troncon t4 = new Troncon(b, a, null, 5, 25);
+        Troncon t3 = new Troncon(c, entrepot, null, 1, 2);
+        Troncon t10 = new Troncon(a, b, null, 1, 2);
+        Troncon t6 = new Troncon(b, d, null, 1, 2);
+        Troncon t7 = new Troncon(d, c, null, 1, 2);
+        Livraison l2 = new Livraison();
+        l2.setDestination(b);
+        l2.setHorraire(ph);
+        Livraison l3 = new Livraison();
+        l3.setDestination(c);
+        l3.setHorraire(ph);
+        Plan plan = new Plan();
+        plan.addNoeud(entrepot);
+        plan.addNoeud(a);
+        plan.addNoeud(b);
+        plan.addNoeud(c);
+        plan.addNoeud(d);
+        plan.addTroncon(t1);
+        plan.addTroncon(t2);
+        plan.addTroncon(t3);
+        plan.addTroncon(t4);
+        plan.addTroncon(t5);
+        plan.addTroncon(t6);
+        plan.addTroncon(t7);
+        plan.addTroncon(t8);
+        plan.addTroncon(t9);
+        plan.addTroncon(t10);
+        tournee.setPlan(plan);
+        tournee.addLivraison(l2);
+        tournee.addLivraison(l3);
+        System.out.println("coucou");
+        GraphUtil instance = new GraphUtil(tournee);
+        for(int i=0;i<instance.getNbVertices();i++)
+        {
+            System.out.println("i: "+i);
+            System.out.println("prev: "+instance.getEnsembleTrajets().get(i).getPrevLivraison().getDestination().getId());
+            System.out.println("next: "+instance.getEnsembleTrajets().get(i).getNextLivraison().getDestination().getId());
+        }      
+        return tournee;
     }
 
     //--------------------------------
@@ -245,7 +248,16 @@ public class ControleurPrincipal {
     }
 
     public void setPanneauPlan(JScrollPane panneauPlan) {
+        panneauPlan.setBackground(ControleurPrincipal.grisMaps);
         this.panneauPlan = panneauPlan;
+    }
+
+    public JScrollPane getPanneauLiv() {
+        return panneauLiv;
+    }
+
+    public void setPanneauLiv(JScrollPane panneauLiv) {
+        this.panneauLiv = panneauLiv;
     }
 
     public FenetrePrincipale getFenParent() {

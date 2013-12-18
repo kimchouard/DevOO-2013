@@ -6,6 +6,7 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.Plan;
@@ -15,7 +16,6 @@ import devoo.h4301.views.FenetrePrincipale;
 import devoo.h4301.views.VueNoeud;
 import devoo.h4301.views.VuePlan;
 import devoo.h4301.views.VueTroncon;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JFileChooser;
@@ -46,10 +46,12 @@ public class ControleurPlan {
         this.vuePlan.updateUI();
     }
     
-    public void rafraichirVuePlan(Tournee tournee) {
-        this.vuePlan.reset();
+    public void rafraichirVuePlan(Tournee tournee, JScrollPane panneauPlan) {
+        this.vuePlan = new VuePlan(this);
         this.vuePlan.setTournee(tournee);
         Plan plan =  tournee.getPlan();
+        
+        this.scaleAutoVuePlan(panneauPlan);
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
@@ -61,6 +63,13 @@ public class ControleurPlan {
             this.vuePlan.ajouterLiv(l);
         }
         
+        ArrayList<Itineraire> itineraires = controleurPrincipal.getControleurGraph().getItineraires();
+        for (Itineraire i : itineraires) {
+            for (Troncon t : i.getEnsembleTroncons()) {
+                this.vuePlan.ajouterItineraire(t);
+            }
+        }
+        
         ArrayList<Troncon> troncons = plan.getTroncons();
         for (Troncon t : troncons) {
             this.vuePlan.ajouterTroncon(t);
@@ -70,8 +79,8 @@ public class ControleurPlan {
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
         Plan p =  vuePlan.getTournee().getPlan();
         
-        double planWidth = p.getMaxX() - p.getMinX() + 2*VuePlan.padding + VuePlan.diamNoeud;
-        double planHeight = p.getMaxY() - p.getMinY() + 2*VuePlan.padding + VuePlan.diamNoeud;
+        double planWidth = p.getMaxX() - p.getMinX() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
+        double planHeight = p.getMaxY() - p.getMinY() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
         double panneauWidth = panneauPlan.getWidth();
         double panneauHeight = panneauPlan.getHeight();
         double scaleX = panneauWidth / planWidth;
@@ -89,7 +98,7 @@ public class ControleurPlan {
         this.controleurPrincipal.selectLivraison(liv);
     }
     
-    public void createLiv(Noeud noeud) {
+    public void createLiv(Noeud noeud) throws Exception {
         this.controleurPrincipal.createLiv(noeud);
     }
     
@@ -102,6 +111,6 @@ public class ControleurPlan {
 
     public void setTournee(Tournee tournee) {
         this.vuePlan.setTournee(tournee);
-        this.vuePlan.setBackground(Color.WHITE);
+        this.vuePlan.setBackground(ControleurPrincipal.grisMaps);
     }
 }
