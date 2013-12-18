@@ -29,7 +29,7 @@ public class ControleurGraph {
         tsp = new TSP(graphe);
         
         //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
-        switch(tsp.solve(1000, graphe.getMaxArcCost()))
+        switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
         {
             case OPTIMAL_SOLUTION_FOUND:
                 return 1;
