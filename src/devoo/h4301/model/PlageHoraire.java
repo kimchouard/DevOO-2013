@@ -140,4 +140,17 @@ public class PlageHoraire {
         return true;
     }
     
+    
+    /**
+     * Regarde la postériorité entre deux plages horaires 
+     * @param autrePH
+     * @return true si la plage horaire est après celle passée en paramètre
+     */
+        public boolean after(PlageHoraire autrePH) {
+        if (autrePH.debut.after(this.debut) == true) {
+            return false;
+        }
+        return true;
+    }
+    
 }

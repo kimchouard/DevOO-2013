@@ -30,7 +30,7 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     private ArrayList<VueLivraisonNoeud> vueLivs = new ArrayList();
     private ArrayList<VueItineraire> vueItin = new ArrayList();
-    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
+//    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
     
     protected double zoomScale = 1.0;
 
@@ -56,7 +56,7 @@ public class VuePlan extends javax.swing.JPanel {
         this.vueTroncons.clear();
         this.vueItin.clear();
         this.vueLivs.clear();
-        this.vuePlages.clear();
+//        this.vuePlages.clear();
     }
     
     public void ajouterNoeud(Noeud noeud) {

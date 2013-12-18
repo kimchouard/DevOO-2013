@@ -63,7 +63,7 @@ public class ControleurPlan {
             this.vuePlan.ajouterLiv(l);
         }
         
-        ArrayList<Itineraire> itineraires = tournee.getItineraires();
+        ArrayList<Itineraire> itineraires = controleurPrincipal.getControleurGraph().getItineraires();
         for (Itineraire i : itineraires) {
             for (Troncon t : i.getEnsembleTroncons()) {
                 this.vuePlan.ajouterItineraire(t);
