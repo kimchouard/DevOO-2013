@@ -62,7 +62,6 @@ public final class ControleurPrincipal {
         this.controleurLivraison = new ControleurLivraison(this);
         this.commandeControleur = new ControllerCommand(this.fenParent);
         this.controleurGraph = new ControleurGraph();
-        
     }
 
     //--------------------------------
@@ -114,21 +113,8 @@ public final class ControleurPrincipal {
         
             // rajouter
             controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
-            //controleurLivraison.afficherListLivraison(this.panneauLiv);
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
-        }
-    }
-
-    public void chargerDebug() {
-        try {
-            Tournee t = initDebug();
-            controleurPlan.setTournee(t);
-            controleurPlan.scaleAutoVuePlan(panneauPlan);
-            controleurPlan.rafraichirVuePlan(t, panneauPlan);
-            controleurPlan.afficherPlan(panneauPlan);
-        } catch (Exception ex) {
-            Logger.getLogger(ControleurPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void selectLivraison(Livraison liv) {
@@ -166,12 +152,6 @@ public final class ControleurPrincipal {
      */
     private String ouvrirFichier() {
         jFileChooserXML = new JFileChooser();
-        // Note: source for ExampleFileFilter can be found in FileChooserDemo,
-        // under the demo/jfc directory in the JDK.
-//        ExampleFileFilter filter = new ExampleFileFilter();
-//        filter.addExtension("xml");
-//        filter.setDescription("Fichier XML");
-//        jFileChooserXML.setFileFilter(filter);
         jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         if (jFileChooserXML.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -180,65 +160,6 @@ public final class ControleurPrincipal {
             return filePath;
         }
         return null;
-    }
-
-    private Tournee initDebug() throws Exception {Tournee tournee = new Tournee();
-        Noeud entrepot = new Noeud(0, 0, 0);
-        tournee.setEntrepot(entrepot);
-        PlageHoraire ph = new PlageHoraire();
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        Date debut = formatter.parse("12:00:00");
-        Date fin = formatter.parse("13:00:00");
-        ph.setDebut(debut);
-        ph.setFin(fin);
-        Noeud a = new Noeud(1, 1, 1);
-        Noeud b = new Noeud(2,2,2);
-        Noeud c = new Noeud(3,3,3);
-        Noeud d = new Noeud(4,4,4);
-        Troncon t1 = new Troncon(entrepot, a, null, 1, 2);
-        Troncon t5 = new Troncon(a, entrepot, null, 5, 25);
-        Troncon t2 = new Troncon(entrepot, c, null, 5, 25);
-        Troncon t8 = new Troncon(c, d, null, 5, 25);
-        Troncon t9 = new Troncon(d, b, null, 5, 25);
-        Troncon t4 = new Troncon(b, a, null, 5, 25);
-        Troncon t3 = new Troncon(c, entrepot, null, 1, 2);
-        Troncon t10 = new Troncon(a, b, null, 1, 2);
-        Troncon t6 = new Troncon(b, d, null, 1, 2);
-        Troncon t7 = new Troncon(d, c, null, 1, 2);
-        Livraison l2 = new Livraison();
-        l2.setDestination(b);
-        l2.setHorraire(ph);
-        Livraison l3 = new Livraison();
-        l3.setDestination(c);
-        l3.setHorraire(ph);
-        Plan plan = new Plan();
-        plan.addNoeud(entrepot);
-        plan.addNoeud(a);
-        plan.addNoeud(b);
-        plan.addNoeud(c);
-        plan.addNoeud(d);
-        plan.addTroncon(t1);
-        plan.addTroncon(t2);
-        plan.addTroncon(t3);
-        plan.addTroncon(t4);
-        plan.addTroncon(t5);
-        plan.addTroncon(t6);
-        plan.addTroncon(t7);
-        plan.addTroncon(t8);
-        plan.addTroncon(t9);
-        plan.addTroncon(t10);
-        tournee.setPlan(plan);
-        tournee.addLivraison(l2);
-        tournee.addLivraison(l3);
-        System.out.println("coucou");
-        GraphUtil instance = new GraphUtil(tournee);
-        for(int i=0;i<instance.getNbVertices();i++)
-        {
-            System.out.println("i: "+i);
-            System.out.println("prev: "+instance.getEnsembleTrajets().get(i).getPrevLivraison().getDestination().getId());
-            System.out.println("next: "+instance.getEnsembleTrajets().get(i).getNextLivraison().getDestination().getId());
-        }      
-        return tournee;
     }
 
     //--------------------------------
