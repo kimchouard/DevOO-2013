@@ -57,10 +57,9 @@ public final class ControleurPrincipal {
         this.setFenParent(fenParent);
 
         this.controleurPlan = new ControleurPlan(this);
-        this.commandeControleur = new ControllerCommand(fenParent);
         this.lecteurXml = new LecteurXml();
         this.controleurLivraison = new ControleurLivraison(this);
-        this.commandeControleur = new ControllerCommand(this.fenParent);
+        this.commandeControleur = new ControllerCommand(this, this.fenParent);
         this.controleurGraph = new ControleurGraph();
     }
 
@@ -203,5 +202,16 @@ public final class ControleurPrincipal {
         } catch (Exception ex) {
             System.out.println("Impossible to redo");
         }
+    }
+
+    void reloadUI() {
+        try {
+            this.controleurGraph.UpdateGraphe(Tournee.getInstance());
+        } catch (MyException ex) {
+            System.out.println("Impossible de recharger la UI");
+        }
+        
+        this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
+        this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
     }
 }

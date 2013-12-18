@@ -277,28 +277,22 @@ public class Tournee {
      * fichierXML
      */
     public void construireAPartirDomXML(Element racine) throws Exception {
+        
         this.resetTournee();
 
-        //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
         if (listEntrepot.getLength() != 1) {
-            MyException e = new MyException("Il y a plusieurs entrepots dans le fichier de livraison");
-            throw e;
+            throw new MyException("Il y a plusieurs entrepots dans le fichier de livraison");
         }
 
         Element entrepotElem = (Element) listEntrepot.item(0);
         int adresse = Integer.parseInt(entrepotElem.getAttribute("adresse"));
         Noeud add = this.getPlan().getNoeudById(adresse);
-        //todo : vérifier que l'adresse de l'entrepot est bien dans le plan
         this.setEntrepot(add);
-        System.out.println("entrepot créé");
 
-        // Traitement des plages horaires
-        //Récupération de "plagesHoraires"
         NodeList listPlages = racine.getElementsByTagName("PlagesHoraires");
         if (listPlages.getLength() != 1) {
-            MyException e = new MyException("Il y a plusieurs listes de plages horaires dans le fichier de livraison");
-            throw e;
+            throw new MyException("Il y a plusieurs listes de plages horaires dans le fichier de livraison");
         }
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
@@ -313,8 +307,7 @@ public class Tournee {
             //Récupération de "Livraisons"
             NodeList listLiv1 = palgeElem.getElementsByTagName("Livraisons");
             if (listLiv1.getLength() != 1) {
-                MyException e = new MyException("Il y a plusieurs listes de livraisons au sein d'une plage horaire dans le fichier de livraison");
-                throw e;
+                throw new MyException("Il y a plusieurs listes de livraisons au sein d'une plage horaire dans le fichier de livraison");
             }
             Element livraisonsElem = (Element) listLiv1.item(0);
 

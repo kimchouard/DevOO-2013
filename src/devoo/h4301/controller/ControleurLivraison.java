@@ -150,11 +150,11 @@ public class ControleurLivraison {
         try {
             Tournee.getInstance().supprimerLivraison(liv);
             this.controleurPrincipal.addCommandeLivraison(liv, true);
+            this.controleurPrincipal.reloadUI();
         } catch (Exception ex) {
             System.out.println("Impossible de supprimer la livraison");
             return;
         }
-        this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
      }
     
     /**

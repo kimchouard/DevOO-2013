@@ -74,6 +74,8 @@ public class ControleurPlan {
         for (Troncon t : troncons) {
             this.vuePlan.ajouterTroncon(t);
         }
+        
+        this.afficherPlan(panneauPlan);
     }
     
     public void scaleAutoVuePlan(JScrollPane panneauPlan) {
