@@ -1,5 +1,8 @@
 package devoo.h4301.model;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * @author Christine Solnon
  *
@@ -43,5 +46,20 @@ public interface Graph {
 	 */
 	public abstract int getNbSucc(int i)
 			throws ArrayIndexOutOfBoundsException;
+        
+        /**
+	 * @return dictionnaire mapping an integer with an object of Livraison
+	 */
+	public abstract Map<Integer,Livraison> getDictionnaire();
+        
+        /**
+	 * @return ensembleTrajets
+	 */
+	public abstract ArrayList<Itineraire> getEnsembleTrajets();
+        
+        /**
+	 * set ensembleTrajets to ensemble
+	 */
+	public abstract void setEnsembleTrajets(ArrayList<Itineraire> ensemble);
 
 }

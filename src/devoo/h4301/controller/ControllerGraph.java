@@ -38,7 +38,6 @@ public class ControllerGraph {
         {
             case OPTIMAL_SOLUTION_FOUND:
                 BuildGraphe();
-                CleanGraphe();
                 break;
             case SOLUTION_FOUND:
                 break;
@@ -47,28 +46,6 @@ public class ControllerGraph {
             case INCONSISTENT:
                 break;
         }
-    }
-    
-    private void CleanGraphe() throws MyException{
-        int[] nextTable = tsp.getNext();
-        int tableIt=0;
-        ArrayList<Itineraire>listeItineraires = graphe.getEnsembleTrajets();
-        while(tableIt<nextTable.length)
-        {
-            for(int i=0;i<listeItineraires.size();i++)
-            {
-                if(listeItineraires.get(i).getPrevLivraison().getDestination().getId() == nextTable[tableIt])
-                {
-                    if(listeItineraires.get(i).getNextLivraison().getDestination().getId() != nextTable[tableIt+1])
-                    {
-                        listeItineraires.remove(i);
-                    }
-                }
-                
-            }
-            tableIt++;
-        }
-        graphe.setEnsembleTrajets(listeItineraires);
     }
     
 }

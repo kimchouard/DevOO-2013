@@ -25,7 +25,7 @@ public class Itineraire {
     private Livraison nextLivraison;
     
     /**
-     * Liste chainée de Troncons, ordonnée 
+     * Liste chainée de Troncons, ordonnée de la livraison next à la livraison prev
      */
     private LinkedList<Troncon> ensembleTroncons;
     

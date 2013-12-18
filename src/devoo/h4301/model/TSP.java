@@ -1,5 +1,8 @@
 package devoo.h4301.model;
 
+import devoo.h4301.outils.MyException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import solver.ResolutionPolicy;
 import solver.Solver;
 import solver.constraints.IntConstraintFactory;
@@ -18,6 +21,8 @@ public class TSP {
 	private int totalCost;
 	private SolutionState state;
 	private Graph graph;
+        private ArrayList<Livraison> tableFinal;
+
 
 	public TSP(Graph graph) {
 		state = SolutionState.NO_SOLUTION_FOUND;
@@ -78,8 +83,92 @@ public class TSP {
 			else 
 				state = SolutionState.INCONSISTENT;
 		}
+                verifEntrepot();
+                translationAndClean();
 		return state;
 	}
+        
+        /**
+         * Traduit next[] en un tableau de livraisons grâce au dictionnaire de graph
+         */
+        public void translationAndClean(){
+            tableFinal = new ArrayList<>();
+            for(int i = 0; i<next.length;i++)
+            {
+               tableFinal.add(graph.getDictionnaire().get(next[i]));
+            }
+
+                // Clean ensembleTrajets
+                int tableIt=0;
+                ArrayList<Itineraire>listeItineraires = graph.getEnsembleTrajets();
+                while(tableIt<tableFinal.size()-1)
+                {
+                    for(int i=0;i<listeItineraires.size();i++)
+                    { 
+                        if(listeItineraires.get(i).getPrevLivraison() == tableFinal.get(tableIt))
+                        {
+                            if(listeItineraires.get(i).getNextLivraison() != tableFinal.get(tableIt+1))
+                            {
+                                listeItineraires.remove(i);
+                            }
+                        }   
+                    }                
+                    tableIt++;
+                }
+                // Bouclage en rentrant à l'entrepot
+                for(int i=0;i<listeItineraires.size();i++)
+                { 
+                    if(listeItineraires.get(i).getPrevLivraison() == tableFinal.get(tableFinal.size()-1))
+                    {
+                        if(listeItineraires.get(i).getNextLivraison() != tableFinal.get(0))
+                        {
+                            listeItineraires.remove(i);
+                        }
+                    }   
+                }
+                
+                graph.setEnsembleTrajets(listeItineraires);
+            }
+        
+        /**
+         * When the first PH is also the last, entrepot can be at the middle of Next[]
+         * verifEntrepot change the order of Next if it's the case 
+         */
+        public void verifEntrepot(){
+            if (next[0] != graph.getNbVertices()-1)
+            {
+                int i = 1;
+                boolean find = false;
+                int[] nouveau = new int[graph.getNbVertices()];
+                while((i<next.length)&&(find==false))
+                {
+                    if(next[i] == graph.getNbVertices()-1)
+                    {
+                        find = true;
+                    }
+                    i++;
+                }
+                for(int j = 0; j<next.length;j++)
+                {
+                    if (i-1<next.length)
+                    {
+                         nouveau[j]=next[i-1];
+                         i++;
+                    }
+                    else 
+                    {
+                         nouveau[j]=next[i-1-next.length];
+                         i++;
+                    }
+
+                }
+                for(int j = 0; j<next.length;j++)
+                {
+                    next[j] = nouveau[j];
+                }
+                
+            }
+        }
 
 	/**
 	 * @return an array <code>next</code> such that <code>next[i]</code> gives the vertex visited just after <code>i</code> in the last computed solution
@@ -110,5 +199,9 @@ public class TSP {
 	public SolutionState getSolutionState() {
 		return state;
 	}
+        
+        public ArrayList<Livraison> getTableFinal() {
+            return tableFinal;
+        }
 
 }
