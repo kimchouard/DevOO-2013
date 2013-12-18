@@ -157,7 +157,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     }//GEN-LAST:event_clickChargerPlan
 
     private void clickChargerLivraisons(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChargerLivraisons
-        this.controleurPrincipal.chargerLiv("");
+        try {
+            this.controleurPrincipal.chargerLiv("");
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }//GEN-LAST:event_clickChargerLivraisons
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
