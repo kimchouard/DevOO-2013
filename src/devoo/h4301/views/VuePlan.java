@@ -28,7 +28,7 @@ public class VuePlan extends javax.swing.JPanel {
     private Tournee tournee;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
-    private ArrayList<VueLivraisonNoeud> vueLivs = new ArrayList();
+    private ArrayList<VueNoeudLivraison> vueLivs = new ArrayList();
     private ArrayList<VueItineraire> vueItin = new ArrayList();
 //    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
     
@@ -82,16 +82,16 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterLiv(Livraison liv) {
-        VueLivraisonNoeud vl = new VueLivraisonNoeud(liv, this);
+        VueNoeudLivraison vl = new VueNoeudLivraison(liv, this);
         ajouterVueLiv(vl, liv);
     }
     
     public void ajouterEntrepot(Livraison liv) {
         VueNoeudEntrepot ve = new VueNoeudEntrepot(liv, this);
-        ajouterVueLiv((VueLivraisonNoeud) ve, liv);
+        ajouterVueLiv((VueNoeudLivraison) ve, liv);
     }
     
-    private void ajouterVueLiv(VueLivraisonNoeud vl, Livraison liv) {
+    private void ajouterVueLiv(VueNoeudLivraison vl, Livraison liv) {
         this.placerNoeud((VueNoeud) vl);
         this.updateVuePlanFrame();
         
@@ -157,7 +157,7 @@ public class VuePlan extends javax.swing.JPanel {
     
     public void unselectNoeuds() {
         //Reset all the others noeuds
-        for (VueLivraisonNoeud vl : this.vueLivs) {
+        for (VueNoeudLivraison vl : this.vueLivs) {
            vl.setSelected(false);
         }
         for (VueNoeud vn : this.vueNoeuds) {

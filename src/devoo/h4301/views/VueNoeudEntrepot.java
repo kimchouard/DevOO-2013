@@ -14,7 +14,7 @@ import java.awt.Color;
  *
  * @author chouard
  */
-public class VueNoeudEntrepot extends VueLivraisonNoeud {
+public class VueNoeudEntrepot extends VueNoeudLivraison {
     /**
      * Creates new form VueNoeudEntrepot
      */
