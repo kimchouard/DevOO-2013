@@ -14,17 +14,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 /**
  *
  * @author chouard
  */
 public class VueItineraire extends VueTroncon {
+    protected ArrayList<Troncon> troncons;
+    protected VuePlageHoraire vuePlageHoraire;
+    
     /**
      * Creates new form VueItineraire
      */
-    public VueItineraire(Troncon troncon, VuePlan vuePlan) {
+    public VueItineraire(Troncon troncon, VuePlageHoraire vuePlageHoraire, VuePlan vuePlan) {
         this.setTroncon(troncon);
+        this.setVuePlageHoraire(vuePlageHoraire);
         this.vuePlan = vuePlan;
         initialize();
     }
@@ -35,6 +40,22 @@ public class VueItineraire extends VueTroncon {
         this.setOpaque(false);
         this.setVisible(true);
         this.setBackground(Color.BLACK); 
+    }
+
+    public VuePlageHoraire getVuePlageHoraire() {
+        return vuePlageHoraire;
+    }
+
+    public void setVuePlageHoraire(VuePlageHoraire vuePlageHoraire) {
+        this.vuePlageHoraire = vuePlageHoraire;
+    }
+    
+    public ArrayList<Troncon> getTroncons() {
+        return troncons;
+    }
+
+    public void addTroncons(Troncon troncon) {
+        this.troncons.add(troncon);
     }
     
     @Override
@@ -49,7 +70,7 @@ public class VueItineraire extends VueTroncon {
         }
         
         g2D.setStroke(new BasicStroke(ControleurPrincipal.largeurTraitTroncon));
-        g2D.setPaint(ControleurPrincipal.jauneMaps);
+        g2D.setPaint(this.vuePlageHoraire.getPlageColor());
         g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));
     }
 

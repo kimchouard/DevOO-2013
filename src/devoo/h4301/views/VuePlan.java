@@ -11,6 +11,7 @@ import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
@@ -30,7 +31,7 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     private ArrayList<VueNoeudLivraison> vueLivs = new ArrayList();
     private ArrayList<VueItineraire> vueItin = new ArrayList();
-//    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
+    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
     
     protected double zoomScale = 1.0;
 
@@ -56,7 +57,7 @@ public class VuePlan extends javax.swing.JPanel {
         this.vueTroncons.clear();
         this.vueItin.clear();
         this.vueLivs.clear();
-//        this.vuePlages.clear();
+        this.vuePlages.clear();
     }
     
     public void ajouterNoeud(Noeud noeud) {
@@ -117,9 +118,10 @@ public class VuePlan extends javax.swing.JPanel {
         this.add(v);
     }
     
-    public void ajouterItineraire(Troncon t) {
+    public void ajouterItineraire(Troncon t, PlageHoraire ph) {
         if (getVueItineraire(t) == null) {
-            VueItineraire vi = new VueItineraire(t, this);
+            VuePlageHoraire vph = getVuePlageHoraire(ph);
+            VueItineraire vi = new VueItineraire(t, vph, this);
             this.placerTroncon((VueTroncon) vi);
             this.updateVuePlanFrame();
 
@@ -141,6 +143,21 @@ public class VuePlan extends javax.swing.JPanel {
         }
         
         return null;
+    }
+    
+    public VuePlageHoraire getVuePlageHoraire(PlageHoraire ph) {
+        for (VuePlageHoraire vph : this.vuePlages) {
+            if((vph.getPlageHoraire().getDebut() == ph.getDebut())
+            && (vph.getPlageHoraire().getFin() == ph.getFin())
+            ) {
+                return vph;
+            }
+        }
+        
+        Color c = ControleurPrincipal.tronconsColor.get(this.vuePlages.size());
+        VuePlageHoraire vph = new VuePlageHoraire(c, ph);
+        this.vuePlages.add(vph);
+        return vph;
     }
     
     public void placerTroncon(VueTroncon vueTroncon) {

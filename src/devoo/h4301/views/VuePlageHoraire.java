@@ -6,6 +6,7 @@
 
 package devoo.h4301.views;
 
+import devoo.h4301.model.PlageHoraire;
 import java.awt.Color;
 
 /**
@@ -14,13 +15,31 @@ import java.awt.Color;
  */
 public class VuePlageHoraire extends javax.swing.JPanel {
     protected Color plageColor;
+    protected PlageHoraire plageHoraire;
 
     /**
      * Creates new form VuePlageHoraire
      */
-    public VuePlageHoraire(Color plageColor) {
+    public VuePlageHoraire(Color plageColor, PlageHoraire ph) {
         this.plageColor = plageColor;
+        this.plageHoraire = ph;
         initComponents();
+    }
+
+    public Color getPlageColor() {
+        return plageColor;
+    }
+
+    public void setPlageColor(Color plageColor) {
+        this.plageColor = plageColor;
+    }
+
+    public PlageHoraire getPlageHoraire() {
+        return plageHoraire;
+    }
+
+    public void setPlageHoraire(PlageHoraire plageHoraire) {
+        this.plageHoraire = plageHoraire;
     }
 
     /**

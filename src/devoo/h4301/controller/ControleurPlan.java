@@ -9,6 +9,7 @@ package devoo.h4301.controller;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
@@ -73,8 +74,9 @@ public class ControleurPlan {
         
         ArrayList<Itineraire> itineraires = controleurPrincipal.getControleurGraph().getItineraires();
         for (Itineraire i : itineraires) {
+            PlageHoraire ph = i.getPrevLivraison().getHoraire();
             for (Troncon t : i.getEnsembleTroncons()) {
-                this.vuePlan.ajouterItineraire(t);
+                this.vuePlan.ajouterItineraire(t, ph);
             }
         }
         

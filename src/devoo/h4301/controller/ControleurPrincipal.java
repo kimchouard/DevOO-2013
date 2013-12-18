@@ -31,6 +31,14 @@ public class ControleurPrincipal {
     public static final Color grisFonceMaps = new Color(200, 196, 186);
     public static final Color grisMaps = new Color(231, 228, 219);
     public static final Color vertMaps = new Color(207, 222, 171);
+    public static final ArrayList<Color> tronconsColor = new ArrayList() {{
+        add(new Color(255, 0, 0));
+        add(new Color(0, 255, 0));
+        add(new Color(0, 0, 255));
+        add(new Color(0, 255, 255));
+        add(new Color(255, 0, 255));
+        add(new Color(255, 255, 0));
+    }};
     // Constantes Noeuds
     public static final int diamNoeud = 15;
     //Constante plan
