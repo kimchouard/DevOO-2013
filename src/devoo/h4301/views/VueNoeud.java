@@ -12,6 +12,10 @@ import devoo.h4301.model.Noeud;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -82,7 +86,11 @@ public class VueNoeud extends javax.swing.JPanel {
     
     public void setSelected(boolean selected) {
         if (selected) {
-            this.vuePlan.createLiv(this.noeud);
+            try {
+                this.vuePlan.createLiv(this.noeud);
+            } catch (Exception ex) {
+                Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         this.selected = selected;
@@ -108,6 +116,8 @@ public class VueNoeud extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g)
     {
+        Graphics2D graphics = (Graphics2D) g;
+//        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         super.paintComponent(g);
         g.setColor(this.getColor());
         g.fillOval(0,0,this.getWidth(),this.getHeight());

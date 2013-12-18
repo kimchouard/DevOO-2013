@@ -141,6 +141,14 @@ public class Troncon {
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
     }
+    
+        /**
+     *Getter sur la duree (longueur/vitesse) 
+     * @return la duree de parcours à attacher au tronçon
+     */
+    public double getDuree(){
+        return longueur/vitesse;
+    }
 
 
     /**
