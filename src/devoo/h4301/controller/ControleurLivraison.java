@@ -14,8 +14,6 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**

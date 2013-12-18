@@ -8,10 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
-import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -175,10 +172,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     public JScrollPane getpGauche() {
         return pGauche;
-    }
-    
-    public void log(String log, boolean error) {
-        this.log.append("\n"+log);
     }
     
 
