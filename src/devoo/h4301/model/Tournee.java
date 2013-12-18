@@ -207,36 +207,33 @@ public class Tournee {
      */
     public void addLivraison(Livraison livraison) throws Exception {
         if (this.horaires.contains(livraison.getHoraire()) != true) {
-            MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
-            throw e;
+            throw new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
         }
 
         Noeud dest = livraison.getDestination();
         if (this.plan.getNoeuds().contains(dest) != true) {
-            MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
-            throw e;
+            throw new MyException("La destination de la livraison n'est pas connu dans le plan");
+            
         }
         if (dest.getX() == null || dest.getY() == null) {
-            MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
-            throw f;
+            throw new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
         }
         this.livraisons.add(livraison);
     }
     
-    public int ajoutLivraison(Livraison livraison){
+    public void ajoutLivraison(Livraison livraison) throws MyException{
        if(this.horaires.contains(livraison.getHoraire()) != true){
-            return 1; //La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
+            throw new MyException("Les horraires ne sont pas valides");
        }
       
        Noeud dest = livraison.getDestination();
        if (this.plan.getNoeuds().contains(dest) !=true){
-           return 2; //La destination de la livraison n'est pas connu dans le plan
+            throw new MyException("Les horraires ne sont pas valides");
        }
        if(dest.getX() == null || dest.getY() == null){
-           return 3;//Les coordonnées de la destination ne sont pas correctement renseignés
+            throw new MyException("Les horraires ne sont pas valides");
        }
         this.livraisons.add(livraison);
-        return 4;
     }
 
     /**

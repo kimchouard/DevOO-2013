@@ -14,6 +14,8 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -165,21 +167,14 @@ public class ControleurLivraison {
      */
         
      public void ajoutLiv(Livraison liv){
-        int result = Tournee.getInstance().ajoutLivraison(liv); 
-        switch (result) {
-            case 1 : // La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
-                
-                break;
-            case 2 ://La destination de la livraison n'est pas connu dans le plan
-                
-                break;
-            case 3 ://Les coordonnées de la destination ne sont pas correctement renseignés
-                
-                break;
-            case 4 : // la livraison a bien été ajoutée
-                this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
-                break;
-     }
+        try { 
+            Tournee.getInstance().addLivraison(liv);
+            this.controleurPrincipal.addCommandeLivraison(liv, false);
+        } catch (Exception ex) {
+            System.out.println("Impossible d'ajouter la livraison");
+            return;
+        }
+        this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
      }
 
 }
