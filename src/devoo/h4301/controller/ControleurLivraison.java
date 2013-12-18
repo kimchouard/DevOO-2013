@@ -14,8 +14,6 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -158,10 +156,7 @@ public class ControleurLivraison {
             System.out.println("Impossible de supprimer la livraison");
             return;
         }
-        this.vueListLivraison.removeAll();
-        this.vueListLivraison.updateUI();
-        this.vueListLivraison.setTournee(Tournee.getInstance());
-        this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
+        this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
      }
     
     /**
