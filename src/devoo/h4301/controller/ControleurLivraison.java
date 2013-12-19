@@ -12,12 +12,10 @@ import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
+import devoo.h4301.outils.MyException;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -74,7 +72,7 @@ public class ControleurLivraison {
      * Création d'une livraison
      * @param noeud Noeud de livraison
      */
-    public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) throws ParseException {
+    public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) throws ParseException, MyException {
          
             Client client = new Client(0);
             client.setName(nom);
@@ -148,8 +146,12 @@ public class ControleurLivraison {
             return;
         }
      }
-        
-     public void ajoutLiv(Livraison liv){
+     
+      /**
+     * Ajout de la livraison dans le modèle
+     * @param liv la dite livraison
+     */
+     public void ajoutLiv(Livraison liv) throws MyException{
         try { 
             Tournee.getInstance().addLivraison(liv);
             this.controleurPrincipal.addCommandeLivraison(liv, false);
@@ -158,6 +160,7 @@ public class ControleurLivraison {
             return;
         }
         this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
+        this.controleurPrincipal.rafraichirVueGraph();
      }
 
 }

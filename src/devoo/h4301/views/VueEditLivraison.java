@@ -10,6 +10,7 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
+import devoo.h4301.outils.MyException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -209,7 +210,9 @@ public class VueEditLivraison extends javax.swing.JPanel {
             this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire)this.ph1.getSelectedItem() );
         } catch (ParseException ex) {
             Logger.getLogger(VueEditLivraison.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (MyException ex) {
+             Logger.getLogger(VueEditLivraison.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed

@@ -132,9 +132,11 @@ public final class ControleurPrincipal {
        //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
      }
     
-    public void rafraichirVueGraph(){
+    public void rafraichirVueGraph() throws MyException{
+        this.controleurGraph.UpdateGraphe(Tournee.getInstance());
+        this.controleurPlan.setTournee(Tournee.getInstance());
         this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), panneauPlan);
-        
+        this.controleurPlan.afficherPlan(panneauPlan);
     }
 
     
