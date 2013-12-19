@@ -10,7 +10,6 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -18,15 +17,16 @@ import java.util.LinkedList;
  * @author Mimi
  */
 public class VueListLivraison extends javax.swing.JPanel {
-    private ControleurLivraison controleurLivraison;
+    private final ControleurLivraison controleurLivraison;
    
-    private LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
+    private final LinkedList<VueLivraisonItem> vueLivraisonsItem = new LinkedList();
     
     /**
      * Creates new form VueLivraisonItem
+     * @param controleurLivraison
      */
     public VueListLivraison(ControleurLivraison controleurLivraison) {
-        this.setControleurLivraison(controleurLivraison); 
+        this.controleurLivraison = controleurLivraison; 
         initialize();
     }
     
@@ -75,10 +75,6 @@ public class VueListLivraison extends javax.swing.JPanel {
     public ControleurLivraison getControleurLivraison() {
         return controleurLivraison;
     }
-    
-    public void setControleurLivraison(ControleurLivraison controleurLivraison) {
-        this.controleurLivraison = controleurLivraison;
-    }
 
     public void setTournee(Tournee tournee) {
         this.vueLivraisonsItem.clear();
@@ -87,23 +83,6 @@ public class VueListLivraison extends javax.swing.JPanel {
             this.ajouterLivraison(tournee.getLivraisons().get(i));
         }
     }
-   
-
-    
-    
-  
-    
-    // fonction highligth (livraison), 
-    
-    
-    /*private void updateVueLivraison() {
-        int planWidth = plan.getMaxX() - plan.getMinX();
-        int planHeight = plan.getMaxY() - plan.getMinY();
-        
-        Dimension dimension = new Dimension(this.scaledSize(planWidth) + padding*2, this.scaledSize(planHeight) + padding*2);
-        this.setPreferredSize(dimension);
-    }*/
-    
    
 
     /**

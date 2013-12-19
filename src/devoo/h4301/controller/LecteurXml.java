@@ -33,10 +33,8 @@ public class LecteurXml {
      * @return fichier ouvert
      */
     public File ouvrirFichier(String nomFichier) {
-
         File xml = new File(nomFichier);
         return xml;
-
     }
 
     /**
@@ -54,20 +52,15 @@ public class LecteurXml {
         File planXML = ouvrirFichier(nomFichier);
 
         if (planXML != null) {
-
-            // creation d'un constructeur de documents a l'aide d'une fabrique
             DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            // lecture du contenu d'un fichier XML avec DOM
             Document document = constructeur.parse(planXML);
             Element racine = document.getDocumentElement();
+            
             if (racine.getNodeName().equals("Reseau")) {
-                System.out.println("debut de la construction du plan");
-//Passer le plan a la fabrique de plan a partir de domxml
                 plan.construireAPartirDomXML(racine);
-//Gerer le cas de pb de lecture de fichier
-
-            } else
+            } else {
                 throw new Exception("Le premier noeud du plan n'est pas réseau");
+            }
         }
 
         return plan;
@@ -83,27 +76,21 @@ public class LecteurXml {
      * @throws Exception
      */
     public Tournee construireLivraisonAPartirXML(String nomFichier) throws Exception {
-
         Tournee tournee = Tournee.getInstance();
-
         File tourneeXML = ouvrirFichier(nomFichier);
-        System.out.println("fichier ouvert ");
+        
         if (tourneeXML != null) {
-
-            // creation d'un constructeur de documents a l'aide d'une fabrique
             DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-
-            // lecture du contenu d'un fichier XML avec DOM
             Document document = constructeur.parse(tourneeXML);
             Element racine = document.getDocumentElement();
+            
             if (racine.getNodeName().equals("JourneeType")) {
-                System.out.println("début de construction de tournee ");
                 tournee.construireAPartirDomXML(racine);
                 tournee.cheekPlageHoraires();
 
-            } else
+            } else {
                 throw new Exception("Le premier noeud du fichier de livraison n'est pas journéeType");
-
+            }
         }
 
         return tournee;

@@ -8,10 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
-import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -47,7 +44,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         redo = new javax.swing.JButton();
         undo = new javax.swing.JButton();
         pDroit = new javax.swing.JScrollPane();
-        debug = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -87,13 +83,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         pDroit.setAutoscrolls(true);
 
-        debug.setText("DEBUG");
-        debug.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clickDebug(evt);
-            }
-        });
-
         log.setColumns(20);
         log.setRows(5);
         jScrollPane1.setViewportView(log);
@@ -109,9 +98,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addComponent(chargerPlan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chargerLiv)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(debug)
-                .addGap(45, 45, 45)
+                .addGap(137, 137, 137)
                 .addComponent(undo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(redo)
@@ -137,8 +124,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(chargerPlan)
                     .addComponent(chargerLiv)
                     .addComponent(redo)
-                    .addComponent(undo)
-                    .addComponent(debug))
+                    .addComponent(undo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,16 +153,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_clickChargerLivraisons
 
-    private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
-        // TODO add your handling code here:
-        try {
-            this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
-            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
-        } catch (MyException ex) {
-            System.out.print(ex.toString());
-        }
-    }//GEN-LAST:event_clickDebug
-
     private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed
         this.controleurPrincipal.undo();
     }//GEN-LAST:event_undoActionPerformed
@@ -198,15 +174,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         return pGauche;
     }
     
-    public void log(String log, boolean error) {
-        this.log.append("\n"+log);
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chargerLiv;
     private javax.swing.JButton chargerPlan;
-    private javax.swing.JButton debug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea log;

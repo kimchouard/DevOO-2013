@@ -207,36 +207,33 @@ public class Tournee {
      */
     public void addLivraison(Livraison livraison) throws Exception {
         if (this.horaires.contains(livraison.getHoraire()) != true) {
-            MyException e = new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
-            throw e;
+            throw new MyException("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée ");
         }
 
         Noeud dest = livraison.getDestination();
         if (this.plan.getNoeuds().contains(dest) != true) {
-            MyException e = new MyException("La destination de la livraison n'est pas connu dans le plan");
-            throw e;
+            throw new MyException("La destination de la livraison n'est pas connu dans le plan");
+            
         }
         if (dest.getX() == null || dest.getY() == null) {
-            MyException f = new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
-            throw f;
+            throw new MyException("Les coordonnées de la destination ne sont pas correctement renseignés");
         }
         this.livraisons.add(livraison);
     }
     
-    public int ajoutLivraison(Livraison livraison){
+    public void ajoutLivraison(Livraison livraison) throws MyException{
        if(this.horaires.contains(livraison.getHoraire()) != true){
-            return 1; //La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
+            throw new MyException("Les horraires ne sont pas valides");
        }
       
        Noeud dest = livraison.getDestination();
        if (this.plan.getNoeuds().contains(dest) !=true){
-           return 2; //La destination de la livraison n'est pas connu dans le plan
+            throw new MyException("Les horraires ne sont pas valides");
        }
        if(dest.getX() == null || dest.getY() == null){
-           return 3;//Les coordonnées de la destination ne sont pas correctement renseignés
+            throw new MyException("Les horraires ne sont pas valides");
        }
         this.livraisons.add(livraison);
-        return 4;
     }
 
     /**
@@ -250,14 +247,16 @@ public class Tournee {
      * Supprime une livraison de la liste livraisons de la tournée
      *
      * @param liv livraison a supprimer
+     * @throws java.lang.Exception
      */
-    public void supprimerLivraison(Livraison liv) {
+    public void supprimerLivraison(Livraison liv) throws Exception {
         for (int i = 0; i < this.livraisons.size(); i++) {
             if (this.livraisons.get(i).equals(liv)) {
                 this.livraisons.remove(i);
-                break;
+                return;
             }
         }
+        throw new Exception("Impossible de supprimer la dite livraison");
     }
 
     /**
@@ -278,28 +277,22 @@ public class Tournee {
      * fichierXML
      */
     public void construireAPartirDomXML(Element racine) throws Exception {
+        
         this.resetTournee();
 
-        //Traitement de l'entrepot
         NodeList listEntrepot = racine.getElementsByTagName("Entrepot");
         if (listEntrepot.getLength() != 1) {
-            MyException e = new MyException("Il y a plusieurs entrepots dans le fichier de livraison");
-            throw e;
+            throw new MyException("Il y a plusieurs entrepots dans le fichier de livraison");
         }
 
         Element entrepotElem = (Element) listEntrepot.item(0);
         int adresse = Integer.parseInt(entrepotElem.getAttribute("adresse"));
         Noeud add = this.getPlan().getNoeudById(adresse);
-        //todo : vérifier que l'adresse de l'entrepot est bien dans le plan
         this.setEntrepot(add);
-        System.out.println("entrepot créé");
 
-        // Traitement des plages horaires
-        //Récupération de "plagesHoraires"
         NodeList listPlages = racine.getElementsByTagName("PlagesHoraires");
         if (listPlages.getLength() != 1) {
-            MyException e = new MyException("Il y a plusieurs listes de plages horaires dans le fichier de livraison");
-            throw e;
+            throw new MyException("Il y a plusieurs listes de plages horaires dans le fichier de livraison");
         }
         Element plagesElem = (Element) listPlages.item(0);
         //Récupération de la liste des "plageHoraire"
@@ -314,8 +307,7 @@ public class Tournee {
             //Récupération de "Livraisons"
             NodeList listLiv1 = palgeElem.getElementsByTagName("Livraisons");
             if (listLiv1.getLength() != 1) {
-                MyException e = new MyException("Il y a plusieurs listes de livraisons au sein d'une plage horaire dans le fichier de livraison");
-                throw e;
+                throw new MyException("Il y a plusieurs listes de livraisons au sein d'une plage horaire dans le fichier de livraison");
             }
             Element livraisonsElem = (Element) listLiv1.item(0);
 
