@@ -25,6 +25,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
      */
     public FenetrePrincipale() {
         initComponents();
+        this.chargerLiv.setEnabled(false);
         PrintStream printStream = new PrintStream(new LogOutputStream(log));
         System.setOut(printStream);
         System.setErr(printStream);
@@ -208,6 +209,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     
     public void updatePrintState(Boolean possiblePrint){
         print.setEnabled(possiblePrint);
+    }
+    
+    public void updateLoadLivState(Boolean possibleLoad) {
+        this.chargerLiv.setEnabled(possibleLoad);
     }
             
     

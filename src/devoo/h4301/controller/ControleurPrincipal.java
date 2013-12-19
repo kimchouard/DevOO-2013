@@ -99,6 +99,7 @@ public final class ControleurPrincipal {
         controleurLivraison.effacerItemLivraison(this.panneauLiv);
         controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
         
+        this.fenParent.updateLoadLivState(true);
         this.fenParent.updatePrintState(false);
     
     }   
@@ -240,11 +241,14 @@ public final class ControleurPrincipal {
     void reloadUI() {
         try {
             this.controleurGraph.UpdateGraphe(Tournee.getInstance());
+            this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
+            this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
+            
+            Boolean possibleToLoadLivraisons = Tournee.getInstance().getPlan() != null;
+            this.fenParent.updateLoadLivState(possibleToLoadLivraisons);
         } catch (MyException ex) {
             System.out.println("Impossible de recharger la UI");
         }
-        
-        this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
-        this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
+
     }
 }
