@@ -20,14 +20,14 @@ import java.util.ArrayList;
  *
  * @author chouard
  */
-public class VueItineraire extends VueTroncon {
+public class VueTronconItineraire extends VueTroncon {
     protected ArrayList<Troncon> troncons;
     protected VuePlageHoraire vuePlageHoraire;
     
     /**
      * Creates new form VueItineraire
      */
-    public VueItineraire(Troncon troncon, VuePlageHoraire vuePlageHoraire, VuePlan vuePlan) {
+    public VueTronconItineraire(Troncon troncon, VuePlageHoraire vuePlageHoraire, VuePlan vuePlan) {
         this.setTroncon(troncon);
         this.setVuePlageHoraire(vuePlageHoraire);
         this.vuePlan = vuePlan;
