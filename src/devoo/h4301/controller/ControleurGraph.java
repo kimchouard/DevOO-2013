@@ -7,10 +7,17 @@ package devoo.h4301.controller;
 import devoo.h4301.model.GraphUtil;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.SolutionState;
 import devoo.h4301.model.TSP;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.outils.MyException;
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -76,5 +83,63 @@ public class ControleurGraph {
         this.tsp = tsp;
     }
     
-    
+    public void printTrip(Tournee tour) throws MyException{
+        try{
+            FileWriter fw = new FileWriter ("FDR.txt");
+            BufferedWriter bw = new BufferedWriter ( fw ) ; 
+            bw.newLine(); 
+            try (PrintWriter pw = new PrintWriter ( bw )) {
+                pw.println("Tournee du jour") ;
+                pw.println();
+                LinkedList<PlageHoraire> plages = tour.getHoraires();
+                ArrayList<Livraison> livraisons = tsp.getTableFinal();
+                ArrayList<Itineraire> trajets = graphe.getEnsembleTrajets();
+                pw.println("Départ de l'entrepot");
+                pw.println();
+                for(int i=0;i<plages.size();i++)
+                {
+                    pw.println("Plage Horaire "+ plages.get(i).toString());                    
+                    pw.println();
+                    for(int j=0;j<livraisons.size()-1;j++)
+                    {
+
+                        pw.println();
+                        pw.println("Aller à la prochaine livraison pour "); //TODO: Ajouter les entrées du tableau de tsp contenant les heures de passage
+                        pw.println("à l'id: "+livraisons.get(j).getDestination().getId());
+                        for(int k=0;k<trajets.size();k++)
+                        {
+                            if((trajets.get(k).getPrevLivraison() == livraisons.get(j)) && (trajets.get(k).getNextLivraison() == livraisons.get(j+1)))
+                            {
+                                //match livraison et trajet
+                                Itineraire iti = trajets.get(k);
+                                String nomRue="";
+                                for(int l=0;l<iti.getEnsembleTroncons().size();l++)
+                                {
+                                    
+                                    if( (nomRue.isEmpty()) || !(iti.getEnsembleTroncons().get(l).getNomRue().equals(nomRue)))
+                                    {
+                                        nomRue = iti.getEnsembleTroncons().get(l).getNomRue();
+                                        pw.println("Prendre la rue "+nomRue);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                pw.println();
+                pw.println("Retour à l'entrepot");
+            }
+            
+        } catch(IOException e){
+            
+        }
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File("FDR.txt");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+        // no application registered for PDFs
+            }
+        }
+    }
 }
