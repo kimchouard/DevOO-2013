@@ -5,6 +5,7 @@
  */
 package devoo.h4301.controller;
 
+import devoo.h4301.outils.LecteurXml;
 import devoo.h4301.model.*;
 import devoo.h4301.outils.MyException;
 import devoo.h4301.views.*;

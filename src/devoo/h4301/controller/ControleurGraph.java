@@ -4,12 +4,12 @@
  */
 package devoo.h4301.controller;
 
-import devoo.h4301.model.GraphUtil;
+import devoo.h4301.outils.GraphUtil;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.PlageHoraire;
-import devoo.h4301.model.SolutionState;
-import devoo.h4301.model.TSP;
+import devoo.h4301.outils.SolutionState;
+import devoo.h4301.outils.TSP;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.outils.MyException;
 import devoo.h4301.views.FenetrePrincipale;
