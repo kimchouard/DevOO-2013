@@ -111,23 +111,24 @@ public final class ControleurPrincipal {
 
             try {
                 this.lecteurXml.construireLivraisonAPartirXML(urlLiv);
+                
+                // observer 
+                Tournee t = Tournee.getInstance();
+                commandeControleur.resetCommand();
+
+                this.controleurGraph.UpdateGraphe(t);
+
+                controleurPlan.setTournee(t);
+                controleurPlan.rafraichirVuePlan(t, panneauPlan);
+                controleurPlan.afficherPlan(panneauPlan);
+                controleurLivraison.effacerItemLivraison(panneauLiv);
+
+                // rajouter
+                controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+                this.fenParent.updatePrintState(true);
             } catch (Exception e) {
                 System.out.println("Error : " + e.getMessage());
             }
-            // observer 
-            Tournee t = Tournee.getInstance();
-            commandeControleur.resetCommand();
-
-            this.controleurGraph.UpdateGraphe(t);
-           
-            controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan(t, panneauPlan);
-            controleurPlan.afficherPlan(panneauPlan);
-            controleurLivraison.effacerItemLivraison(panneauLiv);
-        
-            // rajouter
-            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
-            this.fenParent.updatePrintState(true);
             
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
