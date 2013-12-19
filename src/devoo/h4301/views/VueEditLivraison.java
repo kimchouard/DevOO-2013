@@ -205,10 +205,15 @@ public class VueEditLivraison extends javax.swing.JPanel {
     }//GEN-LAST:event_colisActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
-        try {
-            this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire)this.ph1.getSelectedItem() );
-        } catch (ParseException ex) {
-            Logger.getLogger(VueEditLivraison.class.getName()).log(Level.SEVERE, null, ex);
+        if (this.nom.getText().length() != 0 && this.colis.getText().length() != 0) {
+            try {
+                Integer.parseInt(this.colis.getText()); 
+                this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire) this.ph1.getSelectedItem());
+            } catch (Exception e) {
+                System.out.println("Veuillez remplir le formulaire.");
+            }
+        } else {
+            System.out.println("Veuillez remplir le formulaire.");
         }
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
