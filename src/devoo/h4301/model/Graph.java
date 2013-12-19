@@ -61,5 +61,10 @@ public interface Graph {
 	 * set ensembleTrajets to ensemble
 	 */
 	public abstract void setEnsembleTrajets(ArrayList<Itineraire> ensemble);
+        
+        /**
+	 * get DictionnaireRetour 
+	 */
+        public abstract Map<Livraison, Integer> getDictionnaireRetour();
 
 }
