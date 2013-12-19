@@ -141,9 +141,7 @@ public class TSP {
          */
         public void translationAndClean(){
             tableFinal = new ArrayList<>();
-            int cpt;
-            tableFinal.add(graph.getDictionnaire().get(0));
-            cpt = next[0];
+            int cpt = 0;
             for(int i = 0; i<next.length;i++)
             {
                tableFinal.add(graph.getDictionnaire().get(cpt));
