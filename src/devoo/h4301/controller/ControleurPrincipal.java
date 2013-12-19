@@ -12,6 +12,7 @@ import devoo.h4301.views.*;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +28,18 @@ public final class ControleurPrincipal {
     public static final Color rougeMaps = new Color(217, 95, 87);
     public static final Color blancMaps = new Color(255, 255, 255);
     public static final Color jauneMaps = new Color(248, 228, 122);
+    public static final Color bleuMaps = new Color(77, 118, 194);
     public static final Color grisFonceMaps = new Color(200, 196, 186);
     public static final Color grisMaps = new Color(231, 228, 219);
     public static final Color vertMaps = new Color(207, 222, 171);
+    public static final ArrayList<Color> tronconsColor = new ArrayList() {{
+        add(new Color(255, 0, 0));
+        add(new Color(0, 255, 0));
+        add(new Color(0, 0, 255));
+        add(new Color(0, 255, 255));
+        add(new Color(255, 0, 255));
+        add(new Color(255, 255, 0));
+    }};
     // Constantes Noeuds
     public static final int diamNoeud = 15;
     //Constante plan

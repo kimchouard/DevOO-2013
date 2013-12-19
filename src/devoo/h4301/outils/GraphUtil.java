@@ -84,13 +84,14 @@ public class GraphUtil implements Graph {
 			}
 		}
 		succ = new ArrayList<>();
-		ensembleTrajets = new ArrayList<>();
+                ensembleTrajets = new ArrayList<>();
                 dictionnaire = new HashMap<>();
                 dictionnaireRetour = new HashMap<>();
                 for (int i = 1; i < nbVertices; i++) {
                     dictionnaire.put(i,tabLivraison.get(i-1));
                     dictionnaireRetour.put(tabLivraison.get(i-1),i);
                 }
+
 
 		ArrayList<PlageHoraire> PlagesHoraires = getOrderedTabDuration(tabLivraison);
                 enterIdSuccAndCost(PlagesHoraires,tabLivraison,ens);

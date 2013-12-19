@@ -15,20 +15,20 @@ import java.awt.Color;
  *
  * @author chouard
  */
-public class VueLivraisonNoeud extends VueNoeud {
+public class VueNoeudLivraison extends VueNoeud {
     private Livraison liv;
 
     /**
      * Creates new form VueLiv
      */
-    public VueLivraisonNoeud() {
+    public VueNoeudLivraison() {
         initComponents();
     }
     
     /**
      * Constructeur VueNoeud avec création du noeud
      */
-    public VueLivraisonNoeud(Livraison liv, VuePlan vuePlan ) {
+    public VueNoeudLivraison(Livraison liv, VuePlan vuePlan ) {
         this.setLiv(liv);
         this.setVuePlan(vuePlan);
         this.initialize();

@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
+import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
 import javax.swing.JScrollPane;
 
@@ -166,6 +167,16 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             System.out.print(e.getMessage());
         }
     }//GEN-LAST:event_clickChargerLivraisons
+
+    private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
+        // TODO add your handling code here:
+        try {
+            this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-2.xml");
+        } catch (MyException ex) {
+            System.out.print(ex.toString());
+        }
+    }//GEN-LAST:event_clickDebug
 
     private void undoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoActionPerformed
         this.controleurPrincipal.undo();
