@@ -77,6 +77,8 @@ public final class ControleurPrincipal {
     //--------------------------------
     //  Public functions
     public void chargerPlan(String urlPlan) {
+        this.controleurGraph.resetGraph();
+        
         if (urlPlan == "") {
             urlPlan = ouvrirFichier();
         }

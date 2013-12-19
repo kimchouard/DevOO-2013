@@ -92,6 +92,11 @@ public class ControleurGraph {
         this.tsp = tsp;
     }
     
+    public void resetGraph() {
+        graphe = null;
+        tsp = null;
+    }
+    
     public void printTrip(Tournee tour) throws MyException{
         try{
             FileWriter fw = new FileWriter ("FDR.txt");

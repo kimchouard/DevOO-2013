@@ -49,6 +49,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         log = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
+        debug = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +101,13 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
 
+        debug.setText("DEBUG");
+        debug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickDebug(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +122,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                                 .addComponent(chargerPlan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chargerLiv)
-                                .addGap(137, 137, 137)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(debug)
+                                .addGap(42, 42, 42)
                                 .addComponent(undo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(redo)))
@@ -139,7 +149,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(chargerLiv)
                     .addComponent(redo)
                     .addComponent(undo)
-                    .addComponent(print))
+                    .addComponent(print)
+                    .addComponent(debug))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,8 +182,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
         try {
-            this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
-            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-2.xml");
+            this.controleurPrincipal.chargerPlan("/Users/chouard/debugPlan.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/debugLivraison.xml");
         } catch (MyException ex) {
             System.out.print(ex.toString());
         }
@@ -212,6 +223,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chargerLiv;
     private javax.swing.JButton chargerPlan;
+    private javax.swing.JButton debug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea log;
