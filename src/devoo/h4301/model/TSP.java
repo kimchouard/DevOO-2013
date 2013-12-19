@@ -1,8 +1,9 @@
 package devoo.h4301.model;
 
-import devoo.h4301.outils.MyException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import solver.ResolutionPolicy;
 import solver.Solver;
 import solver.constraints.IntConstraintFactory;
@@ -22,7 +23,7 @@ public class TSP {
 	private SolutionState state;
 	private Graph graph;
         private ArrayList<Livraison> tableFinal;
-
+        private Map<Livraison,String> mapHeureExacte;
 
 	public TSP(Graph graph) {
 		state = SolutionState.NO_SOLUTION_FOUND;
@@ -83,19 +84,69 @@ public class TSP {
 			else 
 				state = SolutionState.INCONSISTENT;
 		}
-                verifEntrepot();
                 translationAndClean();
+                verifPH();
 		return state;
 	}
         
         /**
-         * Traduit next[] en un tableau de livraisons grâce au dictionnaire de graph
+         * Remplissage de la map mapHeureExacte qui lie une livraison à l'horaire exacte 
+         * verifie qu'une livraison ne depasse pas de sa plage horaire, si oui notifie au superviseur
+         */
+        private void verifPH()
+        {
+                Map<Livraison, Integer> dico = graph.getDictionnaireRetour();
+                mapHeureExacte = new HashMap<>();
+                int[][] cost = graph.getCost();
+                int avanceePHheure = tableFinal.get(1).getHoraire().getDebut().getHours();
+                int avanceePHmin = 60*avanceePHheure + tableFinal.get(1).getHoraire().getDebut().getMinutes();
+                int horaireAPasDepasserHeure = tableFinal.get(1).getHoraire().getFin().getHours();
+                int horaireAPasDepasserMin = 60*horaireAPasDepasserHeure + tableFinal.get(1).getHoraire().getFin().getMinutes();
+                Date plageEnCours = tableFinal.get(1).getHoraire().getDebut();
+                int correspondantLivraison1;
+                int correspondantLivraison2;
+                
+                for(int i = 1; i<tableFinal.size();i++)
+                {
+                    if(!plageEnCours.equals(tableFinal.get(i).getHoraire().getDebut()))
+                    {
+                        avanceePHheure = tableFinal.get(i).getHoraire().getDebut().getHours();
+                        avanceePHmin = 60*avanceePHheure+ tableFinal.get(i).getHoraire().getDebut().getMinutes();
+                        horaireAPasDepasserHeure = tableFinal.get(i).getHoraire().getFin().getHours();
+                        horaireAPasDepasserMin = 60*horaireAPasDepasserHeure + tableFinal.get(i).getHoraire().getFin().getMinutes();
+                        plageEnCours = tableFinal.get(i).getHoraire().getDebut();
+                    }
+                    correspondantLivraison1 = dico.get(tableFinal.get(i-1));
+                    correspondantLivraison2 = dico.get(tableFinal.get(i));
+                    int arrondiCout = (int)(cost[correspondantLivraison1][correspondantLivraison2]/60);
+                    avanceePHmin = avanceePHmin + arrondiCout +10;
+                    
+                    if (avanceePHmin > horaireAPasDepasserMin)
+                    {
+                        System.out.println("La livraison "+tableFinal.get(i).getDestination().getId()+"n'a pas pu être placée dans sa plage horaire , vous pouvez la supprimer sur cette magnifique interface");
+                    }
+                    
+                    String heureExacte = (int)Math.floor(avanceePHmin/60) +" : "+avanceePHmin%60;
+                    mapHeureExacte.put(tableFinal.get(i),heureExacte);
+                    
+                }
+
+        }
+        
+        
+        
+        /**
+         * Traduit next[] en un tableau de livraisons grâce à la map de graph
          */
         public void translationAndClean(){
             tableFinal = new ArrayList<>();
+            int cpt;
+            tableFinal.add(graph.getDictionnaire().get(0));
+            cpt = next[0];
             for(int i = 0; i<next.length;i++)
             {
-               tableFinal.add(graph.getDictionnaire().get(next[i]));
+               tableFinal.add(graph.getDictionnaire().get(cpt));
+               cpt = next[cpt];
             }
 
                 // Clean ensembleTrajets
@@ -129,46 +180,6 @@ public class TSP {
                 
                 graph.setEnsembleTrajets(listeItineraires);
             }
-        
-        /**
-         * When the first PH is also the last, entrepot can be at the middle of Next[]
-         * verifEntrepot change the order of Next if it's the case 
-         */
-        public void verifEntrepot(){
-            if (next[0] != graph.getNbVertices()-1)
-            {
-                int i = 1;
-                boolean find = false;
-                int[] nouveau = new int[graph.getNbVertices()];
-                while((i<next.length)&&(find==false))
-                {
-                    if(next[i] == graph.getNbVertices()-1)
-                    {
-                        find = true;
-                    }
-                    i++;
-                }
-                for(int j = 0; j<next.length;j++)
-                {
-                    if (i-1<next.length)
-                    {
-                         nouveau[j]=next[i-1];
-                         i++;
-                    }
-                    else 
-                    {
-                         nouveau[j]=next[i-1-next.length];
-                         i++;
-                    }
-
-                }
-                for(int j = 0; j<next.length;j++)
-                {
-                    next[j] = nouveau[j];
-                }
-                
-            }
-        }
 
 	/**
 	 * @return an array <code>next</code> such that <code>next[i]</code> gives the vertex visited just after <code>i</code> in the last computed solution
@@ -199,9 +210,19 @@ public class TSP {
 	public SolutionState getSolutionState() {
 		return state;
 	}
-        
+        /*
+         * return TableFinal contenant les livraisons dans l'ordre de passage
+         */
         public ArrayList<Livraison> getTableFinal() {
             return tableFinal;
         }
+        
+        /*
+         * return mapHeureExacte qui contient les heures exactes de passage à une livraison
+         */
+        public Map<Livraison, String> getMapHeureExacte() {
+            return mapHeureExacte;
+        }
+
 
 }
