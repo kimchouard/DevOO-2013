@@ -137,6 +137,7 @@ public class TSP {
         
         /**
          * Traduit next[] en un tableau de livraisons grâce à la map de graph
+         * et nettoie ensemble trajets des itineraires non utilisés
          */
         public void translationAndClean(){
             tableFinal = new ArrayList<>();
