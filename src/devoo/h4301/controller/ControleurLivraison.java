@@ -74,29 +74,14 @@ public class ControleurLivraison {
      * Création d'une livraison
      * @param noeud Noeud de livraison
      */
-    public void creationLivraison(Noeud noeud) {
-         try {
-            // construction de la livraison en dur
+    public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) throws ParseException {
+         
             Client client = new Client(0);
-            client.setName("Mimi");
+            client.setName(nom);
             
-            int colis = 7;
-            
-            String hd = "8:0:0";
-            String hf = "12:0:0";
-            PlageHoraire horaire = new PlageHoraire();
-            Date deb = horaire.construireDateAPartirString(hd);
-            Date fin = horaire.construireDateAPartirString(hf);
-            horaire.setDebut(deb);
-            horaire.setFin(fin);
-            
-            Livraison liv = new Livraison(noeud, colis, horaire, client);
+            Livraison liv = new Livraison(noeud, colis, ph, client);
             
             this.ajoutLiv(liv);
-      
-        } catch (ParseException ex) {
-            Logger.getLogger(ControleurLivraison.class.getName()).log(Level.SEVERE, null, ex);
-        }
      }
 
     /**

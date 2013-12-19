@@ -61,7 +61,7 @@ public class PlageHoraire {
 
         return convertedDate;
     }
-
+    
     /**
      * @return the debut
      */

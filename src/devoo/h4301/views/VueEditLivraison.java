@@ -9,7 +9,12 @@ package devoo.h4301.views;
 import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
+import devoo.h4301.model.Tournee;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,8 +37,13 @@ public class VueEditLivraison extends javax.swing.JPanel {
        this.setNoeud(noeud);
        this.nom.setText("");
        this.colis.setText("");
-       //this.ph1.removeAllItems();
-       // this.ph1
+       this.ph1.removeAllItems();
+       LinkedList<PlageHoraire> listhoraires = Tournee.getInstance().getHoraires();
+       for(int i=0;i<listhoraires.size();i++)
+       {
+           this.ph1.addItem(listhoraires.get(i));
+       }
+       
     }
     
     public VueEditLivraison(ControleurLivraison controleurLivraison) {
@@ -70,13 +80,11 @@ public class VueEditLivraison extends javax.swing.JPanel {
         typeColis = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         plageHoraire = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         nom = new javax.swing.JTextField();
         colis = new javax.swing.JTextField();
         buttonConfirm = new javax.swing.JButton();
         boutonAnnuler = new javax.swing.JButton();
         ph1 = new javax.swing.JComboBox();
-        ph2 = new javax.swing.JComboBox();
 
         setPreferredSize(new java.awt.Dimension(280, 100));
 
@@ -84,9 +92,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
 
         typeColis.setText("Colis");
 
-        plageHoraire.setText("Plage horaire : de");
-
-        jLabel5.setText("à");
+        plageHoraire.setText("Plage horaire : ");
 
         nom.setText("nom");
         nom.addActionListener(new java.awt.event.ActionListener() {
@@ -124,8 +130,6 @@ public class VueEditLivraison extends javax.swing.JPanel {
             }
         });
 
-        ph2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,10 +139,6 @@ public class VueEditLivraison extends javax.swing.JPanel {
                 .addComponent(plageHoraire)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ph1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ph2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +162,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                         .addComponent(buttonConfirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(boutonAnnuler)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(383, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,16 +181,14 @@ public class VueEditLivraison extends javax.swing.JPanel {
                         .addGap(87, 87, 87)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(plageHoraire)
-                            .addComponent(ph1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(ph2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ph1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonConfirm)
                     .addComponent(boutonAnnuler))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel3)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         nom.getAccessibleContext().setAccessibleName("nomClient");
@@ -207,8 +205,11 @@ public class VueEditLivraison extends javax.swing.JPanel {
     }//GEN-LAST:event_colisActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
-        
-        this.controleurLivraison.creationLivraison(this.noeud );
+        try {
+            this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire)this.ph1.getSelectedItem() );
+        } catch (ParseException ex) {
+            Logger.getLogger(VueEditLivraison.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed
@@ -225,11 +226,9 @@ public class VueEditLivraison extends javax.swing.JPanel {
     private javax.swing.JButton buttonConfirm;
     private javax.swing.JTextField colis;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nom;
     private javax.swing.JLabel nomClient;
     private javax.swing.JComboBox ph1;
-    private javax.swing.JComboBox ph2;
     private javax.swing.JLabel plageHoraire;
     private javax.swing.JLabel typeColis;
     // End of variables declaration//GEN-END:variables
