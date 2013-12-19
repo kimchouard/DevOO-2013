@@ -43,7 +43,7 @@ public class PlageHoraire {
         }
     }
     
-    private Date construireDateAPartirString(String stringHeure) throws ParseException {
+    public Date construireDateAPartirString(String stringHeure) throws ParseException {
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date convertedDate = formatter.parse(stringHeure);
 

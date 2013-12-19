@@ -15,8 +15,11 @@ import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
 import static java.sql.Types.NULL;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -57,23 +60,28 @@ public class ControleurLivraison {
      }
      
      public void creationLivraison(Noeud noeud) {
-         Client client = new Client(0);
-         client.setName("Mimi");
-         
-         int colis = 7;
-         
-         String hd = "8:0/0";
-         String hf = "12:0/0";
-         PlageHoraire horaire = new PlageHoraire();
-         //Date deb = new Date(2000, 11, 20, 08, 00);
-         //Date fin = new Date(2000, 11, 20, 12, 00);
-         
-         //horaire.setDebut(deb);
-         //horaire.setFin(fin);
-         
-         Livraison liv = new Livraison(noeud, colis, horaire, client);
-         this.ajoutLiv(liv);
-         this.afficherListLivraisonInitiale();
+        try {
+            // construction de la livraison en dur
+            Client client = new Client(0);
+            client.setName("Mimi");
+            
+            int colis = 7;
+            
+            String hd = "8:0:0";
+            String hf = "12:0:0";
+            PlageHoraire horaire = new PlageHoraire();
+            Date deb = horaire.construireDateAPartirString(hd);
+            Date fin = horaire.construireDateAPartirString(hf);
+            horaire.setDebut(deb);
+            horaire.setFin(fin);
+            
+            Livraison liv = new Livraison(noeud, colis, horaire, client);
+            
+            this.ajoutLiv(liv);
+      
+        } catch (ParseException ex) {
+            Logger.getLogger(ControleurLivraison.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
      }
      
@@ -134,13 +142,13 @@ public class ControleurLivraison {
         int result = Tournee.getInstance().ajoutLivraison(liv); 
         switch (result) {
             case 1 : // La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée
-                
+                System.out.println("La plage horaire de la livraison ajoutée n'est pas les plages horaires de la tournée");
                 break;
             case 2 ://La destination de la livraison n'est pas connu dans le plan
-                
+                System.out.println("2");
                 break;
             case 3 ://Les coordonnées de la destination ne sont pas correctement renseignés
-                
+                System.out.println("3");
                 break;
             case 4 : // la livraison a bien été ajoutée
                 this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
