@@ -1,5 +1,12 @@
-package devoo.h4301.model;
+package devoo.h4301.outils;
 
+import devoo.h4301.model.Itineraire;
+import devoo.h4301.model.Livraison;
+import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
+import devoo.h4301.model.Plan;
+import devoo.h4301.model.Tournee;
+import devoo.h4301.model.Troncon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;

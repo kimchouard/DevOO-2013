@@ -1,5 +1,7 @@
-package devoo.h4301.model;
+package devoo.h4301.outils;
 
+import devoo.h4301.model.Itineraire;
+import devoo.h4301.model.Livraison;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

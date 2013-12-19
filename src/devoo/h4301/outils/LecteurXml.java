@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package devoo.h4301.controller;
+package devoo.h4301.outils;
 
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;

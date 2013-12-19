@@ -6,7 +6,7 @@
 
 package devoo.h4301.controller;
 
-import devoo.h4301.model.Command;
+import devoo.h4301.outils.Command;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.FenetrePrincipale;
