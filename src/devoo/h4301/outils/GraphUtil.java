@@ -70,7 +70,7 @@ public class GraphUtil implements Graph {
 	 * @param max a maximal arc cost such that <code>min < max</code>
 	 */
 
-       	public GraphUtil(Tournee ens)
+       	public GraphUtil(Tournee ens) throws Exception
 	{	
                 LinkedList<Livraison> tabLivraison = ens.getLivraisons();
                 // Initialisation
@@ -139,7 +139,7 @@ public class GraphUtil implements Graph {
         
         
         // ENTERING THE VERTICES IN SUCC AND COST 
-        private void enterIdSuccAndCost(ArrayList<PlageHoraire> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens)
+        private void enterIdSuccAndCost(ArrayList<PlageHoraire> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws Exception
         {
                	PlageHoraire PH1,PH2;
                 
@@ -240,7 +240,7 @@ public class GraphUtil implements Graph {
 	
 	
 	//Calculating cost between pt1 and pt2 using the sortest path of Djikstra 
-	private LinkedList<Troncon> getPath(int pt1, int pt2, Plan P)
+	private LinkedList<Troncon> getPath(int pt1, int pt2, Plan P) throws Exception
 	{
 		ArrayList<Noeud> tabnoeuds = P.getNoeuds();
 		int Psize = tabnoeuds.size();
@@ -277,7 +277,7 @@ public class GraphUtil implements Graph {
 		LinkedList<Integer> path = new LinkedList<>();
                 if (previous.get(pt2) == null) 
                 {
-                  return null;
+                  throw new Exception("No path found");
                 }
                 path.add(pt2);
                 while (previous.get(pt2) != null) 
