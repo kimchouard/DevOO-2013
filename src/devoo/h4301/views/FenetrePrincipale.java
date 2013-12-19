@@ -171,7 +171,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             this.controleurPrincipal.chargerPlan("/Users/chouard/plan10x10.xml");
-            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-1.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/livraison10x10-2.xml");
         } catch (MyException ex) {
             System.out.print(ex.toString());
         }

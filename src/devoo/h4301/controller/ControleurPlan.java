@@ -59,8 +59,8 @@ public class ControleurPlan {
             this.vuePlan.ajouterNoeud(n);
         }
         
-//        ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
-        LinkedList<Livraison> livs =  tournee.getLivraisons();
+        ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
+//        LinkedList<Livraison> livs =  tournee.getLivraisons();
         int start = 0;
         for (Livraison l : livs) {
             //Si c'est l'entrepot
