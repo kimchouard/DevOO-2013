@@ -156,11 +156,6 @@ public class ControleurLivraison {
             return;
         }
      }
-    
-    /**
-     *
-     * @param liv
-     */
         
      public void ajoutLiv(Livraison liv){
         try { 

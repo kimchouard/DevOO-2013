@@ -28,7 +28,6 @@ public class ControllerCommandTest {
     @Before
     public void setUp() {
         fenPrinc = new FenetrePrincipale();
-        controllerCommand = new ControllerCommand(fenPrinc);
     }
     
     @After
