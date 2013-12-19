@@ -47,6 +47,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        Print = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,26 +91,38 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jLabel1.setText("Log");
         jLabel1.setToolTipText("");
 
+        Print.setText("Print");
+        Print.setName(""); // NOI18N
+        Print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(chargerPlan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chargerLiv)
-                .addGap(137, 137, 137)
-                .addComponent(undo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(redo)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chargerPlan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chargerLiv)
+                                .addGap(137, 137, 137)
+                                .addComponent(undo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(redo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Print)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -124,7 +137,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(chargerPlan)
                     .addComponent(chargerLiv)
                     .addComponent(redo)
-                    .addComponent(undo))
+                    .addComponent(undo)
+                    .addComponent(Print))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,6 +175,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.controleurPrincipal.redo();
     }//GEN-LAST:event_redoActionPerformed
 
+    private void PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintActionPerformed
+        this.controleurPrincipal.print();
+    }//GEN-LAST:event_PrintActionPerformed
+
     public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
         redo.setEnabled(possibleRedo);
         undo.setEnabled(possibleUndo);
@@ -176,6 +194,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Print;
     private javax.swing.JButton chargerLiv;
     private javax.swing.JButton chargerPlan;
     private javax.swing.JLabel jLabel1;

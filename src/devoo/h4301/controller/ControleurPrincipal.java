@@ -203,6 +203,14 @@ public final class ControleurPrincipal {
             System.out.println("Impossible to redo");
         }
     }
+    
+    public void print(){
+        try{
+            this.controleurGraph.printTrip(Tournee.getInstance());
+        } catch (MyException e){
+            System.out.println("Impossible de générer la version papier");
+        }
+    }
 
     void reloadUI() {
         try {
