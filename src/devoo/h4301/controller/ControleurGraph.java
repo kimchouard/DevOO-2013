@@ -12,6 +12,7 @@ import devoo.h4301.model.SolutionState;
 import devoo.h4301.model.TSP;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.outils.MyException;
+import devoo.h4301.views.FenetrePrincipale;
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,13 +29,21 @@ import java.util.LinkedList;
 public class ControleurGraph {
     private GraphUtil graphe;
     private TSP tsp;
+    private ControleurPrincipal controleurPrincipal;
+    private FenetrePrincipale fenetrePrincipale;
+    
+    public ControleurGraph(ControleurPrincipal controleurPrincipal, FenetrePrincipale fenParent){
+        this.fenetrePrincipale = fenParent;
+        this.controleurPrincipal = controleurPrincipal;
+        this.fenetrePrincipale.updatePrintState(false);
+    }
+    
     
     
     //Lancé à chaque nouvelle demande de calcul
     public int UpdateGraphe(Tournee t) throws MyException{
         graphe = new GraphUtil(t);
         tsp = new TSP(graphe);
-        
         //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
         switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
         {

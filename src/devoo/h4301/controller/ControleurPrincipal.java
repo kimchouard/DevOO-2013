@@ -60,7 +60,7 @@ public final class ControleurPrincipal {
         this.lecteurXml = new LecteurXml();
         this.controleurLivraison = new ControleurLivraison(this);
         this.commandeControleur = new ControllerCommand(this, this.fenParent);
-        this.controleurGraph = new ControleurGraph();
+        this.controleurGraph = new ControleurGraph(this,this.fenParent);
     }
 
     //--------------------------------
@@ -85,6 +85,8 @@ public final class ControleurPrincipal {
         controleurLivraison.effacerVueListLivraison(this.panneauLiv );
         controleurLivraison.effacerItemLivraison(this.panneauLiv);
         controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+        
+        this.fenParent.updatePrintState(false);
     
     }   
 
@@ -112,6 +114,8 @@ public final class ControleurPrincipal {
         
             // rajouter
             controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
+            this.fenParent.updatePrintState(true);
+            
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
@@ -127,6 +131,11 @@ public final class ControleurPrincipal {
        this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
        //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
      }
+    
+    public void rafraichirVueGraph(){
+        this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), panneauPlan);
+        
+    }
 
     
     public void addCommandeLivraison(Livraison liv, boolean deleted)

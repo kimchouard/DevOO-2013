@@ -14,6 +14,10 @@ import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 
 /**
@@ -71,25 +75,28 @@ public class ControleurLivraison {
      * @param noeud Noeud de livraison
      */
     public void creationLivraison(Noeud noeud) {
-         Client client = new Client(0);
-         client.setName("Mimi");
-         
-         int colis = 7;
-         
-         String hd = "8:0/0";
-         String hf = "12:0/0";
-         PlageHoraire horaire = new PlageHoraire();
-         //Date deb = new Date(2000, 11, 20, 08, 00);
-         //Date fin = new Date(2000, 11, 20, 12, 00);
-         
-         //horaire.setDebut(deb);
-         //horaire.setFin(fin);
-         
-         Livraison liv = new Livraison(noeud, colis, horaire, client);
-         controleurPrincipal.addCommandeLivraison(liv, false);
-
-         this.ajoutLiv(liv);
-         this.afficherListLivraisonInitiale();
+         try {
+            // construction de la livraison en dur
+            Client client = new Client(0);
+            client.setName("Mimi");
+            
+            int colis = 7;
+            
+            String hd = "8:0:0";
+            String hf = "12:0:0";
+            PlageHoraire horaire = new PlageHoraire();
+            Date deb = horaire.construireDateAPartirString(hd);
+            Date fin = horaire.construireDateAPartirString(hf);
+            horaire.setDebut(deb);
+            horaire.setFin(fin);
+            
+            Livraison liv = new Livraison(noeud, colis, horaire, client);
+            
+            this.ajoutLiv(liv);
+      
+        } catch (ParseException ex) {
+            Logger.getLogger(ControleurLivraison.class.getName()).log(Level.SEVERE, null, ex);
+        }
      }
 
     /**

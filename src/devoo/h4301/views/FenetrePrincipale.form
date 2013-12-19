@@ -41,7 +41,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="Print" min="-2" max="-2" attributes="0"/>
+                              <Component id="print" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="pDroit" pref="415" max="32767" attributes="0"/>
@@ -66,7 +66,7 @@
                   <Component id="chargerLiv" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="redo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="undo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Print" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="print" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -153,13 +153,13 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="Print">
+    <Component class="javax.swing.JButton" name="print">
       <Properties>
         <Property name="text" type="java.lang.String" value="Print"/>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrintActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
