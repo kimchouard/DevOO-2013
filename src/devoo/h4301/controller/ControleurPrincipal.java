@@ -136,15 +136,19 @@ public final class ControleurPrincipal {
         }
     }
     public void selectLivraison(Livraison liv) {
-        // éclairer la bonne livraison
-        this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
-
+        if (Tournee.getInstance().getLivraisons().size() > 0) {
+            this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
+        } else {
+            System.out.println("Il est necessaire de charger des livraison avant tout.");
+        }
     }
 
     public void createLiv(Noeud noeud) throws Exception {
-        // Tester si le noeud est bien une livraison alors afficher sans l'édition
-       this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
-       //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
+        if (Tournee.getInstance().getLivraisons().size() > 0) {
+            this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+        } else {
+            System.out.println("Il est necessaire de charger des livraison avant tout.");
+        }
      }
     
     public void rafraichirVueGraph() throws MyException{
