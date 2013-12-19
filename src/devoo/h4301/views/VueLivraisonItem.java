@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 public class VueLivraisonItem extends javax.swing.JPanel {
     
     private Livraison livraison;
-    //private VueListLivraison vueListLivraison;
     private final DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     private ControleurLivraison controleurLivraison;
     
@@ -163,7 +162,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nomClient)
                             .addComponent(plageHoraire))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
@@ -183,7 +182,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addComponent(plageHoraire)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supprBouton)
                     .addComponent(jButton1))

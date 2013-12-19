@@ -23,9 +23,17 @@ public class VueEditLivraison extends javax.swing.JPanel {
      * Creates new form VueEditLivraison
      */
     public VueEditLivraison(ControleurLivraison controleurLivraison, Noeud noeud) {
-        this.setControleurLivraison(controleurLivraison);
-        this.setNoeud(noeud);
-        initComponents();
+       
+       this.initComponents();
+       this.setOpaque(false);
+       this.setVisible(true);
+       
+       this.setControleurLivraison(controleurLivraison);
+       this.setNoeud(noeud);
+       this.nom.setText("");
+       this.colis.setText("");
+       this.ph1.removeAllItems();
+       // this.ph1
     }
     
     public VueEditLivraison(ControleurLivraison controleurLivraison) {
@@ -136,24 +144,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                         .addComponent(buttonConfirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(boutonAnnuler)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(colis, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(plageHoraire)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ph1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ph2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +172,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                     .addComponent(boutonAnnuler))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         nom.getAccessibleContext().setAccessibleName("nomClient");

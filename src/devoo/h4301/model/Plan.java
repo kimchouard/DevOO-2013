@@ -207,10 +207,7 @@ public class Plan {
             NodeList listeTroncon = noeudElem.getElementsByTagName(tag);
 
             Integer idOrigine = Integer.parseInt(noeudElem.getAttribute("id"));
-            System.out.println("le noeud origin est : " + idOrigine);
             Noeud origine = getNoeudById(idOrigine);
-//Pour chaque noeud, on récupère sa liste de troncon
-            System.out.println("début troncon");
 
             for (int j = 0; j < listeTroncon.getLength(); j++) {
                 Element tronconElem = (Element) listeTroncon.item(j);

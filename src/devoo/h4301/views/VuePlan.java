@@ -118,7 +118,7 @@ public class VuePlan extends javax.swing.JPanel {
             this.add(vi);
             vi.setVisible(true);
         } else {
-            System.out.println("Gérer les multi troncons!");
+            //System.out.println("Gérer les multi troncons!");
         }
     }
     
