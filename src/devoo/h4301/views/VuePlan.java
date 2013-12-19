@@ -119,9 +119,10 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterItineraire(Troncon t, PlageHoraire ph) {
-        if (getVueItineraire(t) == null) {
+        VueTronconItineraire vi = getVueItineraire(t);
+        if (vi == null) {
             VuePlageHoraire vph = getVuePlageHoraire(ph);
-            VueTronconItineraire vi = new VueTronconItineraire(t, vph, this);
+            vi = new VueTronconItineraire(t, vph, this);
             this.placerTroncon((VueTroncon) vi);
             this.updateVuePlanFrame();
 
@@ -129,7 +130,7 @@ public class VuePlan extends javax.swing.JPanel {
             this.add(vi);
             vi.setVisible(true);
         } else {
-            //System.out.println("Gérer les multi troncons!");
+            vi.addVuePlageHoraire(getVuePlageHoraire(ph));
         }
     }
     
