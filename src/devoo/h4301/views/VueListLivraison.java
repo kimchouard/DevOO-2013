@@ -30,6 +30,9 @@ public class VueListLivraison extends javax.swing.JPanel {
         initialize();
     }
     
+    /**
+     * Initialise les composants graphiques
+     */
     public void initialize() {
         initComponents();
         

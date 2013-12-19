@@ -10,11 +10,8 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -205,6 +202,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
     }//GEN-LAST:event_colisActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+
         if (this.nom.getText().length() != 0 && this.colis.getText().length() != 0) {
             try {
                 Integer.parseInt(this.colis.getText()); 
