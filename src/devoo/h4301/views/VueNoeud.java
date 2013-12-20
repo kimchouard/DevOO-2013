@@ -85,6 +85,10 @@ public class VueNoeud extends javax.swing.JPanel {
     }
     
     public void setSelected(boolean selected) {
+        this.selected = selected;
+        
+        this.repaint();
+        
         if (selected) {
             try {
                 this.vuePlan.createLiv(this.noeud);
@@ -92,10 +96,6 @@ public class VueNoeud extends javax.swing.JPanel {
                 Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        this.selected = selected;
-        
-        this.repaint();
     }
     
     public void setHovered(boolean hovered) {

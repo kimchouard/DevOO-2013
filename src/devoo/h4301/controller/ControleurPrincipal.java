@@ -139,6 +139,7 @@ public final class ControleurPrincipal {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
         } else {
+            this.controleurPlan.getVuePlan().unselectNoeuds();
             System.out.println("Il est necessaire de charger des livraison avant tout.");
         }
     }
@@ -147,6 +148,7 @@ public final class ControleurPrincipal {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
         } else {
+            this.controleurPlan.getVuePlan().unselectNoeuds();
             System.out.println("Il est necessaire de charger des livraison avant tout.");
         }
      }
