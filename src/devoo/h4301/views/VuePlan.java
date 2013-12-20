@@ -11,6 +11,7 @@ import devoo.h4301.controller.ControleurPrincipal;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
@@ -28,9 +29,9 @@ public class VuePlan extends javax.swing.JPanel {
     private Tournee tournee;
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
-    private ArrayList<VueLivraisonNoeud> vueLivs = new ArrayList();
-    private ArrayList<VueItineraire> vueItin = new ArrayList();
-//    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
+    private ArrayList<VueNoeudLivraison> vueLivs = new ArrayList();
+    private ArrayList<VueTronconItineraire> vueItin = new ArrayList();
+    private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
     
     protected double zoomScale = 1.0;
 
@@ -41,7 +42,10 @@ public class VuePlan extends javax.swing.JPanel {
         this.setControlerPlan(controlerPlan);
         initialize();
     }
-    
+
+    /**
+     * Initialise la vue
+     */
     private void initialize() {
         initComponents();
 
@@ -49,16 +53,23 @@ public class VuePlan extends javax.swing.JPanel {
         this.setVisible(true); 
     }
     
+    /**
+     * Vide le plan en rechargeant l'interface. 
+     */
     public void reset() {
         this.removeAll();
         this.updateUI();
         this.vueNoeuds.clear();
         this.vueTroncons.clear();
-        this.vueItin.clear();
         this.vueLivs.clear();
-//        this.vuePlages.clear();
+        this.vueItin.clear();
+        this.vuePlages.clear();
     }
     
+    /**
+     * Ajouter un noeud sur le plan en créant la vue associéß
+     * @param noeud correspond au noeud a ajouter
+     */
     public void ajouterNoeud(Noeud noeud) {
         VueNoeud v = new VueNoeud(noeud, this);
         this.placerNoeud(v);
@@ -82,7 +93,16 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterLiv(Livraison liv) {
-        VueLivraisonNoeud vl = new VueLivraisonNoeud(liv, this);
+        VueNoeudLivraison vl = new VueNoeudLivraison(liv, this);
+        ajouterVueLiv(vl, liv);
+    }
+    
+    public void ajouterEntrepot(Livraison liv) {
+        VueNoeudEntrepot ve = new VueNoeudEntrepot(liv, this);
+        ajouterVueLiv((VueNoeudLivraison) ve, liv);
+    }
+    
+    private void ajouterVueLiv(VueNoeudLivraison vl, Livraison liv) {
         this.placerNoeud((VueNoeud) vl);
         this.updateVuePlanFrame();
         
@@ -108,9 +128,11 @@ public class VuePlan extends javax.swing.JPanel {
         this.add(v);
     }
     
-    public void ajouterItineraire(Troncon t) {
-        if (getVueItineraire(t) == null) {
-            VueItineraire vi = new VueItineraire(t, this);
+    public void ajouterItineraire(Troncon t, PlageHoraire ph) {
+        VueTronconItineraire vi = getVueItineraire(t);
+        if (vi == null) {
+            VuePlageHoraire vph = getVuePlageHoraire(ph);
+            vi = new VueTronconItineraire(t, vph, this);
             this.placerTroncon((VueTroncon) vi);
             this.updateVuePlanFrame();
 
@@ -118,12 +140,13 @@ public class VuePlan extends javax.swing.JPanel {
             this.add(vi);
             vi.setVisible(true);
         } else {
-            //System.out.println("Gérer les multi troncons!");
+            vi.addVuePlageHoraire(getVuePlageHoraire(ph));
+            this.updateVuePlanFrame();
         }
     }
     
-    public VueItineraire getVueItineraire(Troncon t) {
-        for (VueItineraire vi : this.vueItin) {
+    public VueTronconItineraire getVueItineraire(Troncon t) {
+        for (VueTronconItineraire vi : this.vueItin) {
             if( (vi.getTroncon().getDestination().getId() == t.getDestination().getId())
              && (vi.getTroncon().getOrigine().getId() == t.getOrigine().getId())
             ) {
@@ -132,6 +155,21 @@ public class VuePlan extends javax.swing.JPanel {
         }
         
         return null;
+    }
+    
+    public VuePlageHoraire getVuePlageHoraire(PlageHoraire ph) {
+        for (VuePlageHoraire vph : this.vuePlages) {
+            if((vph.getPlageHoraire().getDebut() == ph.getDebut())
+            && (vph.getPlageHoraire().getFin() == ph.getFin())
+            ) {
+                return vph;
+            }
+        }
+        
+        Color c = ControleurPrincipal.tronconsColor.get(this.vuePlages.size() % ControleurPrincipal.tronconsColor.size());
+        VuePlageHoraire vph = new VuePlageHoraire(c, ph);
+        this.vuePlages.add(vph);
+        return vph;
     }
     
     public void placerTroncon(VueTroncon vueTroncon) {
@@ -146,9 +184,9 @@ public class VuePlan extends javax.swing.JPanel {
         vueTroncon.setSize(this.scaledSize(larg) + ControleurPrincipal.diamNoeud, this.scaledSize(haut) + ControleurPrincipal.diamNoeud);
     }
     
-    public void unselectNoeuds() {
+    public void unselectNoeudsEtLiv() {
         //Reset all the others noeuds
-        for (VueLivraisonNoeud vl : this.vueLivs) {
+        for (VueNoeudLivraison vl : this.vueLivs) {
            vl.setSelected(false);
         }
         for (VueNoeud vn : this.vueNoeuds) {
@@ -158,12 +196,16 @@ public class VuePlan extends javax.swing.JPanel {
     
     public void selectLiv(Livraison liv) {
         //Do the check
-        unselectNoeuds();
+        this.unselectNoeudsEtLiv();
         controlerPlan.selectLivraison(liv);
     }
     
+    public void unSelectLivs() {
+        controlerPlan.unSelectLivraisons();
+    }
+    
     public void createLiv(Noeud noeud) throws Exception {
-        unselectNoeuds();
+        this.unselectNoeudsEtLiv();
         controlerPlan.createLiv(noeud);
     }
     

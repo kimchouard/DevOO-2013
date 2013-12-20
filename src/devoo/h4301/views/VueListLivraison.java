@@ -10,6 +10,7 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -30,6 +31,9 @@ public class VueListLivraison extends javax.swing.JPanel {
         initialize();
     }
     
+    /**
+     * Initialise les composants graphiques
+     */
     public void initialize() {
         initComponents();
         
@@ -43,8 +47,8 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.vueLivraisonsItem.clear();
     }
     
-    public void ajouterLivraison(Livraison livraison) {
-        VueLivraisonItem v = new VueLivraisonItem(this.controleurLivraison, livraison);
+    public void ajouterLivraison(Livraison livraison, int i) {
+        VueLivraisonItem v = new VueLivraisonItem(this.controleurLivraison, livraison, i);
         this.vueLivraisonsItem.add(v);
         
         this.placerLivraison(v, this.vueLivraisonsItem.size()-1);
@@ -62,8 +66,8 @@ public class VueListLivraison extends javax.swing.JPanel {
     }
     
     public void placerLivraison(VueLivraisonItem vl, int rank) {
-        vl.setSize(280, 150);
-        
+        vl.setSize(400, 50);
+        vl.cacherRetour();
         int yLocation = rank * 50;
         vl.setLocation(0, yLocation);
     }
@@ -76,11 +80,11 @@ public class VueListLivraison extends javax.swing.JPanel {
         return controleurLivraison;
     }
 
-    public void setTournee(Tournee tournee) {
+    public void setLivraisons(ArrayList<Livraison> livs) {
         this.vueLivraisonsItem.clear();
-        for(int i = 0; i < tournee.getLivraisons().size(); i++)
+        for(int i = 1; i < livs.size(); i++)
         {
-            this.ajouterLivraison(tournee.getLivraisons().get(i));
+            this.ajouterLivraison(livs.get(i), i);
         }
     }
    

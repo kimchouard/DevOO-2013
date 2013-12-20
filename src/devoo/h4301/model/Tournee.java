@@ -153,7 +153,7 @@ public class Tournee {
                 throw e;
             }
         }
-        System.out.println("vérif pl ok");
+        System.out.println("Plages horraires correctes");
     }
 
     /**

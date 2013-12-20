@@ -9,6 +9,7 @@ package devoo.h4301.controller;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
+import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.model.Troncon;
@@ -46,27 +47,34 @@ public class ControleurPlan {
         this.vuePlan.updateUI();
     }
     
-    public void rafraichirVuePlan(Tournee tournee, JScrollPane panneauPlan) {
-        this.vuePlan = new VuePlan(this);
+    public void rafraichirVuePlan(Tournee tournee) {
+        this.resetPlan();
         this.vuePlan.setTournee(tournee);
         Plan plan =  tournee.getPlan();
-        
-        this.scaleAutoVuePlan(panneauPlan);
         
         ArrayList<Noeud> noeuds = plan.getNoeuds();
         for (Noeud n : noeuds) {
             this.vuePlan.ajouterNoeud(n);
         }
         
-        LinkedList<Livraison> livs =  tournee.getLivraisons();
+        ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
+//        LinkedList<Livraison> livs =  tournee.getLivraisons();
+        int start = 0;
         for (Livraison l : livs) {
-            this.vuePlan.ajouterLiv(l);
+            //Si c'est l'entrepot
+            if (start == 0) {
+                this.vuePlan.ajouterEntrepot(l);
+                start++;
+            } else {
+                this.vuePlan.ajouterLiv(l);
+            }
         }
         
         ArrayList<Itineraire> itineraires = controleurPrincipal.getControleurGraph().getItineraires();
         for (Itineraire i : itineraires) {
+            PlageHoraire ph = i.getPrevLivraison().getHoraire();
             for (Troncon t : i.getEnsembleTroncons()) {
-                this.vuePlan.ajouterItineraire(t);
+                this.vuePlan.ajouterItineraire(t, ph);
             }
         }
         
@@ -75,16 +83,16 @@ public class ControleurPlan {
             this.vuePlan.ajouterTroncon(t);
         }
         
-        this.afficherPlan(panneauPlan);
+        this.afficherPlan(this.controleurPrincipal.getPanneauPlan());
     }
     
-    public void scaleAutoVuePlan(JScrollPane panneauPlan) {
+    public void scaleAutoVuePlan() {
         Plan p =  vuePlan.getTournee().getPlan();
         
         double planWidth = p.getMaxX() - p.getMinX() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
         double planHeight = p.getMaxY() - p.getMinY() + 2*ControleurPrincipal.padding + ControleurPrincipal.diamNoeud;
-        double panneauWidth = panneauPlan.getWidth();
-        double panneauHeight = panneauPlan.getHeight();
+        double panneauWidth = this.controleurPrincipal.getPanneauPlan().getWidth();
+        double panneauHeight = this.controleurPrincipal.getPanneauPlan().getHeight();
         double scaleX = panneauWidth / planWidth;
         double scaleY = panneauHeight / planHeight;
         
@@ -96,8 +104,21 @@ public class ControleurPlan {
         }
     }
     
+    public void resetPlan() {
+        this.vuePlan.reset();
+    }
+    
+    public void zoomChange(double pourcent) {
+        vuePlan.setZoomScale(vuePlan.getZoomScale() * pourcent);
+        this.rafraichirVuePlan(Tournee.getInstance());
+    }
+    
     public void selectLivraison(Livraison liv) {
         this.controleurPrincipal.selectLivraison(liv);
+    }
+    
+    public void unSelectLivraisons() {
+        this.controleurPrincipal.unSelectLivraisons();
     }
     
     public void createLiv(Noeud noeud) throws Exception {
@@ -113,6 +134,6 @@ public class ControleurPlan {
 
     public void setTournee(Tournee tournee) {
         this.vuePlan.setTournee(tournee);
-        this.vuePlan.setBackground(ControleurPrincipal.grisMaps);
+        this.vuePlan.setBackground(ControleurPrincipal.grisFond);
     }
 }

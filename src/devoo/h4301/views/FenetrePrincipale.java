@@ -8,6 +8,7 @@ package devoo.h4301.views;
 
 import devoo.h4301.controller.*;
 import devoo.h4301.outils.LogOutputStream;
+import devoo.h4301.outils.MyException;
 import java.io.PrintStream;
 import javax.swing.JScrollPane;
 
@@ -18,12 +19,14 @@ import javax.swing.JScrollPane;
 public class FenetrePrincipale extends javax.swing.JFrame {
 
     public ControleurPrincipal controleurPrincipal;
+    private double zoomScaleNum;
     
     /**
      * Creates new form FenetrePrincipale
      */
     public FenetrePrincipale() {
         initComponents();
+        this.chargerLiv.setEnabled(false);
         PrintStream printStream = new PrintStream(new LogOutputStream(log));
         System.setOut(printStream);
         System.setErr(printStream);
@@ -48,6 +51,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         log = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
+        zoomScale = new javax.swing.JLabel();
+        zoomPlus = new javax.swing.JButton();
+        zoomMoins = new javax.swing.JButton();
+        zoomAuto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +106,33 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
 
+        zoomScale.setText("00");
+
+        zoomPlus.setText("+");
+        zoomPlus.setPreferredSize(new java.awt.Dimension(50, 29));
+        zoomPlus.setSize(new java.awt.Dimension(50, 29));
+        zoomPlus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zoomPlusMouseClicked(evt);
+            }
+        });
+
+        zoomMoins.setText("-");
+        zoomMoins.setPreferredSize(new java.awt.Dimension(50, 29));
+        zoomMoins.setSize(new java.awt.Dimension(50, 29));
+        zoomMoins.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zoomMoinsMouseClicked(evt);
+            }
+        });
+
+        zoomAuto.setText("Auto");
+        zoomAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zoomAutoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,16 +147,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                                 .addComponent(chargerPlan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chargerLiv)
-                                .addGap(137, 137, 137)
+                                .addGap(134, 134, 134)
                                 .addComponent(undo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(redo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(print)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(zoomScale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(zoomMoins, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(zoomAuto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(zoomPlus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -138,7 +179,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(chargerLiv)
                     .addComponent(redo)
                     .addComponent(undo)
-                    .addComponent(print))
+                    .addComponent(print)
+                    .addComponent(zoomPlus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zoomMoins, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zoomScale)
+                    .addComponent(zoomAuto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +208,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         try {
             this.controleurPrincipal.chargerLiv("");
         } catch (Exception e) {
-            System.out.print(e.getMessage());
+            System.out.print("Erreur: "+e.getMessage());
         }
     }//GEN-LAST:event_clickChargerLivraisons
 
@@ -179,6 +224,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.controleurPrincipal.print();
     }//GEN-LAST:event_printActionPerformed
 
+    private void zoomMoinsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomMoinsMouseClicked
+        this.setZoomScaleNum(this.controleurPrincipal.zoomChange(0.9));
+    }//GEN-LAST:event_zoomMoinsMouseClicked
+
+    private void zoomPlusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomPlusMouseClicked
+        this.setZoomScaleNum(this.controleurPrincipal.zoomChange(1.1));
+    }//GEN-LAST:event_zoomPlusMouseClicked
+
+    private void zoomAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomAutoMouseClicked
+        this.setZoomScaleNum(this.controleurPrincipal.zoomAuto());
+    }//GEN-LAST:event_zoomAutoMouseClicked
+
     public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
         redo.setEnabled(possibleRedo);
         undo.setEnabled(possibleUndo);
@@ -186,6 +243,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     
     public void updatePrintState(Boolean possiblePrint){
         print.setEnabled(possiblePrint);
+    }
+    
+    public void updateLoadLivState(Boolean possibleLoad) {
+        this.chargerLiv.setEnabled(possibleLoad);
     }
             
     
@@ -195,6 +256,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     public JScrollPane getpGauche() {
         return pGauche;
+    }
+
+    public double getZoomScaleNum() {
+        return zoomScaleNum;
+    }
+
+    public void setZoomScaleNum(double zoomScale) {
+        this.zoomScaleNum = zoomScale;
+        this.zoomScale.setText(String.valueOf((int) (this.zoomScaleNum * 100)));
     }
     
 
@@ -209,5 +279,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private javax.swing.JButton print;
     private javax.swing.JButton redo;
     private javax.swing.JButton undo;
+    private javax.swing.JButton zoomAuto;
+    private javax.swing.JButton zoomMoins;
+    private javax.swing.JButton zoomPlus;
+    private javax.swing.JLabel zoomScale;
     // End of variables declaration//GEN-END:variables
 }

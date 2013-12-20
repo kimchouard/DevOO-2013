@@ -1,5 +1,7 @@
-package devoo.h4301.model;
+package devoo.h4301.outils;
 
+import devoo.h4301.model.Itineraire;
+import devoo.h4301.model.Livraison;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -151,13 +153,20 @@ public class TSP {
                 // Clean ensembleTrajets
                 int tableIt=0;
                 ArrayList<Itineraire>listeItineraires = graph.getEnsembleTrajets();
-                while(tableIt<tableFinal.size()-1)
+                while(tableIt<tableFinal.size()-2)
                 {
                     for(int i=0;i<listeItineraires.size();i++)
                     { 
                         if(listeItineraires.get(i).getPrevLivraison() == tableFinal.get(tableIt))
                         {
                             if(listeItineraires.get(i).getNextLivraison() != tableFinal.get(tableIt+1))
+                            {
+                                listeItineraires.remove(i);
+                            }
+                        }
+                        if(listeItineraires.get(i).getNextLivraison() == tableFinal.get(tableIt+1))
+                        {
+                            if(listeItineraires.get(i).getPrevLivraison() != tableFinal.get(tableIt))
                             {
                                 listeItineraires.remove(i);
                             }
@@ -170,7 +179,9 @@ public class TSP {
                 { 
                     if(listeItineraires.get(i).getPrevLivraison() == tableFinal.get(tableFinal.size()-1))
                     {
-                        if(listeItineraires.get(i).getNextLivraison() != tableFinal.get(0))
+                        Livraison entrepot = tableFinal.get(0);
+                        Livraison nextPoint = listeItineraires.get(i).getNextLivraison();
+                        if(nextPoint != entrepot)
                         {
                             listeItineraires.remove(i);
                         }

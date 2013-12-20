@@ -4,12 +4,12 @@
  */
 package devoo.h4301.controller;
 
-import devoo.h4301.model.GraphUtil;
+import devoo.h4301.outils.GraphUtil;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.PlageHoraire;
-import devoo.h4301.model.SolutionState;
-import devoo.h4301.model.TSP;
+import devoo.h4301.outils.SolutionState;
+import devoo.h4301.outils.TSP;
 import devoo.h4301.model.Tournee;
 import devoo.h4301.outils.MyException;
 import devoo.h4301.views.FenetrePrincipale;
@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,22 +44,28 @@ public class ControleurGraph {
     
     //Lancé à chaque nouvelle demande de calcul
     public int UpdateGraphe(Tournee t) throws MyException{
-        graphe = new GraphUtil(t);
-        tsp = new TSP(graphe);
-        //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
-        switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
-        {
-            case OPTIMAL_SOLUTION_FOUND:
-                return 1;
-            case SOLUTION_FOUND:
-                return 1;
-            case NO_SOLUTION_FOUND:
-                return 0;
-            case INCONSISTENT:
-                return 0;
+        try {
+            graphe = new GraphUtil(t);
+            tsp = new TSP(graphe);
+            //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
+            switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
+            {
+                case OPTIMAL_SOLUTION_FOUND:
+                    return 1;
+                case SOLUTION_FOUND:
+                    return 1;
+                case NO_SOLUTION_FOUND:
+                    return 0;
+                case INCONSISTENT:
+                    return 0;
+            }
+            
+            return 0;
+        } catch (Exception ex) {
+            this.resetGraph();
+            System.out.println("Impossible de trouver un chemin valable.");
+            return 0;
         }
-        
-        return 0;
     }
     
     public ArrayList<Itineraire> getItineraires() {
@@ -92,6 +100,11 @@ public class ControleurGraph {
         this.tsp = tsp;
     }
     
+    public void resetGraph() {
+        graphe = null;
+        tsp = null;
+    }
+    
     public void printTrip(Tournee tour) throws MyException{
         try{
             FileWriter fw = new FileWriter ("FDR.txt");
@@ -107,14 +120,11 @@ public class ControleurGraph {
                 pw.println();
                 for(int i=0;i<plages.size();i++)
                 {
-                    pw.println("Plage Horaire "+ plages.get(i).toString());                    
-                    pw.println();
                     for(int j=0;j<livraisons.size()-1;j++)
                     {
 
                         pw.println();
-                        pw.println("Aller à la prochaine livraison pour "); //TODO: Ajouter les entrées du tableau de tsp contenant les heures de passage
-                        pw.println("à l'id: "+livraisons.get(j).getDestination().getId());
+                        pw.println("Aller à la prochaine livraison: "+livraisons.get(j).getDestination().getId() + " a réaliser " + livraisons.get(j).getHoraire().toString());
                         for(int k=0;k<trajets.size();k++)
                         {
                             if((trajets.get(k).getPrevLivraison() == livraisons.get(j)) && (trajets.get(k).getNextLivraison() == livraisons.get(j+1)))

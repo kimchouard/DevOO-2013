@@ -6,6 +6,7 @@
 
 package devoo.h4301.controller;
 
+import devoo.h4301.outils.LecteurXml;
 import devoo.h4301.fixture.domXml;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Plan;

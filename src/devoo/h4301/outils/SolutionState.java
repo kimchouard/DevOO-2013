@@ -1,4 +1,4 @@
-package devoo.h4301.model;
+package devoo.h4301.outils;
 
 /**
  * @author Christine Solnon

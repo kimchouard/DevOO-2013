@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package devoo.h4301.model;
+package devoo.h4301.outils;
+
+import devoo.h4301.model.Livraison;
 
 /**
  *

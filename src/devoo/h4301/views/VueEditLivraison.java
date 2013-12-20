@@ -10,11 +10,8 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Noeud;
 import devoo.h4301.model.PlageHoraire;
 import devoo.h4301.model.Tournee;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -162,7 +159,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                         .addComponent(buttonConfirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(boutonAnnuler)))
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +185,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
                     .addComponent(boutonAnnuler))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel3)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         nom.getAccessibleContext().setAccessibleName("nomClient");
@@ -205,15 +202,21 @@ public class VueEditLivraison extends javax.swing.JPanel {
     }//GEN-LAST:event_colisActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
-        try {
-            this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire)this.ph1.getSelectedItem() );
-        } catch (ParseException ex) {
-            Logger.getLogger(VueEditLivraison.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (this.nom.getText().length() != 0 && this.colis.getText().length() != 0) {
+            try {
+                Integer.parseInt(this.colis.getText()); 
+                this.controleurLivraison.creationLivraison(this.noeud, this.nom.getText(), Integer.parseInt(this.colis.getText()), (PlageHoraire) this.ph1.getSelectedItem());
+            } catch (Exception e) {
+                System.out.println("Veuillez remplir le formulaire.");
+            }
+        } else {
+            System.out.println("Veuillez remplir le formulaire.");
         }
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed
-        this.controleurLivraison.afficherListLivraisonInitiale();
+        this.controleurLivraison.afficherListLivraison();
     }//GEN-LAST:event_boutonAnnulerActionPerformed
 
     private void ph1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ph1ActionPerformed

@@ -6,7 +6,7 @@
 package devoo.h4301;
 
 import devoo.h4301.controller.ControleurPrincipal;
-import devoo.h4301.model.GraphUtil;
+import devoo.h4301.outils.GraphUtil;
 import devoo.h4301.model.Itineraire;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Noeud;
