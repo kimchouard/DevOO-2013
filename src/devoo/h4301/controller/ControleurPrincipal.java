@@ -252,8 +252,8 @@ public final class ControleurPrincipal {
     }
 
     /**
-     *
-     * @param liv
+     * intervient lors de la selection d'une livraison sur un noeud
+     * @param liv la livraison du noeud selectionnee
      */
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
@@ -277,7 +277,8 @@ public final class ControleurPrincipal {
     }
 
     /**
-     *
+     * intervient lors de la selection d'un noeud qui n'est pas une livraison
+     * delegue au controleur livraison l'affichage de l'icone creation livraison
      * @param noeud
      */
     public void createLiv(Noeud noeud) {
@@ -341,13 +342,17 @@ public final class ControleurPrincipal {
     //  Geter - Seter
 
     /**
-     *
-     * @return
+     * getter sur le panneau gauche contenant le plan
+     * @return panneau contenant le plan
      */
         public JScrollPane getPanneauPlan() {
         return panneauPlan;
     }
 
+    /**
+     * setter sur le panneau gauche contenant le plan
+     * @param panneauPlan
+     */
     public void setPanneauPlan(JScrollPane panneauPlan) {
         panneauPlan.setBackground(Color.WHITE);
         this.panneauPlan = panneauPlan;
@@ -355,7 +360,7 @@ public final class ControleurPrincipal {
 
     /**
      * getter sur le controleur du graphe
-     * @return
+     * @return controleur du graphe
      */
     public ControleurGraph getControleurGraph() {
         return controleurGraph;
