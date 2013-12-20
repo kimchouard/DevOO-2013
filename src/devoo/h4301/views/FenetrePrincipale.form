@@ -33,9 +33,7 @@
                               <Component id="chargerPlan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="chargerLiv" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="debug" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
                               <Component id="undo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="redo" min="-2" max="-2" attributes="0"/>
@@ -77,7 +75,6 @@
                   <Component id="redo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="undo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="print" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="debug" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zoomPlus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zoomMoins" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zoomScale" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -175,14 +172,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="debug">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="DEBUG"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clickDebug"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="zoomScale">
