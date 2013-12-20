@@ -31,10 +31,16 @@ public class VueNoeudEntrepot extends VueNoeudLivraison {
         this.initialize();
     }
 
+    /**
+     * Override : null pour annuler les actions sur l'entrepot.
+     */
     public void setSelected(boolean selected) {
         
     }
     
+    /**
+     * Retourne la couleur que devrait prendre l'élement.
+     */
     public Color getColor() {
         return ControleurPrincipal.bleuMaps;
     }

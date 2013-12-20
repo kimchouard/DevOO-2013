@@ -62,6 +62,10 @@ public class VueTronconItineraire extends VueTroncon {
         this.troncon = troncon;
     }
     
+    /**
+     * Définit l'affichage de l'itinéraire
+     * Prend en charge les multi plages horaires.
+     */
     @Override
     protected void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         Graphics2D g2D = (Graphics2D) g;

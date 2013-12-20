@@ -85,6 +85,10 @@ public class VueNoeud extends javax.swing.JPanel {
         return hovered;
     }
     
+    /**
+     * Permet de selectionner un noeud, pour binder l'information vers les controleurs par la suite.
+     * @param selected true ou false en fonction du status de la selection voulue
+     */
     public void setSelected(boolean selected) {
         if (selected) {
             try {
@@ -101,6 +105,10 @@ public class VueNoeud extends javax.swing.JPanel {
         this.repaint();
     }
     
+    /**
+     * Permet de signaler un noeud comme pointé par une souris, pour binder l'information vers les controleurs par la suite.
+     * @param hovered true ou false en fonction du status
+     */
     public void setHovered(boolean hovered) {
         this.hovered = hovered;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -108,6 +116,9 @@ public class VueNoeud extends javax.swing.JPanel {
         this.repaint();
     }
     
+    /**
+     * Retourne la couleur que devrait prendre l'élement.
+     */
     public Color getColor() {
         if (this.selected || this.hovered) {
             return ControleurPrincipal.rougeMaps;

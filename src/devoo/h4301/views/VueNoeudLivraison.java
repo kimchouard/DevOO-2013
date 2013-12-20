@@ -34,6 +34,11 @@ public class VueNoeudLivraison extends VueNoeud {
         this.initialize();
     }
     
+    /**
+     * Permet de selectionner une livraison, pour binder l'information vers les controleurs par la suite.
+     * Overridé par rappport à la classe mère.
+     * @param selected true ou false en fonction du status de la selection voulue
+     */
     public void setSelected(boolean selected) {
         if (selected) {
             this.vuePlan.selectLiv(this.liv);
@@ -63,6 +68,9 @@ public class VueNoeudLivraison extends VueNoeud {
         return this.liv.getDestination().getY();
     }
     
+    /**
+     * Retourne la couleur que devrait prendre l'élement.
+     */
     public Color getColor() {
         if (this.selected || this.hovered) {
             return ControleurPrincipal.jauneMaps;

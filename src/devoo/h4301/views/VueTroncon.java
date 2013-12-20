@@ -97,6 +97,9 @@ public class VueTroncon extends javax.swing.JPanel {
         dispLines(g, xArrivee, xDepart, yArrivee, yDepart);
     }
     
+    /**
+     * Définit l'affichage du troncon
+     */
     protected void dispLines(Graphics g, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         Graphics2D g2D = (Graphics2D) g;
         
@@ -121,6 +124,10 @@ public class VueTroncon extends javax.swing.JPanel {
         g2D.draw(getNewLine(-delta, xArrivee, xDepart, yArrivee, yDepart));
     }
     
+    /**
+     * Retourne une nouvelle ligne fonction des positions envoyé en paramètre.
+     * @return Line2D
+     */
     protected Line2D getNewLine(double delta, int xArrivee, int xDepart, int yArrivee, int yDepart) {
         // Calcul de l'angle vis à vis de la verticale
         double x = xArrivee - xDepart;
