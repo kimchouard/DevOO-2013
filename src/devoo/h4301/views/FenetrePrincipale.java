@@ -176,7 +176,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         try {
             this.controleurPrincipal.chargerLiv("");
         } catch (Exception e) {
-            System.out.print(e.getMessage());
+            System.out.print("Erreur: "+e.getMessage());
         }
     }//GEN-LAST:event_clickChargerLivraisons
 
