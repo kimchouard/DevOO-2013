@@ -30,7 +30,7 @@ public class VuePlan extends javax.swing.JPanel {
     private ArrayList<VueNoeud> vueNoeuds = new ArrayList();
     private ArrayList<VueTroncon> vueTroncons = new ArrayList();
     private ArrayList<VueNoeudLivraison> vueLivs = new ArrayList();
-    private ArrayList<VueItineraire> vueItin = new ArrayList();
+    private ArrayList<VueTronconItineraire> vueItin = new ArrayList();
     private ArrayList<VuePlageHoraire> vuePlages = new ArrayList();
     
     protected double zoomScale = 1.0;
@@ -119,9 +119,10 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void ajouterItineraire(Troncon t, PlageHoraire ph) {
-        if (getVueItineraire(t) == null) {
+        VueTronconItineraire vi = getVueItineraire(t);
+        if (vi == null) {
             VuePlageHoraire vph = getVuePlageHoraire(ph);
-            VueItineraire vi = new VueItineraire(t, vph, this);
+            vi = new VueTronconItineraire(t, vph, this);
             this.placerTroncon((VueTroncon) vi);
             this.updateVuePlanFrame();
 
@@ -129,12 +130,13 @@ public class VuePlan extends javax.swing.JPanel {
             this.add(vi);
             vi.setVisible(true);
         } else {
-            //System.out.println("Gérer les multi troncons!");
+            vi.addVuePlageHoraire(getVuePlageHoraire(ph));
+            this.updateVuePlanFrame();
         }
     }
     
-    public VueItineraire getVueItineraire(Troncon t) {
-        for (VueItineraire vi : this.vueItin) {
+    public VueTronconItineraire getVueItineraire(Troncon t) {
+        for (VueTronconItineraire vi : this.vueItin) {
             if( (vi.getTroncon().getDestination().getId() == t.getDestination().getId())
              && (vi.getTroncon().getOrigine().getId() == t.getOrigine().getId())
             ) {
