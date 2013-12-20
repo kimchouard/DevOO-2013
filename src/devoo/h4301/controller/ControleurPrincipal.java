@@ -160,8 +160,8 @@ public final class ControleurPrincipal {
         this.fenParent.updatePrintState(false);
     }
     
-    public void zoomChange(int delta) {
-        this.controleurPlan.zoomChange(delta);
+    public void zoomChange(double pourcent) {
+        this.controleurPlan.zoomChange(pourcent);
         this.reloadUI(false);
     }
     

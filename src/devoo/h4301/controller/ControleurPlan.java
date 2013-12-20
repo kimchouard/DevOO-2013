@@ -108,8 +108,8 @@ public class ControleurPlan {
         this.vuePlan.reset();
     }
     
-    public void zoomChange(int delta) {
-        vuePlan.setZoomScale(vuePlan.getZoomScale() + delta);
+    public void zoomChange(double pourcent) {
+        vuePlan.setZoomScale(vuePlan.getZoomScale() * pourcent);
         this.rafraichirVuePlan(Tournee.getInstance());
     }
     

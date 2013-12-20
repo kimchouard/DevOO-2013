@@ -234,11 +234,11 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     }//GEN-LAST:event_printActionPerformed
 
     private void zoomMoinsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomMoinsMouseClicked
-        this.controleurPrincipal.zoomChange(-20);
+        this.controleurPrincipal.zoomChange(0.9);
     }//GEN-LAST:event_zoomMoinsMouseClicked
 
     private void zoomPlusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomPlusMouseClicked
-        this.controleurPrincipal.zoomChange(20);
+        this.controleurPrincipal.zoomChange(1.1);
     }//GEN-LAST:event_zoomPlusMouseClicked
 
     public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
