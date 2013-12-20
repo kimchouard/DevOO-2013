@@ -42,7 +42,10 @@ public class VuePlan extends javax.swing.JPanel {
         this.setControlerPlan(controlerPlan);
         initialize();
     }
-    
+
+    /**
+     * Initialise la vue
+     */
     private void initialize() {
         initComponents();
 
@@ -50,16 +53,23 @@ public class VuePlan extends javax.swing.JPanel {
         this.setVisible(true); 
     }
     
+    /**
+     * Vide le plan en rechargeant l'interface. 
+     */
     public void reset() {
         this.removeAll();
         this.updateUI();
         this.vueNoeuds.clear();
         this.vueTroncons.clear();
-        this.vueItin.clear();
         this.vueLivs.clear();
+        this.vueItin.clear();
         this.vuePlages.clear();
     }
     
+    /**
+     * Ajouter un noeud sur le plan en créant la vue associéß
+     * @param noeud correspond au noeud a ajouter
+     */
     public void ajouterNoeud(Noeud noeud) {
         VueNoeud v = new VueNoeud(noeud, this);
         this.placerNoeud(v);
@@ -156,7 +166,7 @@ public class VuePlan extends javax.swing.JPanel {
             }
         }
         
-        Color c = ControleurPrincipal.tronconsColor.get(this.vuePlages.size());
+        Color c = ControleurPrincipal.tronconsColor.get(this.vuePlages.size() % ControleurPrincipal.tronconsColor.size());
         VuePlageHoraire vph = new VuePlageHoraire(c, ph);
         this.vuePlages.add(vph);
         return vph;
@@ -174,7 +184,7 @@ public class VuePlan extends javax.swing.JPanel {
         vueTroncon.setSize(this.scaledSize(larg) + ControleurPrincipal.diamNoeud, this.scaledSize(haut) + ControleurPrincipal.diamNoeud);
     }
     
-    public void unselectNoeuds() {
+    public void unselectNoeudsEtLiv() {
         //Reset all the others noeuds
         for (VueNoeudLivraison vl : this.vueLivs) {
            vl.setSelected(false);
@@ -186,12 +196,17 @@ public class VuePlan extends javax.swing.JPanel {
     
     public void selectLiv(Livraison liv) {
         //Do the check
-        unselectNoeuds();
+        this.unselectNoeudsEtLiv();
         controlerPlan.selectLivraison(liv);
     }
     
+    public void unSelectLivs() {
+        this.unselectNoeudsEtLiv();
+        controlerPlan.unSelectLivraisons();
+    }
+    
     public void createLiv(Noeud noeud) throws Exception {
-        unselectNoeuds();
+        this.unselectNoeudsEtLiv();
         controlerPlan.createLiv(noeud);
     }
     

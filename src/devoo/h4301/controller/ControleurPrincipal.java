@@ -31,6 +31,7 @@ public final class ControleurPrincipal {
     public static final Color bleuMaps = new Color(77, 118, 194);
     public static final Color grisFonceMaps = new Color(200, 196, 186);
     public static final Color grisMaps = new Color(231, 228, 219);
+    public static final Color grisFond = new Color(240, 240, 240);
     public static final Color vertMaps = new Color(207, 222, 171);
     public static final ArrayList<Color> tronconsColor = new ArrayList() {{
         add(new Color(255, 0, 0));
@@ -77,7 +78,7 @@ public final class ControleurPrincipal {
     //--------------------------------
     //  Public functions
     public void chargerPlan(String urlPlan) {
-        this.controleurGraph.resetGraph();
+        this.resetUI(true);
         
         if (urlPlan == "") {
             urlPlan = ouvrirFichier();
@@ -85,21 +86,13 @@ public final class ControleurPrincipal {
 
         try {
             this.lecteurXml.construirePlanAPartirXML(urlPlan);
-            Tournee t = Tournee.getInstance();
-            controleurPlan.setTournee(t);
 
             commandeControleur.resetCommand();
-
-            controleurPlan.rafraichirVuePlan(t, panneauPlan);
-            controleurPlan.afficherPlan(panneauPlan);
-            controleurLivraison.effacerVueListLivraison(this.panneauLiv);
-            controleurLivraison.effacerItemLivraison(this.panneauLiv);
-            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
-
-            this.fenParent.updateLoadLivState(true);
-            this.fenParent.updatePrintState(false);
             
+            this.reloadUI(true);
         } catch (Exception e) {
+            commandeControleur.resetCommand();
+            this.resetUI(true);
             System.out.println("Error: " + e.getMessage());
         }
     }   
@@ -114,20 +107,14 @@ public final class ControleurPrincipal {
                 this.lecteurXml.construireLivraisonAPartirXML(urlLiv);
                 
                 // observer 
-                Tournee t = Tournee.getInstance();
                 commandeControleur.resetCommand();
 
-                this.controleurGraph.UpdateGraphe(t);
-
-                controleurPlan.setTournee(t);
-                controleurPlan.rafraichirVuePlan(t, panneauPlan);
-                controleurPlan.afficherPlan(panneauPlan);
-                controleurLivraison.effacerItemLivraison(panneauLiv);
-
-                // rajouter
-                controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
-                this.fenParent.updatePrintState(true);
+                this.reloadGraph();
+                
+                this.reloadUI(true);
             } catch (Exception e) {
+                commandeControleur.resetCommand();
+                this.resetUI(false);
                 System.out.println("Error : " + e.getMessage());
             }
             
@@ -135,43 +122,75 @@ public final class ControleurPrincipal {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
     }
+    
+    public void reloadGraph() {
+        try {
+            this.controleurGraph.UpdateGraphe(Tournee.getInstance());
+        } catch (Exception e) {
+            System.out.println("Impossible de calculer l'itineraire. \n"+e.toString());
+        }
+    }
+
+    public void reloadUI(boolean autoScale) {
+        Tournee t = Tournee.getInstance();
+
+        controleurPlan.setTournee(t);
+        if (autoScale) {
+            controleurPlan.scaleAutoVuePlan();
+        }
+        controleurPlan.rafraichirVuePlan(t);
+        controleurPlan.afficherPlan(panneauPlan);
+
+        controleurLivraison.effacerVueListLivraison(this.panneauLiv);
+        controleurLivraison.effacerItemLivraison(this.panneauLiv);
+        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+
+        Boolean possibleToLoadLivraisons = Tournee.getInstance().getPlan() != null;
+        Boolean possibleToPrintLivraisons = Tournee.getInstance().getLivraisons().size() != 0;
+        this.fenParent.updateLoadLivState(possibleToLoadLivraisons);
+        this.fenParent.updatePrintState(possibleToPrintLivraisons);
+    }
+    
+    public void resetUI(boolean resetPlan) {
+        this.controleurGraph.resetGraph();
+        if (resetPlan) {
+            this.controleurPlan.resetPlan();
+        }
+        this.fenParent.updateLoadLivState(false);
+        this.fenParent.updatePrintState(false);
+    }
+    
+    public void zoomChange(int delta) {
+        this.controleurPlan.zoomChange(delta);
+        this.reloadUI(false);
+    }
+    
+    
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
         } else {
-            this.controleurPlan.getVuePlan().unselectNoeuds();
-            System.out.println("Il est necessaire de charger des livraison avant tout.");
+            this.unSelectLivraisons();
+            System.out.println("Il est necessaire de charger des livraisons avant de pouvoir les modifier.");
         }
     }
+    
+    public void unSelectLivraisons() {
+        this.reloadUI(false);
+    }
 
-    public void createLiv(Noeud noeud) throws Exception {
+    public void createLiv(Noeud noeud) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
         } else {
-            this.controleurPlan.getVuePlan().unselectNoeuds();
-            System.out.println("Il est necessaire de charger des livraison avant tout.");
+            this.unSelectLivraisons();
+            System.out.println("Il est necessaire de charger des livraison avant de pouvoir en une nouvelle.");
         }
      }
-    
-    public void rafraichirVueGraph() throws MyException{
-        this.controleurGraph.UpdateGraphe(Tournee.getInstance());
-        this.controleurPlan.setTournee(Tournee.getInstance());
-        this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), panneauPlan);
-        this.controleurPlan.afficherPlan(panneauPlan);
-    }
-
     
     public void addCommandeLivraison(Livraison liv, boolean deleted)
     {
         this.commandeControleur.addCommand(liv, deleted);
-    }
-
-    public ControleurGraph getControleurGraph() {
-        return controleurGraph;
-    }
-
-    public void setControleurGraph(ControleurGraph controleurGraph) {
-        this.controleurGraph = controleurGraph;
     }
        
     //--------------------------------
@@ -191,33 +210,6 @@ public final class ControleurPrincipal {
             return filePath;
         }
         return null;
-    }
-
-    //--------------------------------
-    //  Geter - Seter
-    public JScrollPane getPanneauPlan() {
-        return panneauPlan;
-    }
-
-    public void setPanneauPlan(JScrollPane panneauPlan) {
-        panneauPlan.setBackground(ControleurPrincipal.grisMaps);
-        this.panneauPlan = panneauPlan;
-    }
-
-    public JScrollPane getPanneauLiv() {
-        return panneauLiv;
-    }
-
-    public void setPanneauLiv(JScrollPane panneauLiv) {
-        this.panneauLiv = panneauLiv;
-    }
-
-    public FenetrePrincipale getFenParent() {
-        return fenParent;
-    }
-
-    public void setFenParent(FenetrePrincipale fenParent) {
-        this.fenParent = fenParent;
     }
 
     public void undo(){
@@ -244,17 +236,38 @@ public final class ControleurPrincipal {
         }
     }
 
-    void reloadUI() {
-        try {
-            this.controleurGraph.UpdateGraphe(Tournee.getInstance());
-            this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
-            this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
-            
-            Boolean possibleToLoadLivraisons = Tournee.getInstance().getPlan() != null;
-            this.fenParent.updateLoadLivState(possibleToLoadLivraisons);
-        } catch (MyException ex) {
-            System.out.println("Impossible de recharger la UI");
-        }
+    //--------------------------------
+    //  Geter - Seter
+    public JScrollPane getPanneauPlan() {
+        return panneauPlan;
+    }
 
+    public void setPanneauPlan(JScrollPane panneauPlan) {
+        panneauPlan.setBackground(Color.WHITE);
+        this.panneauPlan = panneauPlan;
+    }
+
+    public ControleurGraph getControleurGraph() {
+        return controleurGraph;
+    }
+
+    public void setControleurGraph(ControleurGraph controleurGraph) {
+        this.controleurGraph = controleurGraph;
+    }
+
+    public JScrollPane getPanneauLiv() {
+        return panneauLiv;
+    }
+
+    public void setPanneauLiv(JScrollPane panneauLiv) {
+        this.panneauLiv = panneauLiv;
+    }
+
+    public FenetrePrincipale getFenParent() {
+        return fenParent;
+    }
+
+    public void setFenParent(FenetrePrincipale fenParent) {
+        this.fenParent = fenParent;
     }
 }

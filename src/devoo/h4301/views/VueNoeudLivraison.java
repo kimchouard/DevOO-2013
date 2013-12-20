@@ -35,13 +35,15 @@ public class VueNoeudLivraison extends VueNoeud {
     }
     
     public void setSelected(boolean selected) {
+        if (selected) {
+            this.vuePlan.selectLiv(this.liv);
+        } else {
+            this.vuePlan.unSelectLivs();
+        }
+        
         this.selected = selected;
         
         this.repaint();
-        
-        if (selected) {
-            this.vuePlan.selectLiv(this.liv);
-        }
     }
 
     public Livraison getLiv() {

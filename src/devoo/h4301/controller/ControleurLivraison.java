@@ -63,24 +63,27 @@ public class ControleurLivraison {
      * @param noeud Noeud de livraison
      * @throws Exception
      */
-    public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) throws Exception {
-         VueEditLivraison viewNewLiv = new VueEditLivraison(this, noeud);
-         paneRight.setViewportView(viewNewLiv);
-         viewNewLiv.setVisible(true);
+    public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) {
+        VueEditLivraison viewNewLiv = new VueEditLivraison(this, noeud);
+        paneRight.setViewportView(viewNewLiv);
+        viewNewLiv.setVisible(true);
      }
 
     /**
      * Création d'une livraison
      * @param noeud Noeud de livraison
      */
-    public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) throws ParseException, MyException {
-         
+    public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) {
+         try {
             Client client = new Client(0);
             client.setName(nom);
             
             Livraison liv = new Livraison(noeud, colis, ph, client);
             
             this.ajoutLiv(liv);
+         } catch (Exception e) {
+             System.out.print("Impossible d'ajouter la livraison");
+         }
      }
 
     /**
@@ -142,7 +145,7 @@ public class ControleurLivraison {
         try {
             Tournee.getInstance().supprimerLivraison(liv);
             this.controleurPrincipal.addCommandeLivraison(liv, true);
-            this.controleurPrincipal.reloadUI();
+            this.controleurPrincipal.reloadUI(true);
         } catch (Exception ex) {
             System.out.println("Impossible de supprimer la livraison");
             return;
@@ -153,7 +156,7 @@ public class ControleurLivraison {
      * Ajout de la livraison dans le modèle
      * @param liv la dite livraison
      */
-     public void ajoutLiv(Livraison liv) throws MyException{
+     public void ajoutLiv(Livraison liv) {
         try { 
             Tournee.getInstance().addLivraison(liv);
             this.controleurPrincipal.addCommandeLivraison(liv, false);
@@ -161,9 +164,7 @@ public class ControleurLivraison {
             System.out.println("Impossible d'ajouter la livraison");
             return;
         }
-        this.controleurPrincipal.reloadUI();
-        this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
-        this.controleurPrincipal.rafraichirVueGraph();
+        this.controleurPrincipal.reloadUI(true);
      }
 
 }

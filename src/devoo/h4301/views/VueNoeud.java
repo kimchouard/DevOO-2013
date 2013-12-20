@@ -42,6 +42,7 @@ public class VueNoeud extends javax.swing.JPanel {
     public VueNoeud(Noeud noeud, VuePlan vuePlan) {
         this.setNoeud(noeud);
         this.setVuePlan(vuePlan);
+        this.selected = false;
         initialize();
     }
     
@@ -85,10 +86,6 @@ public class VueNoeud extends javax.swing.JPanel {
     }
     
     public void setSelected(boolean selected) {
-        this.selected = selected;
-        
-        this.repaint();
-        
         if (selected) {
             try {
                 this.vuePlan.createLiv(this.noeud);
@@ -96,6 +93,10 @@ public class VueNoeud extends javax.swing.JPanel {
                 Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        this.selected = selected;
+        
+        this.repaint();
     }
     
     public void setHovered(boolean hovered) {
@@ -134,8 +135,8 @@ public class VueNoeud extends javax.swing.JPanel {
     private void initComponents() {
 
         addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                onClick(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                onRelease(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 onOut(evt);
@@ -157,10 +158,6 @@ public class VueNoeud extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void onClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClick
-        this.setSelected(!this.selected);
-    }//GEN-LAST:event_onClick
-
     private void onHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onHover
         this.setHovered(true);
     }//GEN-LAST:event_onHover
@@ -168,6 +165,10 @@ public class VueNoeud extends javax.swing.JPanel {
     private void onOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onOut
         this.setHovered(false);
     }//GEN-LAST:event_onOut
+
+    private void onRelease(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onRelease
+        this.setSelected(!this.selected);
+    }//GEN-LAST:event_onRelease
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

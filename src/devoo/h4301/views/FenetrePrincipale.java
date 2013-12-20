@@ -51,6 +51,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
         debug = new javax.swing.JButton();
+        zoomScale = new javax.swing.JLabel();
+        zoomPlus = new javax.swing.JButton();
+        zoomMoins = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +112,26 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
 
+        zoomScale.setText("00");
+
+        zoomPlus.setText("+");
+        zoomPlus.setPreferredSize(new java.awt.Dimension(50, 29));
+        zoomPlus.setSize(new java.awt.Dimension(50, 29));
+        zoomPlus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zoomPlusMouseClicked(evt);
+            }
+        });
+
+        zoomMoins.setText("-");
+        zoomMoins.setPreferredSize(new java.awt.Dimension(50, 29));
+        zoomMoins.setSize(new java.awt.Dimension(50, 29));
+        zoomMoins.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zoomMoinsMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,10 +154,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                                 .addComponent(redo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(print)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(pDroit, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(zoomScale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(zoomMoins, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(zoomPlus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -151,7 +179,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     .addComponent(redo)
                     .addComponent(undo)
                     .addComponent(print)
-                    .addComponent(debug))
+                    .addComponent(debug)
+                    .addComponent(zoomPlus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zoomMoins, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zoomScale))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDroit, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,6 +233,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.controleurPrincipal.print();
     }//GEN-LAST:event_printActionPerformed
 
+    private void zoomMoinsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomMoinsMouseClicked
+        this.controleurPrincipal.zoomChange(-20);
+    }//GEN-LAST:event_zoomMoinsMouseClicked
+
+    private void zoomPlusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomPlusMouseClicked
+        this.controleurPrincipal.zoomChange(20);
+    }//GEN-LAST:event_zoomPlusMouseClicked
+
     public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
         redo.setEnabled(possibleRedo);
         undo.setEnabled(possibleUndo);
@@ -237,5 +276,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private javax.swing.JButton print;
     private javax.swing.JButton redo;
     private javax.swing.JButton undo;
+    private javax.swing.JButton zoomMoins;
+    private javax.swing.JButton zoomPlus;
+    private javax.swing.JLabel zoomScale;
     // End of variables declaration//GEN-END:variables
 }
