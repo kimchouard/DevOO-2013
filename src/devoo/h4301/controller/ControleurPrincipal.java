@@ -77,6 +77,11 @@ public final class ControleurPrincipal {
 
     //--------------------------------
     //  Public functions
+    
+    /**
+     * Charge des nouvelles livraisons dans le modèle et met a jour l'ui.
+     * @param String lien vers le fichier xml de livraisons (si == "", ouvre un dialogue pour choisir le fichier)
+     */
     public void chargerPlan(String urlPlan) {
         if (urlPlan == "") {
             urlPlan = ouvrirFichier();
@@ -98,6 +103,10 @@ public final class ControleurPrincipal {
         }
     }   
 
+    /**
+     * Charge des nouvelles livraisons dans le modèle et met a jour l'ui.
+     * @param String lien vers le fichier xml de livraisons (si == "", ouvre un dialogue pour choisir le fichier)
+     */
     public void chargerLiv(String urlLiv) throws MyException {
         if (Tournee.getInstance().getPlan() != null) {
             if (urlLiv == "") {
@@ -125,6 +134,9 @@ public final class ControleurPrincipal {
         }
     }
     
+    /**
+     * Recalcule le graphe des livraisons
+     */
     public void reloadGraph() {
         try {
             this.controleurGraph.UpdateGraphe(Tournee.getInstance());
@@ -133,6 +145,11 @@ public final class ControleurPrincipal {
         }
     }
 
+    
+    /**
+     * Recharge toute l'UI (plan, list, graphe, etc...)
+     * @param boolean true pour avoir un redimensionnement automatique du plan
+     */
     public void reloadUI(boolean autoScale) {
         this.controleurPlan.resetPlan();
         Tournee t = Tournee.getInstance();
@@ -154,6 +171,9 @@ public final class ControleurPrincipal {
         this.fenParent.updatePrintState(possibleToPrintLivraisons);
     }
     
+    /**
+     * Reset l'UI (plan, graph).
+     */
     public void resetUI(boolean resetPlan) {
         this.controleurGraph.resetGraph();
         if (resetPlan) {
@@ -163,19 +183,30 @@ public final class ControleurPrincipal {
         this.fenParent.updatePrintState(false);
     }
     
+    /**
+     * Met à jour la vue pour zoomer de pourcent%
+     * @param double pourcentage du zoom actuel
+     */
     public double zoomChange(double pourcent) {
         this.controleurPlan.zoomChange(pourcent);
         this.reloadUI(false);
         return this.controleurPlan.getVuePlan().getZoomScale();
     }
     
+    /**
+     * Prend en charge le rechargement de la vue pour qu'elle remplisse au mieux le panneau.
+     */
     public double zoomAuto() {
         this.controleurPlan.scaleAutoVuePlan();
         this.reloadUI(false);
         return this.controleurPlan.getVuePlan().getZoomScale();
     }
     
-    
+    /**
+     * Demande au controleur principale d'afficher les détails d'une livraison
+     * Binde le click sur une livraison depuis le plan.
+     * @param  Livraion la livraison a afficher
+     */
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             ArrayList <Livraison> listLiv = this.controleurGraph.getLivOrdered();
@@ -190,10 +221,18 @@ public final class ControleurPrincipal {
         }
     }
     
+    /**
+     * Revenir à la liste des livraisons (délègue au controleur principal).
+     */
     public void unSelectLivraisons() {
         this.controleurLivraison.afficherListLivraison();
     }
 
+    /**
+     * Demande au controleur principale d'afficher la création d'une nouvelle livraison
+     * Binde le click sur un noeud vide depuis le plan.
+     * @param  Noeud ou créer la nouvelle livraison
+     */
     public void createLiv(Noeud noeud) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
             this.controleurLivraison.afficherCreationLivraison(noeud);
@@ -203,6 +242,7 @@ public final class ControleurPrincipal {
         }
      }
     
+    // ?????????
     public void addCommandeLivraison(Livraison liv, boolean deleted)
     {
         this.commandeControleur.addCommand(liv, deleted);
@@ -227,6 +267,9 @@ public final class ControleurPrincipal {
         return null;
     }
 
+    /**
+     * Annule le dernier ajout/suppression de livraison
+     */
     public void undo(){
         try {
             this.commandeControleur.undo(Tournee.getInstance());
@@ -235,6 +278,9 @@ public final class ControleurPrincipal {
         }
     }
 
+    /**
+     * Réitère la dernière action annulé
+     */
     public void redo() {
         try {
             this.commandeControleur.redo(Tournee.getInstance());
@@ -243,6 +289,9 @@ public final class ControleurPrincipal {
         }
     }
     
+    /**
+     * Affiche les livraisons du lendemain sous la forme d'une feuille de tournée imprimable.
+     */
     public void print(){
         try{
             this.controleurGraph.printTrip(Tournee.getInstance());
@@ -253,10 +302,15 @@ public final class ControleurPrincipal {
 
     //--------------------------------
     //  Geter - Seter
+    
     public JScrollPane getPanneauPlan() {
         return panneauPlan;
     }
 
+    /**
+     * Set le panneau contenant le plan, et définit le background en blanc.
+     * @param  JScrollPane nouveau panneau
+     */
     public void setPanneauPlan(JScrollPane panneauPlan) {
         panneauPlan.setBackground(Color.WHITE);
         this.panneauPlan = panneauPlan;

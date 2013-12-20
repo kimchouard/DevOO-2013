@@ -236,15 +236,26 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.setZoomScaleNum(this.controleurPrincipal.zoomAuto());
     }//GEN-LAST:event_zoomAutoMouseClicked
 
+    /**
+     * Active/désative les boutons undo/redo
+     */
     public void updateCommandState (Boolean possibleUndo, Boolean possibleRedo) {
         redo.setEnabled(possibleRedo);
         undo.setEnabled(possibleUndo);
     }
-    
+                       
+
+    /**
+     * Active/désative les boutons d'impression de la feuille de route
+     */
     public void updatePrintState(Boolean possiblePrint){
         print.setEnabled(possiblePrint);
     }
-    
+                       
+
+    /**
+     * Active/désative les boutons de chargement de livraison
+     */
     public void updateLoadLivState(Boolean possibleLoad) {
         this.chargerLiv.setEnabled(possibleLoad);
     }

@@ -40,9 +40,12 @@ public class ControleurGraph {
         this.fenetrePrincipale.updatePrintState(false);
     }
     
-    
-    
-    //Lancé à chaque nouvelle demande de calcul
+
+    /**
+     * Recalcule le graphe a partir de la tournée passée en paramètre
+     * Lancé à chaque nouvelle demande de calcul
+     * @param Tournee t la tournée où recalculer le graphe
+     */
     public int UpdateGraphe(Tournee t) throws MyException{
         try {
             graphe = new GraphUtil(t);
@@ -68,6 +71,9 @@ public class ControleurGraph {
         }
     }
     
+    /**
+     * Retourne la liste d'itineraire si elle existe, ou une liste vide le cas échéant.
+     */
     public ArrayList<Itineraire> getItineraires() {
         if (graphe != null) {
             return graphe.getEnsembleTrajets();
@@ -76,6 +82,9 @@ public class ControleurGraph {
         }
     }
     
+    /**
+     * Retourne la liste des livraisons DANS L'ORDRE si elle existe, ou une liste vide le cas échéant.
+     */
     public ArrayList<Livraison> getLivOrdered() {
         if (tsp != null) {
             return tsp.getTableFinal();
@@ -105,6 +114,9 @@ public class ControleurGraph {
         tsp = null;
     }
     
+    /**
+     * Lance la génération de la feuille de tournée.
+     */
     public void printTrip(Tournee tour) throws MyException{
         try{
             FileWriter fw = new FileWriter ("FDR.txt");

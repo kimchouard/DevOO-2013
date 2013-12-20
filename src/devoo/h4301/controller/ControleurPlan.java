@@ -41,12 +41,17 @@ public class ControleurPlan {
     
     /**
      * Lie la vue plan avec le scroll pannel de la fenetre principale.
+     * @param  JScrollPane panneauPlan sur lequel le lier
      */
     public void afficherPlan(JScrollPane panneauPlan) {
         panneauPlan.setViewportView(vuePlan);
         this.vuePlan.updateUI();
     }
     
+    /**
+     * Reconstruit entièrement la vue a partir de la Tournée. Reset le plan en premier .
+     * @param  Tournee
+     */
     public void rafraichirVuePlan(Tournee tournee) {
         this.resetPlan();
         this.vuePlan.setTournee(tournee);
@@ -86,6 +91,9 @@ public class ControleurPlan {
         this.afficherPlan(this.controleurPrincipal.getPanneauPlan());
     }
     
+    /**
+     * Calcul le scale du plan pour avoir une remplissage optimal lors de l'affichage.
+     */
     public void scaleAutoVuePlan() {
         Plan p =  vuePlan.getTournee().getPlan();
         
@@ -104,23 +112,43 @@ public class ControleurPlan {
         }
     }
     
+    /**
+     * Réinitialise le plan (sous traité a VuePlan).
+     */
     public void resetPlan() {
         this.vuePlan.reset();
     }
     
+    /**
+     * Met à jour le zoom du plan
+     * @param  pourcent Le poucentage à appliquer au zoom actuel.
+     */
     public void zoomChange(double pourcent) {
         vuePlan.setZoomScale(vuePlan.getZoomScale() * pourcent);
         this.rafraichirVuePlan(Tournee.getInstance());
     }
     
+    /**
+     * Demande au controleur principale d'afficher les détails d'une livraison
+     * Binde le click sur une livraison depuis le plan.
+     * @param  Livraion la livraison a afficher
+     */
     public void selectLivraison(Livraison liv) {
         this.controleurPrincipal.selectLivraison(liv);
     }
     
+    /**
+     * Revenir à la liste des livraisons (délègue au controleur principal).
+     */
     public void unSelectLivraisons() {
         this.controleurPrincipal.unSelectLivraisons();
     }
     
+    /**
+     * Demande au controleur principale d'afficher la création d'une nouvelle livraison
+     * Binde le click sur un noeud vide depuis le plan.
+     * @param  Noeud ou créer la nouvelle livraison
+     */
     public void createLiv(Noeud noeud) throws Exception {
         this.controleurPrincipal.createLiv(noeud);
     }
