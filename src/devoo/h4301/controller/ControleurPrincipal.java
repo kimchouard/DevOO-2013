@@ -137,7 +137,12 @@ public final class ControleurPrincipal {
     }
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
-            this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
+            ArrayList <Livraison> listLiv = this.controleurGraph.getLivOrdered();
+            int i = 0;
+            while (listLiv.get(i) != liv){
+                i++;
+            }
+            this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv, i+1);
         } else {
             this.controleurPlan.getVuePlan().unselectNoeuds();
             System.out.println("Il est necessaire de charger des livraison avant tout.");

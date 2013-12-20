@@ -44,14 +44,15 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     }*/
     
     
-    public VueLivraisonItem(ControleurLivraison controleurLivraison, Livraison liv){
+    public VueLivraisonItem(ControleurLivraison controleurLivraison, Livraison liv, int i){
         this.initialize();
         this.controleurLivraison = controleurLivraison;
-        this.setLivraison(liv);
+        this.setLivraison(liv, i);
         
     }
-            
-        
+       
+    
+      
      /*   //Le suite est utile, ou pas !!!
         this.idLivraison.setText(this.livraison.getDestination().getId().toString());
         this.nomClient.setText(this.livraison.getClient().getName());
@@ -71,10 +72,11 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         return livraison;
     }
 
-     public void setLivraison(Livraison liv){
+     public void setLivraison(Livraison liv, int i){
         this.livraison = liv;
+        String s = Integer.toString(i);
+        this.idLivraison.setText(s);
         
-        this.idLivraison.setText(this.livraison.getDestination().getId().toString());
         if(this.livraison.getClient() != null) {
             this.nomClient.setText(this.livraison.getClient().getName());
         } else {
@@ -158,21 +160,16 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(idLivraison)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(idLivraison)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomClient)
-                            .addComponent(plageHoraire))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)))
-                .addComponent(supprBouton)
-                .addContainerGap())
+                    .addComponent(nomClient)
+                    .addComponent(plageHoraire))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(supprBouton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +183,7 @@ public class VueLivraisonItem extends javax.swing.JPanel {
                         .addComponent(plageHoraire)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supprBouton)
                     .addComponent(jButton1))

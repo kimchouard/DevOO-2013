@@ -88,8 +88,8 @@ public class ControleurLivraison {
      * @param paneRight Panneau de droite
      * @param liv Livraison considérée
      */
-    public void afficherUneLivraison(JScrollPane paneRight, Livraison liv ) {
-         VueLivraisonItem vueLivraison = new VueLivraisonItem(this, liv);
+    public void afficherUneLivraison(JScrollPane paneRight, Livraison liv, int i ) {
+         VueLivraisonItem vueLivraison = new VueLivraisonItem(this, liv, i);
          paneRight.setViewportView(vueLivraison);
      }
 
