@@ -1,0 +1,94 @@
+
+Tournee du jour
+
+Départ de l'entrepot
+
+Plage Horaire Entre 08:00:00 et 09:30:00
+
+
+Aller à la prochaine livraison pour 
+à l'id: 14
+Prendre la rue v2
+Prendre la rue h4
+
+Aller à la prochaine livraison pour 
+à l'id: 23
+Prendre la rue h8
+Prendre la rue v7
+Prendre la rue h6
+Prendre la rue v6
+Prendre la rue h5
+Prendre la rue v4
+Prendre la rue h4
+Prendre la rue v3
+Prendre la rue h3
+
+Aller à la prochaine livraison pour 
+à l'id: 88
+Prendre la rue h6
+Prendre la rue v7
+Prendre la rue h8
+
+Aller à la prochaine livraison pour 
+à l'id: 66
+Prendre la rue h6
+Plage Horaire Entre 09:30:00 et 11:00:00
+
+
+Aller à la prochaine livraison pour 
+à l'id: 14
+Prendre la rue v2
+Prendre la rue h4
+
+Aller à la prochaine livraison pour 
+à l'id: 23
+Prendre la rue h8
+Prendre la rue v7
+Prendre la rue h6
+Prendre la rue v6
+Prendre la rue h5
+Prendre la rue v4
+Prendre la rue h4
+Prendre la rue v3
+Prendre la rue h3
+
+Aller à la prochaine livraison pour 
+à l'id: 88
+Prendre la rue h6
+Prendre la rue v7
+Prendre la rue h8
+
+Aller à la prochaine livraison pour 
+à l'id: 66
+Prendre la rue h6
+Plage Horaire Entre 11:00:00 et 12:30:00
+
+
+Aller à la prochaine livraison pour 
+à l'id: 14
+Prendre la rue v2
+Prendre la rue h4
+
+Aller à la prochaine livraison pour 
+à l'id: 23
+Prendre la rue h8
+Prendre la rue v7
+Prendre la rue h6
+Prendre la rue v6
+Prendre la rue h5
+Prendre la rue v4
+Prendre la rue h4
+Prendre la rue v3
+Prendre la rue h3
+
+Aller à la prochaine livraison pour 
+à l'id: 88
+Prendre la rue h6
+Prendre la rue v7
+Prendre la rue h8
+
+Aller à la prochaine livraison pour 
+à l'id: 66
+Prendre la rue h6
+
+Retour à l'entrepot

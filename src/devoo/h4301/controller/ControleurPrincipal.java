@@ -172,7 +172,7 @@ public final class ControleurPrincipal {
             while (listLiv.get(i) != liv){
                 i++;
             }
-            this.controleurLivraison.afficherUneLivraison(liv, i+1);
+            this.controleurLivraison.afficherUneLivraison(liv, i);
         } else {
             this.unSelectLivraisons();
             System.out.println("Il est necessaire de charger des livraisons avant de pouvoir les modifier.");
