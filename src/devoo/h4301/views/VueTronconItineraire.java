@@ -51,6 +51,7 @@ public class VueTronconItineraire extends VueTroncon {
 
     public void addVuePlageHoraire(VuePlageHoraire vuePlageHoraire) {
         this.vuePlageHoraires.add(vuePlageHoraire);
+        this.updateUI();
     }
     
     public Troncon getTroncon() {
@@ -77,12 +78,14 @@ public class VueTronconItineraire extends VueTroncon {
         float longTroncon = (float) (Math.sqrt(x*x + y*y));
         float longDashes = longTroncon/this.vuePlageHoraires.size();
         for(int i = 0; i < this.vuePlageHoraires.size(); i++) {
-            float dash[] = {longDashes, 1.0f};
+            float deltaStart = longDashes*i;
+            float deltaAfter = longDashes*(this.vuePlageHoraires.size()-1-i);
+            float dash[] = {longDashes, };
             g2D.setStroke(new BasicStroke(
                     ControleurPrincipal.largeurTraitTroncon,
                     BasicStroke.CAP_BUTT,
                     BasicStroke.JOIN_ROUND,
-                    10.0f, dash, 0.0f
+                    10.0f, dash, deltaStart
             ));
             g2D.setPaint(this.vuePlageHoraires.get(i).getPlageColor());
             g2D.draw(getNewLine(delta, xArrivee, xDepart, yArrivee, yDepart));

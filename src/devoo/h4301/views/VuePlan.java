@@ -131,6 +131,7 @@ public class VuePlan extends javax.swing.JPanel {
             vi.setVisible(true);
         } else {
             vi.addVuePlageHoraire(getVuePlageHoraire(ph));
+            this.updateVuePlanFrame();
         }
     }
     

@@ -183,8 +183,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
         try {
-            this.controleurPrincipal.chargerPlan("/Users/pmdartus/debugPlan.xml");
-            this.controleurPrincipal.chargerLiv("/Users/pmdartus/debugLivraison.xml");
+            this.controleurPrincipal.chargerPlan("/Users/chouard/debugPlan.xml");
+            this.controleurPrincipal.chargerLiv("/Users/chouard/debugLivraison.xml");
         } catch (MyException ex) {
             System.out.print(ex.toString());
         }
