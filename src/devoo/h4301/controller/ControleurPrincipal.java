@@ -87,6 +87,8 @@ public final class ControleurPrincipal {
 
             commandeControleur.resetCommand();
             
+            this.reloadGraph();
+            
             this.reloadUI(true);
             this.fenParent.setZoomScaleNum(this.controleurPlan.getVuePlan().getZoomScale());
         } catch (Exception e) {

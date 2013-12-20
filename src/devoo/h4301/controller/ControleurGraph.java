@@ -62,7 +62,8 @@ public class ControleurGraph {
             
             return 0;
         } catch (Exception ex) {
-            System.out.println("Impossible de trouver un chemin valable.");;
+            this.resetGraph();
+            System.out.println("Impossible de trouver un chemin valable.");
             return 0;
         }
     }
