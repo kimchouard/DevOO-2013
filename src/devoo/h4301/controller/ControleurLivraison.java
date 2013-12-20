@@ -21,13 +21,23 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author Mimi
+ * @author Meriem
  */
 public class ControleurLivraison {
     
+    /**
+     * controleur principale de l'application
+     */
     private final ControleurPrincipal controleurPrincipal;
     
+    /**
+     * vue sur les livraison du modele
+     */
     private final VueListLivraison vueListLivraison;
+    
+    /**
+     * vue sur l'icone de creation de livraison
+     */
     private final VueEditLivraison vueEditLivraison;
 
     /**
@@ -50,7 +60,7 @@ public class ControleurLivraison {
     }
 
     /**
-     * Afficher la liste des livraisons initiale
+     * Afficher la liste des livraisons initiale dans le panneau de droite
      */
     public void afficherListLivraisonInitiale() {
          this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
@@ -58,9 +68,9 @@ public class ControleurLivraison {
      }
 
     /**
-     * Afficher le panneau de création de livraison
+     * Afficher l'icone de création de livraison
      * @param paneRight panneau de droite
-     * @param noeud Noeud de livraison
+     * @param noeud Noeud à partir du quel on souhaite creer une livraison
      * @throws Exception
      */
     public void afficherCreationLivraison(Noeud noeud) {
@@ -70,8 +80,11 @@ public class ControleurLivraison {
      }
 
     /**
-     * Création d'une livraison
+     * Création d'une livraison dans le modèle
      * @param noeud Noeud de livraison
+     * @param nom nom du client
+     * @param colis numero du colis
+     * @param ph plage horaire de la livraison
      */
     public void creationLivraison(Noeud noeud, String nom, int colis, PlageHoraire ph ) {
          try {
@@ -87,8 +100,8 @@ public class ControleurLivraison {
      }
 
     /**
-     * Afficher une livraison
-     * @param paneRight Panneau de droite
+     * Afficher un livraison
+     * @param i position de la livraison dans la tournne calculee
      * @param liv Livraison considérée
      */
     public void afficherUneLivraison(Livraison liv, int i ) {
@@ -97,8 +110,7 @@ public class ControleurLivraison {
      }
 
     /**
-     * Effacer la vue List livraison
-     * @param paneRight
+     * Effacer la vue List livraison du panneau de droite
      */
     public void effacerVueListLivraison() {
         this.vueListLivraison.removeAll();
@@ -106,8 +118,7 @@ public class ControleurLivraison {
      }
 
     /**
-     * Effacer la vue Edit Livraison
-     * @param panneauLiv
+     * Effacer la vue d'edition de Livraison
      */
     public void effacerItemLivraison() {
          this.vueEditLivraison.removeAll();
@@ -117,7 +128,6 @@ public class ControleurLivraison {
     /**
      * Rafraichir la Vue Liste Livraison
      * @param tournee Nouvelle tournee a considérer
-     * @param paneRight Panneau de droite
      */
     public void rafraichirVueListLivraison(Tournee tournee) {
         this.vueListLivraison.removeAll();
@@ -149,7 +159,6 @@ public class ControleurLivraison {
             this.controleurPrincipal.reloadUI(true);
         } catch (Exception ex) {
             System.out.println("Impossible de supprimer la livraison");
-            return;
         }
      }
      
