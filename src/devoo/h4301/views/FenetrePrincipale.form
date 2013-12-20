@@ -51,6 +51,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="zoomMoins" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="zoomAuto" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="zoomPlus" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -79,6 +81,7 @@
                   <Component id="zoomPlus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zoomMoins" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zoomScale" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="zoomAuto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -213,6 +216,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="zoomMoinsMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="zoomAuto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="zoomAutoMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

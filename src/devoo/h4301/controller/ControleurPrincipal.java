@@ -88,6 +88,7 @@ public final class ControleurPrincipal {
             commandeControleur.resetCommand();
             
             this.reloadUI(true);
+            this.fenParent.setZoomScaleNum(this.controleurPlan.getVuePlan().getZoomScale());
         } catch (Exception e) {
             commandeControleur.resetCommand();
             this.resetUI(true);
@@ -110,6 +111,7 @@ public final class ControleurPrincipal {
                 this.reloadGraph();
                 
                 this.reloadUI(true);
+                this.fenParent.setZoomScaleNum(this.controleurPlan.getVuePlan().getZoomScale());
             } catch (Exception e) {
                 commandeControleur.resetCommand();
                 this.resetUI(false);
@@ -159,9 +161,16 @@ public final class ControleurPrincipal {
         this.fenParent.updatePrintState(false);
     }
     
-    public void zoomChange(double pourcent) {
+    public double zoomChange(double pourcent) {
         this.controleurPlan.zoomChange(pourcent);
         this.reloadUI(false);
+        return this.controleurPlan.getVuePlan().getZoomScale();
+    }
+    
+    public double zoomAuto() {
+        this.controleurPlan.scaleAutoVuePlan();
+        this.reloadUI(false);
+        return this.controleurPlan.getVuePlan().getZoomScale();
     }
     
     
