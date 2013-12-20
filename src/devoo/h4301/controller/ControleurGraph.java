@@ -25,8 +25,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author cdupuis
+ * Classe ControleurGraph.
+ * Construit GraphUtil et TSP et assure la gestion de leur mise à jour, 
+ * le formatage des données pour la vue et leur écriture (impression texte)
  */
 public class ControleurGraph {
     private GraphUtil graphe;
@@ -34,6 +35,11 @@ public class ControleurGraph {
     private ControleurPrincipal controleurPrincipal;
     private FenetrePrincipale fenetrePrincipale;
     
+    /**
+     * 
+     * @param controleurPrincipal
+     * @param fenParent 
+     */
     public ControleurGraph(ControleurPrincipal controleurPrincipal, FenetrePrincipale fenParent){
         this.fenetrePrincipale = fenParent;
         this.controleurPrincipal = controleurPrincipal;
@@ -42,7 +48,13 @@ public class ControleurGraph {
     
     
     
-    //Lancé à chaque nouvelle demande de calcul
+    /**
+     * Met à jour le graphe des tournées, regénère ce dernier ainsi que tsp.
+     * Lance ensuite le calcul du plus court chemin.
+     * @param Tournee t
+     * @return
+     * @throws MyException 
+     */
     public int UpdateGraphe(Tournee t) throws MyException{
         try {
             graphe = new GraphUtil(t);
@@ -68,6 +80,11 @@ public class ControleurGraph {
         }
     }
     
+    /**
+     * Getter, retourne une liste d'itinéraires, vide en cas d'erreur 
+     * (le graphe n'est pas sensé être nul)
+     * @return ArrayList<Itineraire>
+     */
     public ArrayList<Itineraire> getItineraires() {
         if (graphe != null) {
             return graphe.getEnsembleTrajets();
@@ -75,7 +92,11 @@ public class ControleurGraph {
             return new ArrayList<Itineraire>();
         }
     }
-    
+    /**
+     * Getter, retourne une liste de livraisons, vide en cas d'erreur 
+     * (le graphe n'est pas sensé être nul)
+     * @return ArrayList<Livraison>
+     */
     public ArrayList<Livraison> getLivOrdered() {
         if (tsp != null) {
             return tsp.getTableFinal();
@@ -83,28 +104,54 @@ public class ControleurGraph {
             return new ArrayList<Livraison>();
         }
     }
-
+    
+    /**
+     * Getter, retourne le GraphUtil
+     * @return GraphUtil
+     */
     public GraphUtil getGraphe() {
         return graphe;
     }
 
+    /**
+     * Setter
+     * @param graphe 
+     */
     public void setGraphe(GraphUtil graphe) {
         this.graphe = graphe;
     }
 
+    /**
+     * Getter, retourne le Tsp
+     * @return TSP
+     */
     public TSP getTsp() {
         return tsp;
     }
 
+    /**
+     * Setter
+     * @param tsp 
+     */
     public void setTsp(TSP tsp) {
         this.tsp = tsp;
     }
     
+    /**
+     * Méthode utilitaire, met à null le graphe et tsp
+     */
     public void resetGraph() {
         graphe = null;
         tsp = null;
     }
     
+    /**
+     * Génère le fichier texte représentant la feuille de route version papier.
+     * Récupère les erreurs d'input/output et celles de chemin de fichier sous 
+     * forme d'exceptions.
+     * @param tour
+     * @throws MyException 
+     */
     public void printTrip(Tournee tour) throws MyException{
         try{
             FileWriter fw = new FileWriter ("FDR.txt");
