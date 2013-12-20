@@ -75,7 +75,11 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.livraison = liv;
         
         this.idLivraison.setText(this.livraison.getDestination().getId().toString());
-        this.nomClient.setText(this.livraison.getClient().getName());
+        if(this.livraison.getClient() != null) {
+            this.nomClient.setText(this.livraison.getClient().getName());
+        } else {
+            this.nomClient.setText("");
+        }
         
         PlageHoraire ph = this.livraison.getHoraire();
         String horaire = "De "+ formatter.format(ph.getDebut())+" à "+ formatter.format(ph.getFin());
