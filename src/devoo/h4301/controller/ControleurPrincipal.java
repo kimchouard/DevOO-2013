@@ -85,23 +85,23 @@ public final class ControleurPrincipal {
 
         try {
             this.lecteurXml.construirePlanAPartirXML(urlPlan);
+            Tournee t = Tournee.getInstance();
+            controleurPlan.setTournee(t);
+
+            commandeControleur.resetCommand();
+
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
+            controleurPlan.afficherPlan(panneauPlan);
+            controleurLivraison.effacerVueListLivraison(this.panneauLiv);
+            controleurLivraison.effacerItemLivraison(this.panneauLiv);
+            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+
+            this.fenParent.updateLoadLivState(true);
+            this.fenParent.updatePrintState(false);
+            
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        Tournee t = Tournee.getInstance();
-        controleurPlan.setTournee(t);
-
-        commandeControleur.resetCommand();
-
-        controleurPlan.rafraichirVuePlan(t, panneauPlan);
-        controleurPlan.afficherPlan(panneauPlan);
-        controleurLivraison.effacerVueListLivraison(this.panneauLiv );
-        controleurLivraison.effacerItemLivraison(this.panneauLiv);
-        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
-        
-        this.fenParent.updateLoadLivState(true);
-        this.fenParent.updatePrintState(false);
-    
     }   
 
     public void chargerLiv(String urlLiv) throws MyException {
