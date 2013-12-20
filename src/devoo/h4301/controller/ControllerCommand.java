@@ -91,7 +91,7 @@ public class ControllerCommand {
             
             this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
             
-            this.controleurPrincipal.reloadUI();
+            this.controleurPrincipal.reloadUI(true);
         } else {
             throw new Exception("Aucune commande a undo");
         }
@@ -112,7 +112,7 @@ public class ControllerCommand {
             
             this.fenetrePrincipale.updateCommandState(this.possibleUndo(), this.possibleRedo());
             
-            this.controleurPrincipal.reloadUI();
+            this.controleurPrincipal.reloadUI(true);
         } else {
             throw new Exception("Aucune commande a redo");
         }

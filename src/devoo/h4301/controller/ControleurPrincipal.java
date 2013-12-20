@@ -78,8 +78,6 @@ public final class ControleurPrincipal {
     //--------------------------------
     //  Public functions
     public void chargerPlan(String urlPlan) {
-        this.resetUI(true);
-        
         if (urlPlan == "") {
             urlPlan = ouvrirFichier();
         }
@@ -132,6 +130,7 @@ public final class ControleurPrincipal {
     }
 
     public void reloadUI(boolean autoScale) {
+        this.controleurPlan.resetPlan();
         Tournee t = Tournee.getInstance();
 
         controleurPlan.setTournee(t);
@@ -173,7 +172,7 @@ public final class ControleurPrincipal {
             while (listLiv.get(i) != liv){
                 i++;
             }
-            this.controleurLivraison.afficherUneLivraison(liv, i);
+            this.controleurLivraison.afficherUneLivraison(liv, i+1);
         } else {
             this.unSelectLivraisons();
             System.out.println("Il est necessaire de charger des livraisons avant de pouvoir les modifier.");

@@ -145,6 +145,7 @@ public class ControleurLivraison {
         try {
             Tournee.getInstance().supprimerLivraison(liv);
             this.controleurPrincipal.addCommandeLivraison(liv, true);
+            this.controleurPrincipal.reloadGraph();
             this.controleurPrincipal.reloadUI(true);
         } catch (Exception ex) {
             System.out.println("Impossible de supprimer la livraison");
@@ -164,6 +165,7 @@ public class ControleurLivraison {
             System.out.println("Impossible d'ajouter la livraison");
             return;
         }
+        this.controleurPrincipal.reloadGraph();
         this.controleurPrincipal.reloadUI(true);
      }
 
