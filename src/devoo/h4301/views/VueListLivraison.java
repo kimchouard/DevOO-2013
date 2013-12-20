@@ -15,7 +15,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Mimi
+ * @author Meriem
  */
 public class VueListLivraison extends javax.swing.JPanel {
     private final ControleurLivraison controleurLivraison;
@@ -41,12 +41,20 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.setVisible(true); 
     }
     
+    /**
+     * efface une vue de livraison de l'écran
+     */
     public void reset() {
         this.removeAll();
         this.updateUI();
         this.vueLivraisonsItem.clear();
     }
     
+    /**
+     * ajoute une vues pour une livraison donnée 
+     * @param livraison
+     * @param i
+     */
     public void ajouterLivraison(Livraison livraison, int i) {
         VueLivraisonItem v = new VueLivraisonItem(this.controleurLivraison, livraison, i);
         this.vueLivraisonsItem.add(v);
@@ -65,6 +73,11 @@ public class VueListLivraison extends javax.swing.JPanel {
         this.setPreferredSize(dimension);
     }
     
+    /**
+     * place la vue d'une livraisons dans le panneau de droite
+     * @param vl
+     * @param rank
+     */
     public void placerLivraison(VueLivraisonItem vl, int rank) {
         vl.setSize(400, 50);
         vl.cacherRetour();
@@ -72,14 +85,26 @@ public class VueListLivraison extends javax.swing.JPanel {
         vl.setLocation(0, yLocation);
     }
 
+    /**
+     * getter sur le tableau des vues de livraisons
+     * @return le tableau des vues livraisons
+     */
     public LinkedList<VueLivraisonItem> getVueLivraison() {
         return vueLivraisonsItem;
     }
 
+    /**
+     *
+     * @return le controleuur de livraison
+     */
     public ControleurLivraison getControleurLivraison() {
         return controleurLivraison;
     }
 
+    /**
+     * setter sur le tableau des livraisons
+     * @param livs
+     */
     public void setLivraisons(ArrayList<Livraison> livs) {
         this.vueLivraisonsItem.clear();
         for(int i = 1; i < livs.size(); i++)

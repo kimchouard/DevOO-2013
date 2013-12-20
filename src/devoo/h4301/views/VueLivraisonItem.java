@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 
 /**
  *
- * @author Mimi
+ * @author Meriem
  */
 public class VueLivraisonItem extends javax.swing.JPanel {
     
@@ -25,6 +25,9 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     private final DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
     private ControleurLivraison controleurLivraison;
     
+    /**
+     *
+     */
     protected boolean selected;
     /**
      * Create new form VueLivraison 
@@ -32,18 +35,14 @@ public class VueLivraisonItem extends javax.swing.JPanel {
     public VueLivraisonItem(){
         initialize();
     }
-    
+ 
+
     /**
      * Creates new form VueLivraison
+     * @param controleurLivraison
+     * @param liv
+     * @param i
      */
-    /*public VueLivraisonItem(Livraison livraison, VueListLivraison vueListLivraison) {
-        this.initialize();
-        this.setLivraison(livraison);
-        this.vueListLivraison = vueListLivraison;
-        
-    }*/
-    
-    
     public VueLivraisonItem(ControleurLivraison controleurLivraison, Livraison liv, int i){
         this.initialize();
         this.controleurLivraison = controleurLivraison;
@@ -51,16 +50,10 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         
     }
        
-    
-      
-     /*   //Le suite est utile, ou pas !!!
-        this.idLivraison.setText(this.livraison.getDestination().getId().toString());
-        this.nomClient.setText(this.livraison.getClient().getName());
-        PlageHoraire ph = this.livraison.getHoraire();
-        String horaire = "De "+ph.getDebut().toString()+" à "+ph.getFin().toString();
-        this.plageHoraire.setText(horaire);
-    */
-    
+
+    /**
+     * initialise les composants de la vue
+     */
     public void initialize() {
         initComponents();
         
@@ -68,11 +61,20 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.setVisible(true);
     }
     
+    /**
+     * getter sur la livraison
+     * @return la livraison contenu dans la vue
+     */
     public Livraison getLivraison() {
         return livraison;
     }
 
-     public void setLivraison(Livraison liv, int i){
+    /**
+     * setter sur la livraisons de l'icone
+     * @param liv livraison que l'on souhaite integrer dans la vue
+     * @param i rang de la livraison dans la tournée
+     */
+    public void setLivraison(Livraison liv, int i){
         this.livraison = liv;
         String s = Integer.toString(i);
         this.idLivraison.setText(s);
@@ -83,14 +85,25 @@ public class VueLivraisonItem extends javax.swing.JPanel {
         this.plageHoraire.setText(horaire);
     }
 
+    /**
+     * indique si la livraison est selectionnée
+     * @return true si la livraison est selectionne false sinon
+     */
     public boolean isSelected() {
         return selected;
     }
 
+    /**
+     * setter sur l'attribut selection
+     * @param selected
+     */
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
     
+    /**
+     * masque le bouton de retour
+     */
     public void cacherRetour(){
         this.retour.setVisible(false);
     }

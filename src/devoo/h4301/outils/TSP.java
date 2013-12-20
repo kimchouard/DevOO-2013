@@ -24,7 +24,13 @@ public class TSP {
 	private int totalCost;
 	private SolutionState state;
 	private Graph graph;
+	/**
+	 * Liste ordonnée de livraisons
+	 */
         private ArrayList<Livraison> tableFinal;
+        /**
+         * Map reliant une livraison à son horaire exact de passage
+         */
         private Map<Livraison,String> mapHeureExacte;
 
 	public TSP(Graph graph) {
