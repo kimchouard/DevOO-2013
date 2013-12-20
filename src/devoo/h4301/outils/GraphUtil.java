@@ -51,12 +51,12 @@ public class GraphUtil implements Graph {
         private ArrayList<ArrayList<Integer>> succ; 
         
         /**
-         * Map that links an integer with his livraison.
+         * Map. Le dictionnaire relie un entier et une livraison
          */
         private Map<Integer,Livraison> dictionnaire;
         
         /**
-         * Map that links a livraison with his integer.
+         * Map. Le dictionnaire retour relie une livraion à un entier.
          */
         private Map<Livraison,Integer> dictionnaireRetour;
 
@@ -105,7 +105,10 @@ public class GraphUtil implements Graph {
 		}
 	}
         
-       // CREATE AN ORDERED TAB OF DURATIONS
+       /**
+        * @param : tabLivraison qui est une liste de livraisons
+        * @return : une liste de plages horaires ordonnée
+        */
         private ArrayList<PlageHoraire> getOrderedTabDuration(LinkedList<Livraison> tabLivraison)
         {
             int i;
@@ -138,7 +141,10 @@ public class GraphUtil implements Graph {
         }
         
         
-        // ENTERING THE VERTICES IN SUCC AND COST 
+        /**
+        * @param :  PlagesHoraires une liste de plages horaires,  tabLivraison une liste de livraison, ens une Tournee
+        * Remplit les attributs cost et succ de la classe
+        */
         private void enterIdSuccAndCost(ArrayList<PlageHoraire> PlagesHoraires, LinkedList<Livraison> tabLivraison, Tournee ens) throws Exception
         {
                	PlageHoraire PH1,PH2;
@@ -226,7 +232,10 @@ public class GraphUtil implements Graph {
                 
         }
         
-        //calcul final cost by adding costs of Troncons
+        /**
+         * @param : itineraire qui est une liste de troncons
+         * calcule le cout final d'un itinéraire en sommant le cout unitaires des troncons
+         */
         private int calculCost(LinkedList<Troncon> itineraire)
         {
             double cout = 0;
@@ -239,7 +248,11 @@ public class GraphUtil implements Graph {
         }
 	
 	
-	//Calculating cost between pt1 and pt2 using the sortest path of Djikstra 
+	/**
+	 * @return : une liste de troncons
+	 * @param : pt1 et pt2 deux entiers et le plan p
+	 * calcule le plus court chemin entre pt1 et pt2
+	 */ 
 	private LinkedList<Troncon> getPath(int pt1, int pt2, Plan P) throws Exception
 	{
 		ArrayList<Noeud> tabnoeuds = P.getNoeuds();
@@ -290,7 +303,11 @@ public class GraphUtil implements Graph {
                 return pathFinal;
 	}
         
-        // Transform group of Noeuds into group of Troncons
+        /**
+	 * @return : une liste de troncons
+	 * @param : path une liste d'entiers et le plan p
+	 * Tranforme la liste de noeuds en liste de troncons
+	 */ 
         private LinkedList<Troncon> transformNoeudTroncon(LinkedList<Integer> path,Plan P)
         {   
                 ArrayList<Troncon> tabtroncons = P.getTroncons();
@@ -325,7 +342,11 @@ public class GraphUtil implements Graph {
                 return pathFinal;      
         }
         
-        //De tous les noeuds dans not vu, on retourne le noeud de celui qui a la plus petite duree depuis la source
+        /**
+	 * @return : un entier
+	 * @param : une liste d'entiers notvu correspondant aux noeuds pas encore explorés et une map duree qui relie un noeud à sa duree
+	 * De tous les noeuds dans not vu, on retourne le noeud de celui qui a la plus petite duree depuis la source
+	 */ 
 	private int getNoeudProche(ArrayList<Integer> notvu, Map<Integer, Integer> duree)
 	{
             int mini = -1;
@@ -345,7 +366,10 @@ public class GraphUtil implements Graph {
             return mini;
 	}
 	
-        // De tous les voisins de @param newNoeud on ajoute à duree previous et notvu les voisins dont les durées à la source à partir de newNoeud sont mini
+	/**
+	 * @param : une liste d'entiers notvu correspondant aux noeuds pas encore explorés, une liste dentiers vu, le plan P, un entier représentant un noeud, une map previous reliant un entier à un successeur et une map duree qui relie un noeud à sa duree
+         * De tous les voisins de @param newNoeud on ajoute à duree previous et notvu les voisins dont les durées à la source à partir de newNoeud sont mini
+	 */ 
 	private void findDureeMini(int newNoeud, Plan P, ArrayList<Integer> notvu, Map<Integer, Integer> duree, Map<Integer, Integer> previous,ArrayList<Integer> vu) 
 	{
 		ArrayList<Integer> voisins = getVoisins(newNoeud,P,vu);
@@ -362,7 +386,11 @@ public class GraphUtil implements Graph {
 		}
 	}
 	
-	//Cherche les voisins non encore vus d'un point @param noeud pris comme origine 
+	/**
+	 * @return : une liste d'entiers représentant les voisins d'un noeud
+	 * @param : un entier representant un noeud, le plan p et la liste vu représentant les points déjà explorés
+	 * Cherche les voisins non encore vus d'un point @param noeud pris comme origine 
+	 */ 
 	private ArrayList<Integer> getVoisins(int noeud, Plan P,ArrayList<Integer> vu)
 	{
 		ArrayList<Troncon> tabTroncons = P.getTroncons();
@@ -381,7 +409,11 @@ public class GraphUtil implements Graph {
                 return voisins;
 	}
          
-        //Cherche la durée entre un point et un autre qui sont VOISINS 
+         /**
+	 * @return : un entier qui est une duree
+	 * @param : deux entiers représentant des noeuds et le plan
+         * Cherche la durée entre un point et un autre qui sont VOISINS 
+	 */ 
 	private int getDuration(int noeud1, int noeud2, Plan P)
 	{
                 ArrayList<Troncon> tabTroncons = P.getTroncons();
@@ -398,8 +430,12 @@ public class GraphUtil implements Graph {
                 }
                 return -1;
 	}
-	
-	// Retourne la durée d'un noeud à la source si noeud n'est pas entré dans durée retourne valeur max
+
+	/**
+	 * @return : un entier qui est une duree
+	 * @param : un entier pt et la map duree qui relie deux entiers un représentant le noeud et l'autre la duréé
+	 *  Retourne la durée d'un noeud à la source si noeud n'est pas entré dans durée retourne valeur max
+	 */ 
 	private int getShortestDuration(int pt, Map<Integer, Integer> duree ) 
         {
             int d = duree.get(pt);
@@ -457,7 +493,10 @@ public class GraphUtil implements Graph {
         }
         
                                                     
-        // Defining min and max 
+        /**
+	 * @param : newCout un entier
+	 *  Initialiser les attributs des bornes de cout
+	 */ 
         private void setMinMax (int newCout)
         { 
             if(newCout>maxArcCost){
@@ -482,15 +521,23 @@ public class GraphUtil implements Graph {
         public void setEnsembleTrajets(ArrayList<Itineraire> ensemble){
             ensembleTrajets = ensemble;
         }
-        
+        /**
+	 *  nettoie ensembleTrajets
+	 */ 
         public void clearEnsembleTrajets(){
             ensembleTrajets.clear();
         }
-        
+        /**
+         * @param : itineraire iti
+	 *  ajoute un itineraire à ensembleTrajets
+	 */ 
         public void addItineraire(Itineraire iti){
             ensembleTrajets.add(iti);
         }
-        
+        /**
+         * @param : itineraire iti
+	 *  enlève un itineraire à ensembleTrajets
+	 */ 
         public void removeItineraire(Itineraire iti){
             ensembleTrajets.remove(iti);
         }

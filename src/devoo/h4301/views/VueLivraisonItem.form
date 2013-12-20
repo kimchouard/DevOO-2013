@@ -39,7 +39,7 @@
                   <Component id="plageHoraire" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="realIdLiv" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="82" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="retour" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="supprBouton" min="-2" max="-2" attributes="0"/>

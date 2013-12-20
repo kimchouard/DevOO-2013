@@ -93,7 +93,7 @@ public class Plan {
     }
 
     /**
-     * Retrouner le postion minimale du plan en X
+     * Retourner la position minimale du plan en X
      * @return minX
      */
     public int getMinX() {
@@ -101,7 +101,7 @@ public class Plan {
     }
 
     /**
-     * Retrouner le postion minimale du plan en Y
+     * Retourner la position minimale du plan en Y
      * @return minY
      */
     public int getMinY() {
@@ -109,7 +109,7 @@ public class Plan {
     }
 
     /**
-     * Retrouner le postion maximale du plan en X
+     * Retourner la position maximale du plan en X
      * @return maxX
      */
     public int getMaxX() {
@@ -117,7 +117,7 @@ public class Plan {
     }
 
     /**
-     * Retrouner le postion maximale du plan en Y
+     * Retourner la position maximale du plan en Y
      * @return maxY
      */
     public int getMaxY() {
@@ -125,7 +125,7 @@ public class Plan {
     }
 
     /**
-     * Enlèvement d'un noeud de la liste de noeud du plan
+     * Enlèvement d'un noeud de la liste de noeuds du plan
      *
      * @param idNoeud id du noeud a retirer du plan
      * @throws Exception souleverer par la recherche du noeud
@@ -145,7 +145,7 @@ public class Plan {
     }
 
     /**
-     * Ajout d'un tronçon à la liste de tronçon du plan
+     * Ajout d'un tronçon à la liste de tronçons du plan
      *
      * @param troncon a ajouter à la liste
      */

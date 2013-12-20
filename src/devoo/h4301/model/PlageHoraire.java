@@ -29,7 +29,7 @@ public class PlageHoraire {
      *Date de fin de la plage horaire
      */
     private Date fin;
-
+    
     /**
      * Constructeur à partir d'un noeudDOMXML. Parcours les attributs pour
      * remplir l'objet plageHoraire appelant.
@@ -63,35 +63,40 @@ public class PlageHoraire {
     }
     
     /**
-     * @return the debut
+     * Getter sur l'horaire de début
+     * @return le debut de la plage horaire
      */
     public Date getDebut() {
         return debut;
     }
 
     /**
-     * @param debut the debut to set
+     * Setter sur le début
+     * @param debut de la plage horaire
      */
     public void setDebut(Date debut) {
         this.debut = debut;
     }
 
     /**
-     * @return the fin
+     * Getter sur la fin 
+     * @return la fin de la plage horaire
      */
     public Date getFin() {
         return fin;
     }
 
     /**
-     * @param fin the fin to set
+     * Setter sur la fin
+     * @param fin de la plage horaire
      */
     public void setFin(Date fin) {
         this.fin = fin;
     }
     
     /**
-     *Construit une string à partir de la date appellante
+     *Construit une string à partir de la date passée en paramètre
+     * @param date date à traduire en string
      * @return String la string contenant les informations de la date
      */
     public String toString() {
@@ -110,7 +115,7 @@ public class PlageHoraire {
 
     /**
      *
-     * @return
+     * @return int hash
      */
     @Override
     public int hashCode() {

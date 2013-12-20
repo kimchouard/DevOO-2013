@@ -50,22 +50,23 @@ public interface Graph {
 			throws ArrayIndexOutOfBoundsException;
         
         /**
-	 * @return dictionnaire mapping an integer with an object of Livraison
+	 * @return dictionnaire reliant un entier à une livraison
 	 */
 	public abstract Map<Integer,Livraison> getDictionnaire();
         
         /**
-	 * @return ensembleTrajets
+	 * @return ensembleTrajets une liste d'itinéraire'
 	 */
 	public abstract ArrayList<Itineraire> getEnsembleTrajets();
         
         /**
-	 * set ensembleTrajets to ensemble
+         * @param : une liste d'itinéraires
+	 *  donne la valeur d' ensemble à ensembleTrajets
 	 */
 	public abstract void setEnsembleTrajets(ArrayList<Itineraire> ensemble);
         
         /**
-	 * get DictionnaireRetour 
+	 * @return DictionnaireRetour un dictionnaire reliant une livraison à un integer
 	 */
         public abstract Map<Livraison, Integer> getDictionnaireRetour();
 

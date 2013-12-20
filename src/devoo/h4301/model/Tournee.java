@@ -157,6 +157,7 @@ public class Tournee {
     }
 
     /**
+     * getter sur les livraisons
      * @return le nom du livreur
      */
     public String getLivreur() {
@@ -171,6 +172,7 @@ public class Tournee {
     }
 
     /**
+     * getter sur le plan
      * @return le plan de la tournée
      */
     public Plan getPlan() {
@@ -178,6 +180,7 @@ public class Tournee {
     }
 
     /**
+     * setter sur le plan
      * @param plan a attacher à la tournée
      */
     public void setPlan(Plan plan) {
@@ -185,6 +188,7 @@ public class Tournee {
     }
 
     /**
+     * getter sur la liste des livraisons
      * @return livraisons la liste de livraison de la tournée
      */
     public LinkedList<Livraison> getLivraisons() {
@@ -192,7 +196,7 @@ public class Tournee {
     }
 
     /**
-     *
+     * setter sur la liste des livraisons
      * @param livraisons
      */
     public void setLivraisons(LinkedList<Livraison> livraisons) {
@@ -221,6 +225,10 @@ public class Tournee {
         this.livraisons.add(livraison);
     }
     
+    /**
+     * Ajout d'une livraison dans la liste de livraison de la tournée
+     * @param livraison a ajouter à la tournée
+     */
     public void ajoutLivraison(Livraison livraison) throws MyException{
        if(this.horaires.contains(livraison.getHoraire()) != true){
             throw new MyException("Les horraires ne sont pas valides");

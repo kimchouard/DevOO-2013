@@ -27,12 +27,40 @@ public final class ControleurPrincipal {
     // Constantes Couleur
     public static final Color rougeMaps = new Color(217, 95, 87);
     public static final Color blancMaps = new Color(255, 255, 255);
+
+    /**
+     *
+     */
     public static final Color jauneMaps = new Color(248, 228, 122);
+
+    /**
+     *
+     */
     public static final Color bleuMaps = new Color(77, 118, 194);
+
+    /**
+     *
+     */
     public static final Color grisFonceMaps = new Color(200, 196, 186);
+
+    /**
+     *
+     */
     public static final Color grisMaps = new Color(231, 228, 219);
+
+    /**
+     *
+     */
     public static final Color grisFond = new Color(240, 240, 240);
+
+    /**
+     *
+     */
     public static final Color vertMaps = new Color(207, 222, 171);
+
+    /**
+     *
+     */
     public static final ArrayList<Color> tronconsColor = new ArrayList() {{
         add(new Color(255, 0, 0));
         add(new Color(0, 255, 0));
@@ -42,12 +70,32 @@ public final class ControleurPrincipal {
         add(new Color(255, 255, 0));
     }};
     // Constantes Noeuds
-    public static final int diamNoeud = 15;
+
+    /**
+     *
+     */
+        public static final int diamNoeud = 15;
     //Constante plan
-    public static final int padding = 20;
+
+    /**
+     *
+     */
+        public static final int padding = 20;
     // Constantes Troncons
-    public static final float largeurTraitTroncon = 4;
+
+    /**
+     *
+     */
+        public static final float largeurTraitTroncon = 4;
+
+    /**
+     *
+     */
     public static final float contourTroncon = 1;
+
+    /**
+     *
+     */
     public static final int xMinTroncon = 4;
     public static final int yMinTroncon = 4;
     
@@ -63,6 +111,12 @@ public final class ControleurPrincipal {
     private ControllerCommand commandeControleur;
     private final LecteurXml lecteurXml;
 
+    /**
+     *
+     * @param scrollPanePlan
+     * @param scrollPaneLiv
+     * @param fenParent
+     */
     public ControleurPrincipal(JScrollPane scrollPanePlan, JScrollPane scrollPaneLiv, FenetrePrincipale fenParent) {
         this.setPanneauPlan(scrollPanePlan);
         this.setPanneauLiv(scrollPaneLiv);
@@ -105,7 +159,8 @@ public final class ControleurPrincipal {
 
     /**
      * Charge des nouvelles livraisons dans le modèle et met a jour l'ui.
-     * @param String lien vers le fichier xml de livraisons (si == "", ouvre un dialogue pour choisir le fichier)
+     * @param urlLiv lien vers le fichier xml de livraisons (si == "", ouvre un dialogue pour choisir le fichier)
+     * @throws MyException
      */
     public void chargerLiv(String urlLiv) throws MyException {
         if (Tournee.getInstance().getPlan() != null) {
@@ -144,11 +199,10 @@ public final class ControleurPrincipal {
             System.out.println("Impossible de calculer l'itineraire. \n"+e.toString());
         }
     }
-
     
     /**
      * Recharge toute l'UI (plan, list, graphe, etc...)
-     * @param boolean true pour avoir un redimensionnement automatique du plan
+     * @param autoScale true pour avoir un redimensionnement automatique du plan
      */
     public void reloadUI(boolean autoScale) {
         this.controleurPlan.resetPlan();
@@ -173,6 +227,7 @@ public final class ControleurPrincipal {
     
     /**
      * Reset l'UI (plan, graph).
+     * @param resetPlan false pour ne pas reset le plan
      */
     public void resetUI(boolean resetPlan) {
         this.controleurGraph.resetGraph();
@@ -185,7 +240,8 @@ public final class ControleurPrincipal {
     
     /**
      * Met à jour la vue pour zoomer de pourcent%
-     * @param double pourcentage du zoom actuel
+     * @param pourcent double pourcentage du zoom actuel
+     * @return
      */
     public double zoomChange(double pourcent) {
         this.controleurPlan.zoomChange(pourcent);
@@ -195,6 +251,7 @@ public final class ControleurPrincipal {
     
     /**
      * Prend en charge le rechargement de la vue pour qu'elle remplisse au mieux le panneau.
+     * @return
      */
     public double zoomAuto() {
         this.controleurPlan.scaleAutoVuePlan();
@@ -205,7 +262,8 @@ public final class ControleurPrincipal {
     /**
      * Demande au controleur principale d'afficher les détails d'une livraison
      * Binde le click sur une livraison depuis le plan.
-     * @param  Livraion la livraison a afficher
+     * intervient lors de la selection d'une livraison sur un noeud
+     * @param  Livraion la livraison du noeud selectionnee a afficher
      */
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
@@ -229,8 +287,9 @@ public final class ControleurPrincipal {
     }
 
     /**
-     * Demande au controleur principale d'afficher la création d'une nouvelle livraison
+     * Délegue au controleur principale l'affichage d'un encart pour la création d'une nouvelle livraison
      * Binde le click sur un noeud vide depuis le plan.
+     * intervient lors de la selection d'un noeud qui n'est pas une livraison
      * @param  Noeud ou créer la nouvelle livraison
      */
     public void createLiv(Noeud noeud) {
@@ -302,8 +361,12 @@ public final class ControleurPrincipal {
 
     //--------------------------------
     //  Geter - Seter
-    
-    public JScrollPane getPanneauPlan() {
+
+    /**
+     * getter sur le panneau gauche contenant le plan
+     * @return panneau contenant le plan
+     */
+        public JScrollPane getPanneauPlan() {
         return panneauPlan;
     }
 
@@ -316,26 +379,50 @@ public final class ControleurPrincipal {
         this.panneauPlan = panneauPlan;
     }
 
+    /**
+     * getter sur le controleur du graphe
+     * @return controleur du graphe
+     */
     public ControleurGraph getControleurGraph() {
         return controleurGraph;
     }
 
+    /**
+     * setter sur le controleur du graphe
+     * @param controleurGraph
+     */
     public void setControleurGraph(ControleurGraph controleurGraph) {
         this.controleurGraph = controleurGraph;
     }
 
+    /**
+     * getter sur le panneau de droite contenant les livraisons
+     * @return l'instance du panneau de droite
+     */
     public JScrollPane getPanneauLiv() {
         return panneauLiv;
     }
 
+    /**
+     * setter sur le panneau de droite contenant les livraisons
+     * @param panneauLiv
+     */
     public void setPanneauLiv(JScrollPane panneauLiv) {
         this.panneauLiv = panneauLiv;
     }
 
+    /**
+     * getter sur la fenetre principale
+     * @return l'instance de la fenetre principale de l'application 
+     */
     public FenetrePrincipale getFenParent() {
         return fenParent;
     }
 
+    /**
+     * setter sur la fenetre principale
+     * @param fenParent fenetre principale de l'application
+     */
     public void setFenParent(FenetrePrincipale fenParent) {
         this.fenParent = fenParent;
     }
