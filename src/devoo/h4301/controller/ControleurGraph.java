@@ -119,14 +119,11 @@ public class ControleurGraph {
                 pw.println();
                 for(int i=0;i<plages.size();i++)
                 {
-                    pw.println("Plage Horaire "+ plages.get(i).toString());                    
-                    pw.println();
                     for(int j=0;j<livraisons.size()-1;j++)
                     {
 
                         pw.println();
-                        pw.println("Aller à la prochaine livraison pour "); //TODO: Ajouter les entrées du tableau de tsp contenant les heures de passage
-                        pw.println("à l'id: "+livraisons.get(j).getDestination().getId());
+                        pw.println("Aller à la prochaine livraison: "+livraisons.get(j).getDestination().getId() + " a réaliser " + livraisons.get(j).getHoraire().toString());
                         for(int k=0;k<trajets.size();k++)
                         {
                             if((trajets.get(k).getPrevLivraison() == livraisons.get(j)) && (trajets.get(k).getNextLivraison() == livraisons.get(j+1)))
