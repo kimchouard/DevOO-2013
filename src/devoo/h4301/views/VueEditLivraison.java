@@ -15,7 +15,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Mimi
+ * @author Meriem
  */
 public class VueEditLivraison extends javax.swing.JPanel {
      private ControleurLivraison controleurLivraison;
@@ -23,6 +23,8 @@ public class VueEditLivraison extends javax.swing.JPanel {
     
     /**
      * Creates new form VueEditLivraison
+     * @param controleurLivraison
+     * @param noeud
      */
     public VueEditLivraison(ControleurLivraison controleurLivraison, Noeud noeud) {
        
@@ -43,25 +45,30 @@ public class VueEditLivraison extends javax.swing.JPanel {
        
     }
     
+    /**
+     * constructeur de la vue 
+     * @param controleurLivraison
+     */
     public VueEditLivraison(ControleurLivraison controleurLivraison) {
         this.setControleurLivraison(controleurLivraison);
         initComponents();
     }
 
+    /**
+     * setter sur le controleur des livraisons
+     * @param controleurLivraison
+     */
     public void setControleurLivraison(ControleurLivraison controleurLivraison) {
         this.controleurLivraison = controleurLivraison;
     }
 
+    /**
+     * setter sur la 
+     * @param noeud
+     */
     public void setNoeud(Noeud noeud) {
         this.noeud = noeud;
     }
-    
-    
-    public void setPlagesHoraires(ArrayList<PlageHoraire> ph )
-    {
-        
-    }
-    
     
 
     /**
