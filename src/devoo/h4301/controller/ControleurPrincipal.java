@@ -168,7 +168,12 @@ public final class ControleurPrincipal {
     
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
-            this.controleurLivraison.afficherUneLivraison(liv);
+            ArrayList <Livraison> listLiv = this.controleurGraph.getLivOrdered();
+            int i = 1;
+            while (listLiv.get(i) != liv){
+                i++;
+            }
+            this.controleurLivraison.afficherUneLivraison(liv, i);
         } else {
             this.unSelectLivraisons();
             System.out.println("Il est necessaire de charger des livraisons avant de pouvoir les modifier.");
