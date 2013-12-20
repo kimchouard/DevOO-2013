@@ -55,7 +55,7 @@ public class Noeud {
      * Constructeur d'un noeud grace au DOM XML
      *
      * @param noeudDOMRacine noeud du DOM XML
-     * @throws java.lang.Exception de synthaxe ou de modèle levées lors de la
+     * @throws java.lang.Exception de syntaxe ou de modèle levées lors de la
      * lecteur du fichierXML
      */
     public void construireAPartirDomXML(Element noeudDOMRacine) throws Exception {
@@ -87,16 +87,17 @@ public class Noeud {
     }
 
     /**
-     *
-     * @return
+     *Getter sur X du noeud
+     * @return X du noeud
      */
     public Integer getX() {
         return x;
     }
 
+
     /**
-     *
-     * @return
+     *Getter sur Y du noeud
+     * @return Y du noeud
      */
     public Integer getY() {
         return y;
