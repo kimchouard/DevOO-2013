@@ -141,9 +141,9 @@ public final class ControleurPrincipal {
         controleurPlan.rafraichirVuePlan(t);
         controleurPlan.afficherPlan(panneauPlan);
 
-        controleurLivraison.effacerVueListLivraison(this.panneauLiv);
-        controleurLivraison.effacerItemLivraison(this.panneauLiv);
-        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+        controleurLivraison.effacerVueListLivraison();
+        controleurLivraison.effacerItemLivraison();
+        controleurLivraison.rafraichirVueListLivraison(t);
 
         Boolean possibleToLoadLivraisons = Tournee.getInstance().getPlan() != null;
         Boolean possibleToPrintLivraisons = Tournee.getInstance().getLivraisons().size() != 0;
@@ -168,7 +168,7 @@ public final class ControleurPrincipal {
     
     public void selectLivraison(Livraison liv) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
-            this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
+            this.controleurLivraison.afficherUneLivraison(liv);
         } else {
             this.unSelectLivraisons();
             System.out.println("Il est necessaire de charger des livraisons avant de pouvoir les modifier.");
@@ -176,12 +176,12 @@ public final class ControleurPrincipal {
     }
     
     public void unSelectLivraisons() {
-        this.reloadUI(false);
+        this.controleurLivraison.afficherListLivraison();
     }
 
     public void createLiv(Noeud noeud) {
         if (Tournee.getInstance().getLivraisons().size() > 0) {
-            this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+            this.controleurLivraison.afficherCreationLivraison(noeud);
         } else {
             this.unSelectLivraisons();
             System.out.println("Il est necessaire de charger des livraison avant de pouvoir en une nouvelle.");

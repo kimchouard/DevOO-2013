@@ -216,7 +216,7 @@ public class VueEditLivraison extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed
-        this.controleurLivraison.afficherListLivraisonInitiale();
+        this.controleurLivraison.afficherListLivraison();
     }//GEN-LAST:event_boutonAnnulerActionPerformed
 
     private void ph1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ph1ActionPerformed

@@ -44,8 +44,8 @@ public class ControleurLivraison {
      * Afficher la liste des livraisons dans la panneau de droite
      * @param panneauLiv 
      */
-    public void afficherListLivraison(JScrollPane panneauLiv) {
-        panneauLiv.setViewportView(vueListLivraison);
+    public void afficherListLivraison() {
+        this.controleurPrincipal.getPanneauLiv().setViewportView(vueListLivraison);
         this.vueListLivraison.updateUI();
     }
 
@@ -63,9 +63,9 @@ public class ControleurLivraison {
      * @param noeud Noeud de livraison
      * @throws Exception
      */
-    public void afficherCreationLivraison(JScrollPane paneRight, Noeud noeud) {
+    public void afficherCreationLivraison(Noeud noeud) {
         VueEditLivraison viewNewLiv = new VueEditLivraison(this, noeud);
-        paneRight.setViewportView(viewNewLiv);
+        this.controleurPrincipal.getPanneauLiv().setViewportView(viewNewLiv);
         viewNewLiv.setVisible(true);
      }
 
@@ -91,16 +91,16 @@ public class ControleurLivraison {
      * @param paneRight Panneau de droite
      * @param liv Livraison considérée
      */
-    public void afficherUneLivraison(JScrollPane paneRight, Livraison liv ) {
+    public void afficherUneLivraison(Livraison liv ) {
          VueLivraisonItem vueLivraison = new VueLivraisonItem(this, liv);
-         paneRight.setViewportView(vueLivraison);
+         this.controleurPrincipal.getPanneauLiv().setViewportView(vueLivraison);
      }
 
     /**
      * Effacer la vue List livraison
      * @param paneRight
      */
-    public void effacerVueListLivraison(JScrollPane paneRight) {
+    public void effacerVueListLivraison() {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
      }
@@ -109,7 +109,7 @@ public class ControleurLivraison {
      * Effacer la vue Edit Livraison
      * @param panneauLiv
      */
-    public void effacerItemLivraison(JScrollPane panneauLiv) {
+    public void effacerItemLivraison() {
          this.vueEditLivraison.removeAll();
          this.vueEditLivraison.updateUI();
      }
@@ -119,12 +119,12 @@ public class ControleurLivraison {
      * @param tournee Nouvelle tournee a considérer
      * @param paneRight Panneau de droite
      */
-    public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
+    public void rafraichirVueListLivraison(Tournee tournee) {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
         ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
         this.vueListLivraison.setLivraisons(livs);
-        paneRight.setViewportView(this.vueListLivraison);
+        this.controleurPrincipal.getPanneauLiv().setViewportView(this.vueListLivraison);
     }
 
     /**

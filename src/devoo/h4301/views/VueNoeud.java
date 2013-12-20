@@ -92,6 +92,8 @@ public class VueNoeud extends javax.swing.JPanel {
             } catch (Exception ex) {
                 Logger.getLogger(VueNoeud.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            this.vuePlan.unSelectLivs();
         }
         
         this.selected = selected;

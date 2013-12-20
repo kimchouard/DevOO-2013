@@ -37,9 +37,10 @@ public class VueNoeudLivraison extends VueNoeud {
     public void setSelected(boolean selected) {
         if (selected) {
             this.vuePlan.selectLiv(this.liv);
-        } else {
-            this.vuePlan.unSelectLivs();
         }
+//        else {
+//            this.vuePlan.unSelectLivs();
+//        }
         
         this.selected = selected;
         

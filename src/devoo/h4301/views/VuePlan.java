@@ -201,7 +201,6 @@ public class VuePlan extends javax.swing.JPanel {
     }
     
     public void unSelectLivs() {
-        this.unselectNoeudsEtLiv();
         controlerPlan.unSelectLivraisons();
     }
     
