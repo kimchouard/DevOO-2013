@@ -66,8 +66,8 @@ public class VueListLivraison extends javax.swing.JPanel {
     }
     
     public void placerLivraison(VueLivraisonItem vl, int rank) {
-        vl.setSize(280, 50);
-        
+        vl.setSize(400, 50);
+        vl.cacherRetour();
         int yLocation = rank * 50;
         vl.setLocation(0, yLocation);
     }
