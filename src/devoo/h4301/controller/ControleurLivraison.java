@@ -161,6 +161,7 @@ public class ControleurLivraison {
             System.out.println("Impossible d'ajouter la livraison");
             return;
         }
+        this.controleurPrincipal.reloadUI();
         this.rafraichirVueListLivraison(Tournee.getInstance(), this.controleurPrincipal.getPanneauLiv());
         this.controleurPrincipal.rafraichirVueGraph();
      }
