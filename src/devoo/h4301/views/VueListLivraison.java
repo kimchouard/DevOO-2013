@@ -82,7 +82,7 @@ public class VueListLivraison extends javax.swing.JPanel {
 
     public void setLivraisons(ArrayList<Livraison> livs) {
         this.vueLivraisonsItem.clear();
-        for(int i = 0; i < livs.size(); i++)
+        for(int i = 1; i < livs.size(); i++)
         {
             this.ajouterLivraison(livs.get(i));
         }
