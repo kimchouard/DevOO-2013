@@ -85,22 +85,23 @@ public final class ControleurPrincipal {
 
         try {
             this.lecteurXml.construirePlanAPartirXML(urlPlan);
+            Tournee t = Tournee.getInstance();
+            controleurPlan.setTournee(t);
+
+            commandeControleur.resetCommand();
+
+            controleurPlan.rafraichirVuePlan(t, panneauPlan);
+            controleurPlan.afficherPlan(panneauPlan);
+            controleurLivraison.effacerVueListLivraison(this.panneauLiv);
+            controleurLivraison.effacerItemLivraison(this.panneauLiv);
+            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+
+            this.fenParent.updateLoadLivState(true);
+            this.fenParent.updatePrintState(false);
+            
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        Tournee t = Tournee.getInstance();
-        controleurPlan.setTournee(t);
-
-        commandeControleur.resetCommand();
-
-        controleurPlan.rafraichirVuePlan(t, panneauPlan);
-        controleurPlan.afficherPlan(panneauPlan);
-        controleurLivraison.effacerVueListLivraison(this.panneauLiv );
-        controleurLivraison.effacerItemLivraison(this.panneauLiv);
-        controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
-        
-        this.fenParent.updatePrintState(false);
-    
     }   
 
     public void chargerLiv(String urlLiv) throws MyException {
@@ -111,38 +112,43 @@ public final class ControleurPrincipal {
 
             try {
                 this.lecteurXml.construireLivraisonAPartirXML(urlLiv);
+                
+                // observer 
+                Tournee t = Tournee.getInstance();
+                commandeControleur.resetCommand();
+
+                this.controleurGraph.UpdateGraphe(t);
+
+                controleurPlan.setTournee(t);
+                controleurPlan.rafraichirVuePlan(t, panneauPlan);
+                controleurPlan.afficherPlan(panneauPlan);
+                controleurLivraison.effacerItemLivraison(panneauLiv);
+
+                // rajouter
+                controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv);
+                this.fenParent.updatePrintState(true);
             } catch (Exception e) {
                 System.out.println("Error : " + e.getMessage());
             }
-            // observer 
-            Tournee t = Tournee.getInstance();
-            commandeControleur.resetCommand();
-
-            this.controleurGraph.UpdateGraphe(t);
-           
-            controleurPlan.setTournee(t);
-            controleurPlan.rafraichirVuePlan(t, panneauPlan);
-            controleurPlan.afficherPlan(panneauPlan);
-            controleurLivraison.effacerItemLivraison(panneauLiv);
-        
-            // rajouter
-            controleurLivraison.rafraichirVueListLivraison(t, this.panneauLiv );
-            this.fenParent.updatePrintState(true);
             
         } else {
             System.out.println("Error: Merci de charger un plan avant de charger des livraisons.");
         }
     }
     public void selectLivraison(Livraison liv) {
-        // éclairer la bonne livraison
-        this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
-
+        if (Tournee.getInstance().getLivraisons().size() > 0) {
+            this.controleurLivraison.afficherUneLivraison(this.panneauLiv, liv);
+        } else {
+            System.out.println("Il est necessaire de charger des livraison avant tout.");
+        }
     }
 
     public void createLiv(Noeud noeud) throws Exception {
-        // Tester si le noeud est bien une livraison alors afficher sans l'édition
-       this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
-       //this.controleurLivraison.afficherListLivraison(this.panneauLiv);
+        if (Tournee.getInstance().getLivraisons().size() > 0) {
+            this.controleurLivraison.afficherCreationLivraison(this.panneauLiv, noeud);
+        } else {
+            System.out.println("Il est necessaire de charger des livraison avant tout.");
+        }
      }
     
     public void rafraichirVueGraph() throws MyException{
@@ -239,11 +245,14 @@ public final class ControleurPrincipal {
     void reloadUI() {
         try {
             this.controleurGraph.UpdateGraphe(Tournee.getInstance());
+            this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
+            this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
+            
+            Boolean possibleToLoadLivraisons = Tournee.getInstance().getPlan() != null;
+            this.fenParent.updateLoadLivState(possibleToLoadLivraisons);
         } catch (MyException ex) {
             System.out.println("Impossible de recharger la UI");
         }
-        
-        this.controleurLivraison.rafraichirVueListLivraison(Tournee.getInstance(), this.panneauLiv);
-        this.controleurPlan.rafraichirVuePlan(Tournee.getInstance(), this.panneauPlan);
+
     }
 }

@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,22 +44,27 @@ public class ControleurGraph {
     
     //Lancé à chaque nouvelle demande de calcul
     public int UpdateGraphe(Tournee t) throws MyException{
-        graphe = new GraphUtil(t);
-        tsp = new TSP(graphe);
-        //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
-        switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
-        {
-            case OPTIMAL_SOLUTION_FOUND:
-                return 1;
-            case SOLUTION_FOUND:
-                return 1;
-            case NO_SOLUTION_FOUND:
-                return 0;
-            case INCONSISTENT:
-                return 0;
+        try {
+            graphe = new GraphUtil(t);
+            tsp = new TSP(graphe);
+            //Gérer les autres cas, surtout quand on trouve une solution pas assurée d'etre optimale
+            switch(tsp.solve(1000, graphe.getMaxArcCost()*graphe.getNbVertices()))
+            {
+                case OPTIMAL_SOLUTION_FOUND:
+                    return 1;
+                case SOLUTION_FOUND:
+                    return 1;
+                case NO_SOLUTION_FOUND:
+                    return 0;
+                case INCONSISTENT:
+                    return 0;
+            }
+            
+            return 0;
+        } catch (Exception ex) {
+            System.out.println("Impossible de trouver un chemin valable.");;
+            return 0;
         }
-        
-        return 0;
     }
     
     public ArrayList<Itineraire> getItineraires() {

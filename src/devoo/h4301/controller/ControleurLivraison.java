@@ -16,6 +16,7 @@ import devoo.h4301.outils.MyException;
 import devoo.h4301.views.VueEditLivraison;
 import devoo.h4301.views.VueLivraisonItem;
 import java.text.ParseException;
+import java.util.ArrayList;
 import javax.swing.JScrollPane;
 
 /**
@@ -118,7 +119,8 @@ public class ControleurLivraison {
     public void rafraichirVueListLivraison(Tournee tournee, JScrollPane paneRight) {
         this.vueListLivraison.removeAll();
         this.vueListLivraison.updateUI();
-        this.vueListLivraison.setTournee(tournee);
+        ArrayList<Livraison> livs =  controleurPrincipal.getControleurGraph().getLivOrdered();
+        this.vueListLivraison.setLivraisons(livs);
         paneRight.setViewportView(this.vueListLivraison);
     }
 

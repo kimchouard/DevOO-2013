@@ -10,6 +10,7 @@ import devoo.h4301.controller.ControleurLivraison;
 import devoo.h4301.model.Livraison;
 import devoo.h4301.model.Tournee;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -79,11 +80,11 @@ public class VueListLivraison extends javax.swing.JPanel {
         return controleurLivraison;
     }
 
-    public void setTournee(Tournee tournee) {
+    public void setLivraisons(ArrayList<Livraison> livs) {
         this.vueLivraisonsItem.clear();
-        for(int i = 0; i < tournee.getLivraisons().size(); i++)
+        for(int i = 0; i < livs.size(); i++)
         {
-            this.ajouterLivraison(tournee.getLivraisons().get(i));
+            this.ajouterLivraison(livs.get(i));
         }
     }
    

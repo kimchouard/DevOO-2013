@@ -25,6 +25,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
      */
     public FenetrePrincipale() {
         initComponents();
+        this.chargerLiv.setEnabled(false);
         PrintStream printStream = new PrintStream(new LogOutputStream(log));
         System.setOut(printStream);
         System.setErr(printStream);
@@ -175,15 +176,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         try {
             this.controleurPrincipal.chargerLiv("");
         } catch (Exception e) {
-            System.out.print(e.getMessage());
+            System.out.print("Erreur: "+e.getMessage());
         }
     }//GEN-LAST:event_clickChargerLivraisons
 
     private void clickDebug(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDebug
         // TODO add your handling code here:
         try {
-            this.controleurPrincipal.chargerPlan("/Users/chouard/debugPlan.xml");
-            this.controleurPrincipal.chargerLiv("/Users/chouard/debugLivraison.xml");
+            this.controleurPrincipal.chargerPlan("/Users/pmdartus/debugPlan.xml");
+            this.controleurPrincipal.chargerLiv("/Users/pmdartus/debugLivraison.xml");
         } catch (MyException ex) {
             System.out.print(ex.toString());
         }
@@ -208,6 +209,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     
     public void updatePrintState(Boolean possiblePrint){
         print.setEnabled(possiblePrint);
+    }
+    
+    public void updateLoadLivState(Boolean possibleLoad) {
+        this.chargerLiv.setEnabled(possibleLoad);
     }
             
     
